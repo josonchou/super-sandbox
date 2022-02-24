@@ -14,28 +14,42 @@
         height: calc(100vh - 200px);
         border: 1px solid #00DEFF;
         position: relative;
+        // color: rgb(50, 50, 150),
+    }
+
+    .border-slide {
+        width: 114px;
+        height: 114px;
     }
 
     .borderLeftBottom {
-        left: 0;
-        bottom: 0;
-        background: url('../../assets/test.jpg') no-repeat;
+        position: absolute;
+        left: -20px;
+        bottom: -20px;
+        background: url('../../assets/btn_left_bottom_slide.svg') no-repeat;
+        background-size: 100% 100%;
     }
     .borderLeftTop {
-        left: 0;
-        top: 0;
+        position: absolute;
+        left: -20px;
+        top: -20px;
         background: url(../../assets/btn_left_top_slide.svg);
+        background-size: 100% 100%;
     }
 
     .borderRightBottom {
-        right: 0;
-        bottom: 0;
+        position: absolute;
+        right: -20px;
+        bottom: -20px;
         background: url(../../assets/btn_right_bottom_slide.svg);
+        background-size: 100% 100%;
     }
 
     .borderRightTop {
-        right: 0;
-        top: 0;
+        position: absolute;
+        right: -20px;
+        top: -20px;
         background: url(../../assets/btn_right_top_slide.svg);
+        background-size: 100% 100%;
     }
 }

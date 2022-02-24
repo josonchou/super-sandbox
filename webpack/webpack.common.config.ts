@@ -20,44 +20,32 @@ const config: Configuration = {
                 },
             },
             {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            limit: 11920,
-                            name: 'img/[name]_[hash:7].[ext]',
-                            // outputPath: rendererOutputPath,
-                            publicPath,
-                        },
-                    }
-                ]
+                test: /\.(png|jpe?g|gif)$/i,
+                type: 'asset',
+                generator: {
+                    filename: 'static/images/[hash][ext][query]',
+                },
             },
             {
-                test: /\.(woff|svg|eot|ttf|otf)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: 'fonts/[name]_[hash:7].[ext]',
-                            // outputPath: rendererOutputPath,
-                            publicPath,
-                        },
-                    }
-                ]
+                test: /\.(woff|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'static/images/[hash][ext][query]',
+                },
             },
             {
-                test: /\.pdf*$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: 'files/[name].[ext]',
-                            outputPath: rendererOutputPath,
-                            publicPath,
-                        },
-                    }
-                ]
+                test: /\.(svg)$/i,
+                type: 'asset',
+                generator: {
+                    filename: 'static/svg/[hash][ext][query]',
+                },
+            },
+            {
+                test: /\.(pdf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'static/files/[hash][ext][query]',
+                },
             },
         ],
     },
@@ -66,6 +54,7 @@ const config: Configuration = {
             '@main': path.resolve(__dirname, '../src/main'),
             '@renderer': path.resolve(__dirname, '../src/renderer'),
             '@lib': path.resolve(__dirname, '../src/renderer/lib'),
+            '@assets': path.resolve(__dirname, '../src/renderer/assets'),
         },
         extensions: ['.tsx', '.js', '.ts'],
     },

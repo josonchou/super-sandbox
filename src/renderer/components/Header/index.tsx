@@ -3,7 +3,7 @@ import styles from './index.less';
 
 const Header: FC = () => {
     return (
-        <div className={styles.header}>
+        <div className={styles.header} style={{ visibility: 'hidden' }}>
             <div className={styles.icon}>
                 中国华能
             </div>

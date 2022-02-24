@@ -3,7 +3,7 @@ import { Configuration, EnvironmentPlugin } from 'webpack';
 import merge from 'webpack-merge';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import ESLintPlugin from 'eslint-webpack-plugin';
+// import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import commonConfig from './webpack.common.config';
 import { rendererOutputPath } from './constants';
@@ -13,11 +13,12 @@ const RendererProdConfig: Configuration = merge(commonConfig, {
     mode: 'production',
     target: 'electron-preload',
     output: {
-        publicPath: '/',
+        publicPath: 'auto',
         path: rendererOutputPath,
         filename: 'static/[name].[chunkhash:8].min.js',
         chunkFilename: 'static/[name].[chunkhash:8].min.js',
         crossOriginLoading: 'anonymous',
+        clean: true,
     },
     entry: {
         "martina": path.join(__dirname, '../src/renderer/app.tsx'),
@@ -33,14 +34,14 @@ const RendererProdConfig: Configuration = merge(commonConfig, {
         }),
         new HTMLWebpackPlugin({
             template: path.join(__dirname, '../src/renderer/document.ejs'),
-            chunks: ['manifest', 'vendor', 'bundle']
+            chunks: ['manifest', 'vendor', 'martina']
         }),
         new ForkTsCheckerWebpackPlugin({
             async: false,
         }),
-        new ESLintPlugin({
-            extensions: ["js", "jsx", "ts", "tsx"],
-        }),
+        // new ESLintPlugin({
+        //     extensions: ["js", "jsx", "ts", "tsx"],
+        // }),
     ],
     module: {
         rules: [
@@ -109,3 +110,5 @@ const RendererProdConfig: Configuration = merge(commonConfig, {
         ],
     },
 });
+
+export default RendererProdConfig;

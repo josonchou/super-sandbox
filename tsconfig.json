@@ -20,16 +20,18 @@
                 }
             }
         ],
+        "baseUrl": ".",
         "paths": {
             "@main/*": ["./src/main/*"],
             "@renderer/*": ["./src/renderer/*"],
-            "@lib/*": ["./src/renderer/lib/*"]
+            "@lib/*": ["./src/renderer/lib/*"],
+            "@assets/*": ["./src/renderer/assets/*"]
         }
     },
     "include": [
         "src/main",
         "src/renderer",
-        "types/static.d.ts"
+        "types"
     ],
     "exclude": [
         "node_modules",

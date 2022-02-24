@@ -98,20 +98,6 @@ const RenderDevConfig: Configuration = merge(commonConfig, {
                     }
                 ],
             },
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            limit: 11920,
-                            name: 'assets/imgs/[name]_[hash:7].[ext]',
-                            // outputPath: rendererOutputPath,
-                            publicPath,
-                        },
-                    }
-                ]
-            },
         ],
     },
     plugins: [
@@ -126,10 +112,12 @@ const RenderDevConfig: Configuration = merge(commonConfig, {
         new ForkTsCheckerWebpackPlugin({
             async: false,
         }),
-        // new ESLintPlugin({
-        //     extensions: ["js", "jsx", "ts", "tsx"],
-        // })
+        new ESLintPlugin({
+            extensions: ["js", "jsx", "ts", "tsx"],
+            emitWarning: false,
+        }),
     ],
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     devServer: {
         // static: path.join(__dirname, "build"),
