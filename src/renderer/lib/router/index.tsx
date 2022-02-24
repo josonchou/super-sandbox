@@ -4,6 +4,7 @@ import { IndexRouteProps, LayoutRouteProps, PathRouteProps, Route, Routes } from
 export type RouteConfig = PathRouteProps | LayoutRouteProps | IndexRouteProps;
 
 interface ChildrenOfRoutes {
+    home?: boolean;
     asyncComponent?: ReturnType<typeof lazy>;
     childs?: Array<RouteConfig&ChildrenOfRoutes>;
 }
@@ -19,7 +20,7 @@ export function genRoutes(routes: RoutesConfig): JSX.Element {
         <>
             {
                 routes.map((routeConfig, index) => {
-                    const { childs, element, asyncComponent: AsyncComp, ...restConfig } = routeConfig;
+                    const { childs, element, home, asyncComponent: AsyncComp, ...restConfig } = routeConfig;
                     let comp: React.ReactNode = element;
                     if (AsyncComp) {
                         comp = (
@@ -32,6 +33,7 @@ export function genRoutes(routes: RoutesConfig): JSX.Element {
                         <Route
                             {...restConfig as any}
                             element={comp}
+                            index={home}
                             key={`${(restConfig as any)?.path}${index}`}
                         >
                             {childs && childs.length ? genRoutes(childs as RoutesConfig) : null}

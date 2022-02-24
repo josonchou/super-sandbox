@@ -5,9 +5,9 @@ const routes: RoutesConfig = [
     {
         path: '/',
         asyncComponent: lazy(() => import('@renderer/components/Layout')),
-        children: [
+        childs: [
             {
-                index: true,
+                home: true,
                 path: '/login',
                 asyncComponent: lazy(() => import('@renderer/pages/Login')),
             }
