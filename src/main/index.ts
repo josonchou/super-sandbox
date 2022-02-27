@@ -19,8 +19,10 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: true,
         },
-        minWidth: 600,
-        minHeight: 1200,
+        width: 1200,
+        height: 675,
+        minWidth: 1200,
+        minHeight: 675,
     });
 
     mainWindow.webContents.openDevTools();

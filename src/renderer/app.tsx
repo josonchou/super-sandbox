@@ -5,6 +5,7 @@ import routes from './routes';
 import './global.less';
 import { AppRouter } from './lib/router';
 import { HashRouter } from 'react-router-dom';
+import { StoreProvider } from './store';
 
 const App = () => (
     <div className="bg">
@@ -18,7 +19,9 @@ const App = () => (
 ReactDOM.render(
     <React.StrictMode>
         <HashRouter>
-            <App />
+            <StoreProvider>
+                <App />
+            </StoreProvider>
         </HashRouter>
     </React.StrictMode>,
     document.getElementById("root")

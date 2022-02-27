@@ -9,6 +9,18 @@ const routes: RoutesConfig = [
             {
                 home: true,
                 path: '/',
+                asyncComponent: lazy(() => import('@renderer/pages/Home')),
+            },
+            {
+                path: '/training',
+                asyncComponent: lazy(() => import('@renderer/pages/Training')),
+            },
+            {
+                path: '/settings',
+                asyncComponent: lazy(() => import('@renderer/pages/Settings')),
+            },
+            {
+                path: '/login',
                 asyncComponent: lazy(() => import('@renderer/pages/Login')),
             }
         ]

@@ -5,13 +5,14 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
 
     .login-box {
         position: relative;
-        width: 52.9rem;
-        height: 69.5rem;
-        margin-right: 12.1rem;
+        width: 27.55rem;
+        height: 36.2rem;
+        margin-top: 5.63rem;
+        margin-right: 6.46rem;
 
         .bg {
             position: absolute;
@@ -22,13 +23,23 @@
             z-index: 1;
         }
 
-        .bg-card {
-            width: calc(100% - 2.4rem);
-            height: calc(100% - 2rem);
-            left: 1rem;
-            top: 1rem;
+        .box-bg {
             position: absolute;
-            background-color: rgba(0, 13, 43, 0.8);
+            background: url('~@assets/login/login_bg.png') no-repeat;
+            background-size: auto 80%;
+            background-position: center 4.7rem;
+            width: inherit;
+            height: inherit;
+            z-index: 1;
+        }
+
+        .bg-card {
+            width: calc(100% - 1.4rem);
+            height: calc(100% - 1rem);
+            left: 0.6rem;
+            top: 0.5rem;
+            position: absolute;
+            background-color: rgba(0, 13, 43);
             z-index: 0;
         }
 
@@ -44,20 +55,36 @@
             z-index: 1;
 
             h3.title {
-                margin-top: 11.3rem;
-                font-size: 4rem;
-                line-height: 4rem;
+                margin-top: 5.89rem;
+                font-size: 2.08rem;
+                line-height: 2.08rem;
                 font-weight: 500;
                 color: #fff;
+                text-shadow: 0 0 0px #fff,
+                    0 0 2rem #00A2FF,
+                    0 0 2rem #00A2FF,
+                    0 0 4rem #00A2FF,
+                    0 0 10rem #00A2FF;
+                    
             }
 
             .form {
-                width: 38.8rem;
-                margin-top: 10.1rem;
+                width: 20.21rem;
+                margin-top: 5.68rem;
+
+                .submit {
+                    margin-top: 5.26rem;
+                }
             }
 
             .error-info {
-
+                margin-top: 2.24rem;
+                font-size: 1.09rem;
+                font-weight: 400;
+                color: #00A2FF;
+                line-height: 1.09rem;
+                width: 100%;
+                text-align: center;
             }
         }
     }

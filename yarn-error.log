@@ -1,21 +1,25 @@
 Arguments: 
-  /home/joson/.nvm/versions/node/v16.14.0/bin/node /home/joson/.nvm/versions/node/v16.14.0/bin/yarn install
+  /Users/joson/.nvm/versions/node/v16.13.2/bin/node /Users/joson/.nvm/versions/node/v16.13.2/bin/yarn install
 
 PATH: 
-  /home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/joson/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/bin/remote-cli:/home/joson/.nvm/versions/node/v16.14.0/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files (x86)/ZeroTier/One/:/mnt/c/Users/joson/scoop/apps/nvm/current/nodejs/nodejs:/mnt/c/Users/joson/scoop/apps/oh-my-posh/current/bin:/mnt/c/Users/joson/scoop/shims:/mnt/c/Users/joson/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/joson/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/joson/.mywinbin:/mnt/c/Program Files/JetBrains/WebStorm 2021.3.2/bin:/snap/bin:/opt/flutter/bin:/opt/flutter/bin
+  /opt/homebrew/bin:/opt/homebrew/sbin:/Users/joson/Library/Android/sdk/cmdline-tools/latest/bin:/Users/joson/Library/Android/sdk/platform-tools:/opt/flutter/bin:/Users/joson/.yarn/bin:/Users/joson/.nvm/versions/node/v16.13.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/joson/Library/Android/sdk/cmdline-tools/latest/bin:/Users/joson/Library/Android/sdk/platform-tools:/opt/flutter/bin:/Users/joson/.yarn/bin:/Users/joson/.nvm/versions/node/v16.13.2/bin:/Users/joson/.sdkman/candidates/java/current/bin
 
 Yarn version: 
   1.22.17
 
 Node version: 
-  16.14.0
+  16.13.2
 
 Platform: 
-  linux x64
+  darwin arm64
 
 Trace: 
-  Error: read ECONNRESET
-      at TLSWrap.onStreamRead (node:internal/stream_base_commons:217:20)
+  SyntaxError: /Users/joson/Workspace/playground/super-sandbox/package.json: Unexpected token } in JSON at position 1232
+      at JSON.parse (<anonymous>)
+      at /Users/joson/.nvm/versions/node/v16.13.2/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/Users/joson/.nvm/versions/node/v16.13.2/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /Users/joson/.nvm/versions/node/v16.13.2/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {
@@ -40,9 +44,13 @@ npm manifest:
       "classnames": "^2.3.1",
       "electron": "^17.0.1",
       "react": "^17.0.2",
+      "react-document-title": "^2.0.3",
       "react-dom": "^17.0.2",
+      "react-redux": "^7.2.6",
       "react-router": "^6.2.1",
-      "react-router-dom": "^6.2.1"
+      "react-router-dom": "^6.2.1",
+      "reakit": "^1.3.11",
+      "redux": "^4.1.2",
     },
     "devDependencies": {
       "@babel/core": "^7.17.5",
@@ -53,6 +61,7 @@ npm manifest:
       "@babel/runtime": "^7.17.2",
       "@types/fork-ts-checker-webpack-plugin": "^0.4.5",
       "@types/react": "^17.0.39",
+      "@types/react-document-title": "^2.0.5",
       "@types/react-dom": "^17.0.11",
       "@types/webpack-dev-server": "^4.7.2",
       "@types/webpack-node-externals": "^2.5.3",
@@ -1034,7 +1043,7 @@ Lockfile:
       "@babel/helper-validator-option" "^7.16.7"
       "@babel/plugin-transform-typescript" "^7.16.7"
   
-  "@babel/runtime@^7.17.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
+  "@babel/runtime@^7.15.4", "@babel/runtime@^7.17.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
     version "7.17.2"
     resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
     integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
@@ -1175,6 +1184,11 @@ Lockfile:
       "@nodelib/fs.scandir" "2.1.5"
       fastq "^1.6.0"
   
+  "@popperjs/core@^2.5.4":
+    version "2.11.2"
+    resolved "https://registry.npmmirror.com/@popperjs/core/-/core-2.11.2.tgz#830beaec4b4091a9e9398ac50f865ddea52186b9"
+    integrity sha512-92FRmppjjqz29VMJ2dn+xdyXZBrMlE42AV6Kq6BwjWV7CNUW1hs2FtxSNLQE+gJhaZ6AAmYuO9y8dshhcBl7vA==
+  
   "@sindresorhus/is@^0.14.0":
     version "0.14.0"
     resolved "https://registry.npmmirror.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -1292,6 +1306,14 @@ Lockfile:
     dependencies:
       fork-ts-checker-webpack-plugin "*"
   
+  "@types/hoist-non-react-statics@^3.3.0":
+    version "3.3.1"
+    resolved "https://registry.npmmirror.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+    integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+    dependencies:
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+  
   "@types/html-minifier-terser@^6.0.0":
     version "6.1.0"
     resolved "https://registry.npmmirror.com/@types/html-minifier-terser/-/html-minifier-terser-6.1.0.tgz#4fc33a00c1d0c16987b1a20cf92d20614c55ac35"
@@ -1334,7 +1356,7 @@ Lockfile:
     resolved "https://registry.npmmirror.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
     integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
   
-  "@types/prop-types@*":
+  "@types/prop-types@*", "@types/prop-types@^15.7.3":
     version "15.7.4"
     resolved "https://registry.npmmirror.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
     integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
@@ -1349,12 +1371,29 @@ Lockfile:
     resolved "https://registry.npmmirror.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
     integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
   
+  "@types/react-document-title@^2.0.5":
+    version "2.0.5"
+    resolved "https://registry.npmmirror.com/@types/react-document-title/-/react-document-title-2.0.5.tgz#5093e25420c918066bb94efff1cb08a894289cce"
+    integrity sha512-EZ8uj09zBkqkKms2i0OPVYBb4iOLg+GWG1GegDOIDurQqJz+dc2ZMtJU+bgxmm01BjqHYq38XRj0/eC1kChLIw==
+    dependencies:
+      "@types/react" "*"
+  
   "@types/react-dom@^17.0.11":
     version "17.0.11"
     resolved "https://registry.npmmirror.com/@types/react-dom/-/react-dom-17.0.11.tgz#e1eadc3c5e86bdb5f7684e00274ae228e7bcc466"
     integrity sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==
     dependencies:
       "@types/react" "*"
+  
+  "@types/react-redux@^7.1.20":
+    version "7.1.22"
+    resolved "https://registry.npmmirror.com/@types/react-redux/-/react-redux-7.1.22.tgz#0eab76a37ef477cc4b53665aeaf29cb60631b72a"
+    integrity sha512-GxIA1kM7ClU73I6wg9IRTVwSO9GS+SAKZKe0Enj+82HMU6aoESFU2HNAdNi3+J53IaOHPiUfT3kSG4L828joDQ==
+    dependencies:
+      "@types/hoist-non-react-statics" "^3.3.0"
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+      redux "^4.0.0"
   
   "@types/react@*", "@types/react@^17.0.39":
     version "17.0.39"
@@ -1897,6 +1936,11 @@ Lockfile:
       qs "6.9.7"
       raw-body "2.4.3"
       type-is "~1.6.18"
+  
+  body-scroll-lock@^3.1.5:
+    version "3.1.5"
+    resolved "https://registry.npmmirror.com/body-scroll-lock/-/body-scroll-lock-3.1.5.tgz#c1392d9217ed2c3e237fee1e910f6cdd80b7aaec"
+    integrity sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==
   
   bonjour@^3.5.0:
     version "3.5.0"
@@ -3346,6 +3390,13 @@ Lockfile:
     dependencies:
       "@babel/runtime" "^7.7.6"
   
+  hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
+    version "3.3.2"
+    resolved "https://registry.npmmirror.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
+    integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
+    dependencies:
+      react-is "^16.7.0"
+  
   hpack.js@^2.1.6:
     version "2.1.6"
     resolved "https://registry.npmmirror.com/hpack.js/-/hpack.js-2.1.6.tgz#87774c0949e513f42e84575b3c45681fade2a0b2"
@@ -3977,7 +4028,7 @@ Lockfile:
     resolved "https://registry.npmmirror.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
     integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
   
-  lodash@^4.17.10, lodash@^4.17.14, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4:
+  lodash@^4.17.10, lodash@^4.17.14, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4:
     version "4.17.21"
     resolved "https://registry.npmmirror.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
     integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -4650,7 +4701,7 @@ Lockfile:
     resolved "https://registry.npmmirror.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
     integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
   
-  prop-types@^15.7.2:
+  prop-types@^15.5.6, prop-types@^15.7.2:
     version "15.8.1"
     resolved "https://registry.npmmirror.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
     integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -4722,6 +4773,14 @@ Lockfile:
       iconv-lite "0.4.24"
       unpipe "1.0.0"
   
+  react-document-title@^2.0.3:
+    version "2.0.3"
+    resolved "https://registry.npmmirror.com/react-document-title/-/react-document-title-2.0.3.tgz#bbf922a0d71412fc948245e4283b2412df70f2b9"
+    integrity sha512-T5y+quDAybtD7JhvVyc2BDW3a9xj6MoW6/VZU6OJkbASqwEMo5G4nB0RqFJCEHOqjQMcQI+wGRPDhUADnaHlQw==
+    dependencies:
+      prop-types "^15.5.6"
+      react-side-effect "^1.0.2"
+  
   react-dom@^17.0.2:
     version "17.0.2"
     resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -4731,10 +4790,27 @@ Lockfile:
       object-assign "^4.1.1"
       scheduler "^0.20.2"
   
-  react-is@^16.13.1:
+  react-is@^16.13.1, react-is@^16.7.0:
     version "16.13.1"
     resolved "https://registry.npmmirror.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+  
+  react-is@^17.0.2:
+    version "17.0.2"
+    resolved "https://registry.npmmirror.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
+    integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+  
+  react-redux@^7.2.6:
+    version "7.2.6"
+    resolved "https://registry.npmmirror.com/react-redux/-/react-redux-7.2.6.tgz#49633a24fe552b5f9caf58feb8a138936ddfe9aa"
+    integrity sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ==
+    dependencies:
+      "@babel/runtime" "^7.15.4"
+      "@types/react-redux" "^7.1.20"
+      hoist-non-react-statics "^3.3.2"
+      loose-envify "^1.4.0"
+      prop-types "^15.7.2"
+      react-is "^17.0.2"
   
   react-router-dom@^6.2.1:
     version "6.2.1"
@@ -4750,6 +4826,13 @@ Lockfile:
     integrity sha512-2fG0udBtxou9lXtK97eJeET2ki5//UWfQSl1rlJ7quwe6jrktK9FCCc8dQb5QY6jAv3jua8bBQRhhDOM/kVRsg==
     dependencies:
       history "^5.2.0"
+  
+  react-side-effect@^1.0.2:
+    version "1.2.0"
+    resolved "https://registry.npmmirror.com/react-side-effect/-/react-side-effect-1.2.0.tgz#0e940c78faba0c73b9b0eba9cd3dda8dfb7e7dae"
+    integrity sha512-v1ht1aHg5k/thv56DRcjw+WtojuuDHFUgGfc+bFHOWsF4ZK6C2V57DO0Or0GPsg6+LSTE0M6Ry/gfzhzSwbc5w==
+    dependencies:
+      shallowequal "^1.0.1"
   
   react@^17.0.2:
     version "17.0.2"
@@ -4788,12 +4871,67 @@ Lockfile:
     dependencies:
       picomatch "^2.2.1"
   
+  reakit-system@^0.15.2:
+    version "0.15.2"
+    resolved "https://registry.npmmirror.com/reakit-system/-/reakit-system-0.15.2.tgz#a485fab84b3942acbed6212c3b56a6ef8611c457"
+    integrity sha512-TvRthEz0DmD0rcJkGamMYx+bATwnGNWJpe/lc8UV2Js8nnPvkaxrHk5fX9cVASFrWbaIyegZHCWUBfxr30bmmA==
+    dependencies:
+      reakit-utils "^0.15.2"
+  
+  reakit-utils@^0.15.2:
+    version "0.15.2"
+    resolved "https://registry.npmmirror.com/reakit-utils/-/reakit-utils-0.15.2.tgz#b4d5836e534576bfd175171541d43182ad97f2d2"
+    integrity sha512-i/RYkq+W6hvfFmXw5QW7zvfJJT/K8a4qZ0hjA79T61JAFPGt23DsfxwyBbyK91GZrJ9HMrXFVXWMovsKBc1qEQ==
+  
+  reakit-warning@^0.6.2:
+    version "0.6.2"
+    resolved "https://registry.npmmirror.com/reakit-warning/-/reakit-warning-0.6.2.tgz#9c346ae483eb1f284f2088653f90cabd26dbee56"
+    integrity sha512-z/3fvuc46DJyD3nJAUOto6inz2EbSQTjvI/KBQDqxwB0y02HDyeP8IWOJxvkuAUGkWpeSx+H3QWQFSNiPcHtmw==
+    dependencies:
+      reakit-utils "^0.15.2"
+  
+  reakit@^1.3.11:
+    version "1.3.11"
+    resolved "https://registry.npmmirror.com/reakit/-/reakit-1.3.11.tgz#c15360ac43e94fbe4291d233af3ac5040428252e"
+    integrity sha512-mYxw2z0fsJNOQKAEn5FJCPTU3rcrY33YZ/HzoWqZX0G7FwySp1wkCYW79WhuYMNIUFQ8s3Baob1RtsEywmZSig==
+    dependencies:
+      "@popperjs/core" "^2.5.4"
+      body-scroll-lock "^3.1.5"
+      reakit-system "^0.15.2"
+      reakit-utils "^0.15.2"
+      reakit-warning "^0.6.2"
+  
   rechoir@^0.7.0:
     version "0.7.1"
     resolved "https://registry.npmmirror.com/rechoir/-/rechoir-0.7.1.tgz#9478a96a1ca135b5e88fc027f03ee92d6c645686"
     integrity sha512-/njmZ8s1wVeR6pjTZ+0nCnv8SpZNRMT2D1RLOJQESlYFDBvwpTA4KWJpZ+sBJ4+vhjILRcK7JIFdGCdxEAAitg==
     dependencies:
       resolve "^1.9.0"
+  
+  redux-devtools-instrument@^1.10.0:
+    version "1.10.0"
+    resolved "https://registry.npmmirror.com/redux-devtools-instrument/-/redux-devtools-instrument-1.10.0.tgz#036caf79fa1e5f25ec4bae38a9af4f08c69e323a"
+    integrity sha512-X8JRBCzX2ADSMp+iiV7YQ8uoTNyEm0VPFPd4T854coz6lvRiBrFSqAr9YAS2n8Kzxx8CJQotR0QF9wsMM+3DvA==
+    dependencies:
+      lodash "^4.17.19"
+      symbol-observable "^1.2.0"
+  
+  redux-devtools@^3.7.0:
+    version "3.7.0"
+    resolved "https://registry.npmmirror.com/redux-devtools/-/redux-devtools-3.7.0.tgz#5bc2d50227d94ce95c79dbfdf2ffc7a23c553553"
+    integrity sha512-Lnx3UX7mnJij2Xs+RicPK1GyKkbuodrCKtfYmJsN603wC0mc99W//xCAskGVNmRhIXg4e57m2k1CyX0kVzCsBg==
+    dependencies:
+      "@types/prop-types" "^15.7.3"
+      lodash "^4.17.19"
+      prop-types "^15.7.2"
+      redux-devtools-instrument "^1.10.0"
+  
+  redux@^4.0.0, redux@^4.1.2:
+    version "4.1.2"
+    resolved "https://registry.npmmirror.com/redux/-/redux-4.1.2.tgz#140f35426d99bb4729af760afcf79eaaac407104"
+    integrity sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw==
+    dependencies:
+      "@babel/runtime" "^7.9.2"
   
   regenerate-unicode-properties@^10.0.1:
     version "10.0.1"
@@ -5158,6 +5296,11 @@ Lockfile:
     dependencies:
       kind-of "^6.0.2"
   
+  shallowequal@^1.0.1:
+    version "1.1.0"
+    resolved "https://registry.npmmirror.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
+    integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
+  
   shebang-command@^2.0.0:
     version "2.0.0"
     resolved "https://registry.npmmirror.com/shebang-command/-/shebang-command-2.0.0.tgz#ccd0af4f8835fbdc265b82461aaf0c36663f34ea"
@@ -5413,6 +5556,11 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.npmmirror.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
     integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+  
+  symbol-observable@^1.2.0:
+    version "1.2.0"
+    resolved "https://registry.npmmirror.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+    integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
   
   tapable@^2.0.0, tapable@^2.1.1, tapable@^2.2.0, tapable@^2.2.1:
     version "2.2.1"
