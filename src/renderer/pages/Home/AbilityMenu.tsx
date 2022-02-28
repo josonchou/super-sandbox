@@ -20,7 +20,10 @@ const positions = [
     [3.16, 31.9],
     [32.5, 31.9],
     [17.96, 36.8],
-]
+];
+
+const offsetX = -10.333;
+const offsetY = -8.2222;
 
 const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange }) => {
     const [selected, setSelected] = useState<number>();
@@ -33,8 +36,8 @@ const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange }) =
                     return (
                         <div
                             style={{
-                                left: `${pos[0] ?? 0}rem`,
-                                top: `${pos[1] ?? 0}rem`,
+                                left: `${(pos[0] ?? 0) + offsetX}rem`,
+                                top: `${(pos[1] ?? 0) + offsetY}rem`,
                             }}
                             key={item.id}
                             className={classNames(styles['menu-item'], {
@@ -65,7 +68,9 @@ const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange }) =
 
     return (
         <div className={styles.menu}>
-            {element}
+            <div className={styles['menu-wrapper']}>
+                {element}
+            </div>
         </div>
     );
 };

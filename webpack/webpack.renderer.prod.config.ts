@@ -11,7 +11,7 @@ import { rendererOutputPath } from './constants';
 const RendererProdConfig: Configuration = merge(commonConfig, {
     devtool: false,
     mode: 'production',
-    target: 'electron-preload',
+    // target: 'electron-preload',
     output: {
         publicPath: 'auto',
         path: rendererOutputPath,
