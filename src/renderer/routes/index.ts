@@ -2,6 +2,16 @@ import { lazy } from 'react';
 import { RoutesConfig } from '@lib/router';
 
 const routes: RoutesConfig = [
+    // {
+    //     path: '/',
+    //     asyncComponent: lazy(() => import('@renderer/components/Layout/Blank')),
+    //     childs: [
+    //         {
+    //             path: '/',
+    //             asyncComponent: lazy(() => import('@renderer/pages/Demo')),
+    //         },
+    //     ]
+    // },
     {
         path: '/',
         asyncComponent: lazy(() => import('@renderer/components/Layout')),
@@ -18,6 +28,14 @@ const routes: RoutesConfig = [
             {
                 path: '/settings',
                 asyncComponent: lazy(() => import('@renderer/pages/Settings')),
+            },
+            {
+                path: '/training/:secCate',
+                asyncComponent: lazy(() => import('@renderer/pages/Training/SubCategory')),
+            },
+            {
+                path: '/training/study/:secCate/:thirdCate',
+                asyncComponent: lazy(() => import('@renderer/pages/Training/Study')),
             },
             {
                 path: '/login',

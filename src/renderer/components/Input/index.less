@@ -10,6 +10,24 @@
     overflow: hidden;
     display: flex;
 
+    &.theme-matina {
+        background-color: rgba(0, 84, 255, 0.22);
+        border-radius: 0.63rem;
+        border: 0.1rem solid #00A2FF;
+        height: 3.18rem;
+
+        & input {
+            font-size: 1.25rem;
+            font-weight: 400;
+            line-height: 1.05rem;
+            color: rgba(255, 255, 255, .57);
+
+            &::-webkit-input-placeholder {
+                color: rgba(255, 255, 255, .57);
+            }
+        }
+    }
+
     * {
         box-sizing: border-box;
     }

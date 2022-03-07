@@ -12,10 +12,11 @@ interface InputProps {
     type?: HTMLInputElement['type'];
     autoComplete?: HTMLInputElement['autocomplete'];
     iconType?: string;
+    theme?: 'default'|'matina';
 }
 
 const Input: FC<InputProps> = (props) => {
-    const { className, iconType, style, placeholder, ...restProps } = props;
+    const { className, iconType, style, placeholder, theme, ...restProps } = props;
 
     const [realPlaceholder, setRealPlaceholder] = useState<string|undefined>(placeholder);
 
@@ -28,7 +29,12 @@ const Input: FC<InputProps> = (props) => {
     }, [placeholder]);
     
     return (
-        <div style={style} className={classNames(styles['sandbox-input'], className)}>
+        <div
+            style={style}
+            className={classNames(styles['sandbox-input'], className, {
+                [styles['theme-matina']]: theme === 'matina',
+            })}
+        >
             <div className={styles.prefix}>
                 <Icon type={iconType} />
             </div>

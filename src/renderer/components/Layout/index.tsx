@@ -11,27 +11,32 @@ const Layout: FC = () => {
     const [userInfo] = UserInfoModel.useModel();
 
     return (
-        <div className={styles.layout}>
-            <div className={styles.wrapper}>
-                <div className={styles['top-blank']} />
-                <Header isLogin={!!userInfo.uid} />
-                <div className={styles.content}>
-                    <div className={classNames(styles.borderLeftBottom, styles['border-slide-bottom'])} />
-                    <div className={classNames(styles.borderLeftTop, styles['border-slide-top'])} />
-                    <div className={classNames(styles.borderRightTop, styles['border-slide-top'])} />
-                    <div className={classNames(styles.borderRightBottom, styles['border-slide-bottom'])} />
-                    {
-                        !hideGlobalBg ? (
-                            <div className={styles['bg-wrapper']}>
-                                <div className={styles.bg} />
+        <div className="bg">
+            <div className="bg-grid" />
+            <div className="container">
+                <div className={styles.layout}>
+                    <div className={styles.wrapper}>
+                        <div className={styles['top-blank']} />
+                        <Header isLogin={!!userInfo.uid} />
+                        <div className={styles.content}>
+                            <div className={classNames(styles.borderLeftBottom, styles['border-slide-bottom'])} />
+                            <div className={classNames(styles.borderLeftTop, styles['border-slide-top'])} />
+                            <div className={classNames(styles.borderRightTop, styles['border-slide-top'])} />
+                            <div className={classNames(styles.borderRightBottom, styles['border-slide-bottom'])} />
+                            {
+                                !hideGlobalBg ? (
+                                    <div className={styles['bg-wrapper']}>
+                                        <div className={styles.bg} />
+                                    </div>
+                                ) : null
+                            }
+                            <div className={styles['content-wrapper']}>
+                                <Outlet />
                             </div>
-                        ) : null
-                    }
-                    <div className={styles['content-wrapper']}>
-                        <Outlet />
+                        </div>
+                        <div className={styles['footer-blank']} />
                     </div>
                 </div>
-                <div className={styles['footer-blank']} />
             </div>
         </div>
     );

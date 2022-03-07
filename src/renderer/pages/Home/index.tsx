@@ -5,6 +5,8 @@ import { hideGlobalBg } from '@renderer/components/Layout';
 import styles from './index.less';
 import AbilityTableModel from '@renderer/models/abilityTable.model';
 import AbilityMenu from './AbilityMenu';
+import DocumentTitle from 'react-document-title';
+import { generatePageName } from '@renderer/constanst';
 
 const Home = () => {
     const [userInfo] = UserInfoModel.useModel();
@@ -48,26 +50,28 @@ const Home = () => {
     }, [abilityTable.abilityTree, abilityTable.currentSelectMenu]);
 
     return (
-        <div className={styles['page-container']}>
-            <div className={styles.menu}>
-                <div className={styles['menu-bg-wrapper']}>
-                    <div className={styles['menu-big-bg']} />
+        <DocumentTitle title={generatePageName('能力总表')}>
+            <div className={styles['page-container']}>
+                <div className={styles.menu}>
+                    <div className={styles['menu-bg-wrapper']}>
+                        <div className={styles['menu-big-bg']} />
+                    </div>
+                    <AbilityMenu
+                        data={abilityTable.abilityTree ?? []}
+                        activeKey={abilityTable.currentSelectMenu}
+                        onChange={handleMenuChange}
+                    />
                 </div>
-                <AbilityMenu
-                    data={abilityTable.abilityTree ?? []}
-                    activeKey={abilityTable.currentSelectMenu}
-                    onChange={handleMenuChange}
-                />
-            </div>
-            <div className={styles.split} />
-            <div className={styles['sub-menu']}>
-                <div className={styles['sub-menu-wrapper']}>
-                    <div className={styles.masonry}>
-                        {subMenus}
+                <div className={styles.split} />
+                <div className={styles['sub-menu']}>
+                    <div className={styles['sub-menu-wrapper']}>
+                        <div className={styles.masonry}>
+                            {subMenus}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </DocumentTitle>
     );
 };
 

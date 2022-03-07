@@ -51,6 +51,7 @@ const config: Configuration = {
     },
     resolve: {
         alias: {
+            '@config': path.resolve(__dirname, '../src/config'),
             '@main': path.resolve(__dirname, '../src/main'),
             '@renderer': path.resolve(__dirname, '../src/renderer'),
             '@lib': path.resolve(__dirname, '../src/renderer/lib'),

@@ -1,4 +1,5 @@
-import React, { FC, MouseEventHandler } from 'react';
+import React, { CSSProperties, FC, MouseEventHandler, useMemo } from 'react';
+import classNames from 'classnames';
 import Icon from '../Icon';
 import './index.less';
 
@@ -6,13 +7,31 @@ interface LinkButtonProps {
     icon?: string;
     onClick?: MouseEventHandler<HTMLDivElement>;
     active?: boolean;
+    theme?: 'default'|'danger';
+    fontSize?: string;
 }
 
-const LinkButton: FC<LinkButtonProps> = ({ active, onClick, icon, children }) => {
+const LinkButton: FC<LinkButtonProps> = ({ active, fontSize, theme = 'default', onClick, icon, children }) => {
+
+    const fontSizeStyle: CSSProperties = useMemo(() => {
+        if (!fontSize) {
+            return {};
+        }
+        return {
+            fontSize,
+        };
+    }, [fontSize]);
+
     return (
-        <div className={`sandbox-link-button ${active ? 'active' : ''}`} onClick={onClick}>
+        <div
+            className={classNames('sandbox-link-button', {
+                active,
+                'theme-danger': theme === 'danger',
+            })}
+            onClick={onClick}
+        >
             {icon ? <Icon type={icon} /> : null}
-            <span className="btn-text">
+            <span className="btn-text" style={fontSizeStyle}>
                 {children}
             </span>
         </div>

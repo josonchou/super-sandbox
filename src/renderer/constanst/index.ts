@@ -1,5 +1,6 @@
+import { APP_NAME as name } from '@config/index';
 
-export const APP_NAME = '应急课程教学数字沙盘系统';
+export const APP_NAME = name;
 
 export const Ability = [
     {

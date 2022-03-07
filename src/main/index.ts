@@ -1,5 +1,6 @@
 import * as path from 'path';
-import { app, BrowserWindow, Menu, MenuItem, dialog } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
+import { APP_NAME } from '@config/index';
 
 declare const DEV_ENTRY: string;
 
@@ -19,11 +20,16 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: true,
         },
+        title: APP_NAME,
         width: 1200,
         height: 675,
         minWidth: 1200,
         minHeight: 675,
+        // titleBarStyle: 'hiddenInset',
+        fullscreenable: true,
     });
+    Menu.setApplicationMenu(null);
+    // mainWindow.setFu
 
     if (process.env.NODE_ENV !== 'production') {
         mainWindow.webContents.openDevTools();
