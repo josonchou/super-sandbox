@@ -1,0 +1,82 @@
+
+.menu {
+    width: 100%;
+    height: auto;
+    position: relative;
+    ul {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li.menu-item {
+            padding: 4.10rem 0;
+            font-size: 2.42rem;
+            font-weight: 500;
+            color: #fff;
+            line-height: 2.42rem;
+            text-align: center;
+            margin: 2.53rem 0;
+            cursor: pointer;
+            transition: all 200ms;
+
+            &:hover {
+                text-shadow: 0 0 0px #00A2FF,
+                    0 0 3rem #00A2FF,
+                    0 0 2rem #00A2FF,
+                    0 0 8rem #00A2FF,
+                    0 0 20rem #00A2FF;
+            }
+
+            &.active {
+                // background-color: rgba(52, 60, 77);
+                color: #FFF;
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .selected-box {
+        position: absolute;
+        top: -2.9rem;
+        left: -2.6rem;
+        width: 35.47rem;
+        height: 16.35rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        transition: all 200ms;
+
+        &::before {
+            position: absolute;
+            display: block;
+            content: '';
+            width: 29.3rem;
+            height: 9.80rem;
+            background-color: rgba(52, 60, 77, 0.5);
+            z-index: 0;
+        }
+
+        &::after {
+            width: 100%;
+            position: absolute;
+            height: 100%;
+            display: block;
+            content: '';
+            background: url('@assets/training_menu_selected.png') no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}

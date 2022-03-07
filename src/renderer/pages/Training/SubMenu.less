@@ -1,0 +1,52 @@
+
+.sub-menu {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    // padding: 4rem;
+    padding-top: 2.3rem;
+
+    .menu-item {
+        width: 23.49rem;
+        min-height: 3.24rem;
+        font-size: 1.44rem;
+        font-weight: 400;
+        color: #fff;
+        line-height: 1.6rem;
+        margin: 1.2rem;
+        position: relative;
+        padding: 0.99rem 1.41rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        cursor: pointer;
+        transition: all 200ms;
+        user-select: none;
+
+        &:hover {
+            .menu-item-bg {
+                opacity: 1;
+            }
+        }
+
+        span {
+            z-index: 1;
+        }
+
+        .menu-item-bg {
+            opacity: 0;
+            transition: all 300ms;
+            position: absolute;
+            left: -12.6%;
+            top: -91%;
+            width: 125%;
+            height: 285%;
+            background: url('@assets/training_submenu_item.png') no-repeat;
+            background-size: 100% 100%;
+            background-position: center;
+            pointer-events: none;
+            z-index: 0;
+        }
+    }
+}

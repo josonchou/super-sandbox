@@ -1,0 +1,136 @@
+:global {
+    .loading-wrapper {
+        position: relative;
+        width: auto;
+        height: auto;
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+
+            // .inner {
+            //     width: 5rem;
+            //     height: 5rem;
+            //     position: relative;
+            // }
+
+            // .circle :local {
+            //     position: absolute;
+            //     border: 3px solid transparent;
+            //     border-top-color: #00A2FF;
+            //     border-radius: 50%;
+            //     -webkit-animation: rotate linear infinite;
+            //     animation: rotate linear infinite;
+            // }
+            // .circle.one {
+            //     height: 50%;
+            //     width: 50%;
+            //     left: 50%;
+            //     top: 50%;
+            //     -webkit-animation-duration: 0.85s;
+            //     animation-duration: 0.85s;
+            // }
+            // .circle.two {
+            //     height: 75%;
+            //     width: 75%;
+            //     top: 38%;
+            //     left: 38%;
+            //     -webkit-animation-duration: 0.95s;
+            //     animation-duration: 0.95s;
+            // }
+            // .circle.three {
+            //     height: 100%;
+            //     width: 100%;
+            //     top: 25%;
+            //     left: 25%;
+            //     -webkit-animation-duration: 1.05s;
+            //     animation-duration: 1.05s;
+            // }
+            
+            // @-webkit-keyframes rotate {
+            //     from {
+            //     transform: rotateZ(360deg);
+            //     }
+            //     to {
+            //     transform: rotateZ(0deg);
+            //     }
+            // }
+
+            // @keyframes rotate {
+            //     from {
+            //         transform: rotateZ(360deg);
+            //     }
+            //     to {
+            //         transform: rotateZ(0deg);
+            //     }
+            // }
+
+            .dots-bars :local {
+                width: 40px;
+                height: 20px;
+                --c:radial-gradient(farthest-side,#00A2FF 93%,#0000);
+                background:
+                  var(--c) 0    0,
+                  var(--c) 50%  0;
+                background-size:8px 8px;
+                background-repeat: no-repeat;
+                position: relative;
+                clip-path: inset(-200% -100% 0 0);
+                animation: db6-0 1.5s linear infinite;
+              }
+              .dots-bars:before :local {
+                content: "";
+                position: absolute;
+                width: 8px;
+                height: 12px;
+                background: #00A2FF;
+                left:-16px;
+                top:0;
+                animation: 
+                  db6-1 1.5s linear infinite,
+                  db6-2 0.5s cubic-bezier(0,200,.8,200) infinite;
+              }
+              .dots-bars:after :local {
+                content: "";
+                position: absolute;
+                inset:0 0 auto auto;
+                width:8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #00A2FF; 
+                animation: db6-3 1.5s  linear infinite;
+              }
+              
+              @keyframes db6-0 {
+                0%,30%  {background-position: 0  0   ,50% 0   }
+                33%     {background-position: 0  100%,50% 0   }
+                41%,63% {background-position: 0  0   ,50% 0   }
+                66%     {background-position: 0  0   ,50% 100%}
+                74%,100%{background-position: 0  0   ,50% 0   }
+              }
+              
+              @keyframes db6-1 {
+                90%  {transform:translateY(0)}
+                95%  {transform:translateY(15px)}
+                100% {transform:translateY(15px);left:calc(100% - 8px)}
+              }
+              
+              @keyframes db6-2 {
+                100% {top:-0.1px}
+              }
+              
+              @keyframes db6-3 {
+                0%,80%,100% {transform:translate(0)}
+                90%         {transform:translate(26px)}
+              }
+                 
+        }
+    }
+}

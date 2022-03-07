@@ -1,0 +1,164 @@
+
+:global {
+    .sandbox-checkbox {
+        width: 1.04rem;
+        height: 1.04rem;
+        border: 0.1rem solid #1BABFF;
+        position: relative;
+        border-radius: 0.16rem;
+        overflow: hidden;
+        cursor: pointer;
+
+        & > input[type=checkbox] {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            visibility: hidden;
+
+            &::after {
+                display: block;
+                position: absolute;
+                visibility: visible;
+                width: 100%;
+                height: 100%;
+                content: '';
+                background-color: transparent;
+            }
+
+            & +label {
+                width: 100%;
+                height: 100%;
+                background-color:rgba(0, 84, 255, 0.12);
+                position: absolute;
+                left: 0;
+                top: 0;
+                pointer-events: none;
+                transition: all 200ms;
+            }
+
+            &:checked +label::before {
+                display: inline-block;
+                box-sizing: 0;
+                border: 0;
+                content: '\2713';
+                text-align: center;
+                font-size: 1.2rem;
+                color: #1BABFF;
+                transition: all 200ms;
+                // background-color: #1BABFF;
+                // border: 0.1rem solid #1BABFF;
+            }
+        }
+
+
+    }
+    .sandbox-table-pagination {
+        width: 100%;
+        display: inline-flex;
+        font-size: 1.25rem;
+        line-height: 1.05rem;
+        color: #00A2FF;
+        font-weight: 400;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 1.82rem;
+        padding-top: 0.8rem;
+
+        .prev-page {
+            position: relative;
+            width: 0.78rem;
+            height: 1.2rem;
+            overflow: hidden;
+            margin-right: 2.19rem;
+            cursor: pointer;
+            &::after {
+                position: absolute;
+                left: 0.3rem;
+                top: 0.05rem;
+                content: '';
+                display: inline-block;
+                width: 1.0954rem;
+                height: 1.0954rem;
+                background-color: #00A2FF;
+                transform: rotate(45deg);
+            }
+        }
+
+        .next-page {
+            position: relative;
+            width: 0.78rem;
+            height: 1.2rem;
+            overflow: hidden;
+            margin-left: 2.19rem;
+            cursor: pointer;
+            &::after {
+                position: absolute;
+                right: 0.3rem;
+                top: 0.05rem;
+                content: '';
+                display: inline-block;
+                width: 1.0954rem;
+                height: 1.0954rem;
+                background-color: #00A2FF;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+    .sandbox-table {
+        border-spacing: 0;
+        border: none;
+        width: 100%;
+        // background-color: rgba(244, 244, 252, 0.1);
+
+        .header {
+
+            tr th {
+                &:first-child {
+                    border-bottom-left-radius: 1rem;
+                }
+
+                &:last-child {
+                    border-bottom-right-radius: 1rem;
+                }
+            }
+        }
+
+        th, tr {
+            margin: 0;
+        }
+
+        td {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #fff;
+
+            .table-cell {
+                display: inline-block;
+                padding: 1.88rem 1.5rem 1.61rem 1.5rem;
+                text-align: center;
+                font-size: 1.25rem;
+                font-weight: 400;
+                line-height: 1.05rem;
+                // min-height: 4.84rem;
+                color: #fff;
+            }
+        }
+
+        th {
+            color: #fff;
+            font-size: 1.44rem;
+            background-color: rgba(0, 84, 255, 0.2);
+
+            .table-header {
+                padding: 1.88rem 1.5rem 1.61rem 1.5rem;
+                color: #fff;
+                font-size: 1.44rem;
+                font-weight: 400;
+                line-height: 1.05rem;
+                min-height: 4.84rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,140 @@
+
+.page-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url('@assets/training_submenu_bg.png') no-repeat;
+    background-size: calc(100% + 0.4rem) calc(100% + 0.4rem);
+    border: none;
+    box-sizing: 0;
+    background-position: -0.2rem -0.2rem;
+
+    .header {
+        width: 100%;
+        height: auto;
+        display: inline-flex;
+        margin-top: 2.17rem;
+        align-items: center;
+        padding: 0 3.13rem;
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+
+            &:hover {
+                text-shadow: 0 0 0px #00A2FF,
+                    0 0 3rem #00A2FF,
+                    0 0 2rem #00A2FF,
+                    0 0 8rem #00A2FF,
+                    0 0 20rem #00A2FF;
+            }
+        }
+
+        .back {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #00A2FF;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .back-icon {
+            position: relative;
+            width: 0.78rem;
+            height: 1.2rem;
+            overflow: hidden;
+            margin-right: 0.99rem;
+            cursor: pointer;
+            &::before {
+                position: absolute;
+                left: 0.3rem;
+                top: 0.05rem;
+                content: '';
+                display: inline-block;
+                width: 1.0954rem;
+                height: 1.0954rem;
+                background-color: #00A2FF;
+                transform: rotate(45deg);
+            }
+        }
+    }
+
+    .content {
+        width: 100%;
+        margin-top: 2.81rem;
+        display: flex;
+
+        .title-box {
+            width: 31.4rem;
+            height: 28.28rem;
+            margin-left: 1.93rem;
+            background: url('@assets/training_menu_bg.png') no-repeat;
+            background-size: cover;
+            background-position: center;
+
+            .title-wraper {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                margin-top: 11.98rem;
+                .icon {
+                    width: 7.97rem;
+                    height: 7.45rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+
+                    .icon-box {
+                        position: absolute;
+                        width: 13.75rem;
+                        height: 13.23rem;
+                        background: url('@assets/training_menu_icon_box.png') no-repeat;
+                        background-size: 100% 100%;
+                        z-index: 0;
+                    }
+
+                    .subicon {
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1;
+
+                        &.icon-01 {
+                            background: url('@assets/training_submenu_icon_01.png') no-repeat;
+                            background-size: cover;
+                            background-position: center;
+                        }
+
+                        &.icon-02 {
+                            background: url('@assets/training_submenu_icon_02.png') no-repeat;
+                            background-size: cover;
+                            background-position: center;
+                        }
+                    }
+                }
+                .title {
+                
+                    width: 0;
+                    min-width: 0;
+                    flex: 1;
+                    font-size: 2.42rem;
+                    font-weight: 500;
+                    color: #FFF;
+                    line-height: 2.71rem;
+                    text-align: center;
+                }
+            }
+        }
+
+        .content-body {
+            width: 54.69rem;
+            height: 31.56rem;
+            margin-left: 2.24rem;
+            background: url('@assets/training_menu_content_bg.png') no-repeat;
+            background-size: cover;
+            background-position: center;
+            padding: 2rem 1.4rem;
+            position: relative;
+        }
+    }
+}
