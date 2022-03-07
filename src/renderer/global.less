@@ -1,9 +1,57 @@
+@fa-version: "4.7.0";
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('@assets/fonts/fontawesome-webfont.eot?v=@{fa-version}');
+    src: url('@assets/fonts/fontawesome-webfont.eot?#iefix&v=@{fa-version}') format('embedded-opentype'),
+      url('@assets/fonts/fontawesome-webfont.woff2?v=@{fa-version}') format('woff2'),
+      url('@assets/fonts/fontawesome-webfont.woff?v=@{fa-version}') format('woff'),
+      url('@assets/fonts/fontawesome-webfont.ttf?v=@{fa-version}') format('truetype'),
+      url('@assets/fonts/fontawesome-webfont.svg?v=@{fa-version}#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin:0; padding:0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
+    // background-color: transparent;
+
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 162, 255, 0.3);
+    }
+
+    ::-webkit-scrollbar {
+        width: 9px;
+        height: 9px;
+        // background-color: rgba(255, 255, 255, 0.1);
+        background-color: transparent;
+
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-track {
+        // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 2px;
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        transition: all 300ms;
+        border-radius: 2px;
+        // background-color: rgb(215, 215, 215);
+        background-color: rgba(0, 162, 255, 0);
+
+        &:vertical {
+            background-color: rgba(0, 162, 255, 0);
+        }
+    }
 }
 
 *, *:before, *:after {
@@ -16,4 +64,134 @@ a {
 
 html {
     font-size: 1vw;
+}
+
+.window {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.window .titlebar {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 40px;
+    -webkit-app-region: drag;
+    transition: all 300ms;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: flex-start;
+
+    .tooltip-box {
+        -webkit-app-region: no-drag;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin-right: 8px;
+        margin-left: 8px;
+        transform: translateY(-1px);
+
+        &:hover {
+            .minimize {
+                &::after {
+                    content: '\f068';
+                    display: block;
+                    font-size: 10px;
+                    font-weight: 300;
+                }
+            }
+
+            .close {
+                &::after {
+                    content: '\f00d';
+                    display: block;
+                    font-size: 10px;
+                    font-weight: 300;
+                }
+            }
+
+            .maximize {
+                &::after {
+                    content: '\f065';
+                    display: block;
+                    font-size: 10px;
+                    font-weight: 300;
+                    transform: rotate(-45deg);
+                }
+            }
+
+            .unmaximize {
+                &::after {
+                    content: '\f066';
+                    display: block;
+                    font-size: 10px;
+                    font-weight: 300;
+                    transform: rotate(-45deg);
+                }
+            }
+
+            .fullscreen {
+                &::after {
+                    content: '\f065';
+                    display: block;
+                    font-size: 10px;
+                    font-weight: 300;
+                }
+            }
+
+            .unfullscreen {
+                &::after {
+                    content: '\f066';
+                    display: block;
+                    font-size: 10px;
+                    font-weight: 300;
+                }
+            }
+        }
+
+        .light_btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 10px;
+            text-align: center;
+            color: #000;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 4px;
+
+            &.fa-icon {
+                font: normal normal normal 14px/1 FontAwesome;
+            }
+
+            // &:hover {
+            //     opacity: 0.8;
+            // }
+
+            &.yellow {
+                background-color: #ffbf2b;
+            }
+
+            &.red {
+                background-color: #fd6458;
+            }
+
+            &.green {
+                background-color: #24cc3d;
+            }
+
+            &.blue {
+                background-color: rgba(138, 43, 226, 0.5);
+            }
+        }
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
 }

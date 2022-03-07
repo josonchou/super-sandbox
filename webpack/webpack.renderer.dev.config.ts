@@ -11,7 +11,7 @@ import { publicPath, PORT, rendererOutputPath } from './constants';
 const RenderDevConfig: Configuration = merge(commonConfig, {
     mode: 'development',
     devtool: 'inline-source-map',
-    // target: 'electron-renderer',
+    target: 'electron-renderer',
     output: {
         publicPath,
         path: rendererOutputPath,

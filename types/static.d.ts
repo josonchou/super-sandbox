@@ -35,3 +35,9 @@ declare module '*.gif' {
     const ref: string;
     export default ref;
 }
+
+
+declare module '*.pdf' {
+    const ref: string;
+    export default ref;
+}

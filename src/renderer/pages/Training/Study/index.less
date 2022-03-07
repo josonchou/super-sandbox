@@ -43,5 +43,121 @@
         background: url('@assets/training_menu_content_bg.png') no-repeat;
         background-size: cover;
         background-position: center;
+
+        display: flex;
+
+        .reader {
+            width: 53.75rem;
+            height: 35.78rem;
+            margin-left: 2.81rem;
+            margin-top: 3.44rem;
+        }
+
+        .courseware-list {
+            width: 11.77rem;
+            height: 35.78rem;
+            margin-top: 3.44rem;
+            margin-left: 2.29rem;
+            // border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            .title {
+                position: absolute;
+                height: 6.2rem;
+                width: 100%;
+                top: 0;
+                left: 0;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-end;
+
+                span {
+                    margin-bottom: 1.93rem;      
+                    font-size: 1.25rem;
+                    font-weight: 400;
+                    color: #FFFFFF;
+                }
+            }
+
+            .list {
+                padding-top: 6.2rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+
+                .course-item {
+                    width: 10.26rem;
+                    height: 7.66rem;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    margin: 0.365rem 0;
+                    transition: width 300ms, height 200ms, box-shadow 100ms;
+                    display: flex;
+                    flex-direction: column;
+                    user-select: none;
+                    box-sizing: 0;
+                    cursor: pointer;
+                
+
+                    .item-title {
+                        height: 2.19rem;
+                        font-size: 0.94rem;
+                        font-weight: 400;
+                        color: #fff;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    &:hover {
+                        box-shadow: 0 0 2rem #00A2FF;
+                        border: 1px solid #00A2FF;
+                    }
+
+                    .cover {
+                        width: 100%;
+                        height: 0;
+                        min-height: 0;
+                        flex: 1;
+                        background-color: rgba(0, 0, 0, 0.7);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        &::after {
+                            content: '封面';
+                            display: block;
+                            color: #fff;
+                        }
+                    }
+
+                    &.active {
+                        width: 11.78rem;
+                        height: 8.79rem;
+
+                        .title {
+                            height: 2.5rem;
+                            font-size: 1.08rem;
+                            font-weight: 400;
+                            color: #fff;
+                        }
+                    }
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
     }
 }

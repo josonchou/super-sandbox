@@ -20,6 +20,7 @@ export interface TreeListProps {
 
 const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
     const [expendedMenus, setExpendedMenus] = useState<Array<string|number>>([]);
+    const [selectedMenu, setSelectedMenu] = useState<string|number>();
 
     const genChildDom = useCallback((list: TreeData[], parentKey: string|number) => {
         if (!list.length) {
@@ -29,10 +30,12 @@ const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
             <ul className={styles['tree-sub']}>
                 {
                     list.map((item) => {
+                        const currentkey = `${parentKey}-${item.key}`;
                         const childs = item.children && item.children.length ? genChildDom(item.children, `${parentKey}-${item.key}`) : null;
                         return (
                             <li key={`${parentKey}-${item.key}`} className={classNames(styles['tree-sub-item'], {
                                 [styles.expended]: expendedMenus.includes(`${parentKey}-${item.key}`),
+                                [styles.selected]: currentkey === selectedMenu,
                             })}>
                                 <div className={styles['tree-item']} onClick={() => {
                                     setExpendedMenus((prev) => {
@@ -44,6 +47,9 @@ const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
                                             `${parentKey}-${item.key}`,
                                         ];
                                     });
+                                    if (!item.children || !item.children.length) {
+                                        setSelectedMenu(currentkey);
+                                    }
                                 }}>
                                     {/* <div className={styles.icon} /> */}
                                     <div className={styles.label}>
@@ -58,7 +64,7 @@ const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
                 }
             </ul>
         )
-    }, [expendedMenus]);
+    }, [expendedMenus, selectedMenu]);
 
     const treeDom = useMemo(() => {
         return (

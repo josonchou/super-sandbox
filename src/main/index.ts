@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import { APP_NAME } from '@config/index';
 
 declare const DEV_ENTRY: string;
@@ -19,15 +19,18 @@ const createWindow = () => {
     mainWindow = new BrowserWindow({
         webPreferences: {
             nodeIntegration: true,
+            contextIsolation: false,
         },
         title: APP_NAME,
         width: 1200,
         height: 675,
         minWidth: 1200,
         minHeight: 675,
-        // titleBarStyle: 'hiddenInset',
+        frame: false,
+        titleBarStyle: 'hiddenInset',
         fullscreenable: true,
     });
+    mainWindow.setAspectRatio(16/9);
     Menu.setApplicationMenu(null);
     // mainWindow.setFu
 
@@ -38,6 +41,41 @@ const createWindow = () => {
     loadHTML(mainWindow);
     mainWindow.on('closed', () => {
         mainWindow = null;
+    });
+
+    ipcMain.on('window-control', (event, args) => {
+        switch (args) {
+            case 'minimize':
+                mainWindow?.minimize();
+                break;
+            case 'unmaximize':
+                mainWindow?.unmaximize();
+                break;
+            case 'restore':
+                if (process.platform === 'darwin') {
+                    if (mainWindow?.isFullScreen()) {
+                        mainWindow.setFullScreen(false);
+                    }
+                }
+                mainWindow?.unmaximize();
+                break;
+            case 'maximize':
+                mainWindow?.maximize();
+                break;
+            case 'close':
+                mainWindow && mainWindow.close();
+                break;
+            case 'openDev':
+                mainWindow?.webContents.openDevTools();
+                break;
+            case 'fullscreen':
+                mainWindow?.setFullScreen(true);
+                break;
+            default:
+                break;
+        }
+
+        event.returnValue = 'successed';
     });
 }
 
