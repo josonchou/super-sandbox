@@ -1,0 +1,46 @@
+
+.upload {
+    width: 8rem;
+    height: 8rem;
+    border: 1px solid #00A2FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        box-shadow: 0 0 0.5rem #00A2FF;
+    }
+
+    span.icon {
+        user-select: none;
+        font-size: 6rem;
+        font-weight: 100;
+        color: #00A2FF;
+        display: inline-block;
+        line-height: 6rem;
+        transform: translateY(-10px);
+    }
+
+    input.uploader {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        outline: none;
+        visibility: hidden;
+        &::after {
+            display: block;
+            width: 100%;
+            height: 100%;
+            content: '';
+            // background-color: #ccc;
+            position: absolute;
+            top: 0;
+            visibility: visible;
+            cursor: pointer;
+        }
+    }
+}

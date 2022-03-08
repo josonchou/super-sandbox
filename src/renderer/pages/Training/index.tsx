@@ -1,4 +1,4 @@
-import { hideGlobalBg } from '@renderer/components/Layout';
+import { hideGlobalBg, showBgIII } from '@renderer/components/Layout';
 import { APP_NAME, generatePageName } from '@renderer/constanst';
 import TrainingModel from '@renderer/models/training.model';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -16,6 +16,7 @@ const Training = () => {
     const { selectedMasterCate, secondMenu = [] } = trainingState;
     useEffect(() => {
         hideGlobalBg();
+        showBgIII();
     }, []);
 
     const handleSelectCate = useCallback((val: number|string) => {

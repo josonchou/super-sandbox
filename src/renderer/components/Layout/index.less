@@ -9,6 +9,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
     // padding: 2.92rem 0 2.34rem 0;
 
     .wrapper {
@@ -55,6 +56,20 @@
             background-size: cover;
             width: calc(100% + 0.4rem);
             height: calc(100% + 0.4rem);
+            z-index: 0;
+        }
+
+        .bg03 {
+            position: absolute;
+            left: -0.2rem;
+            top: -0.2rem;
+            background: url('@assets/bg/bg03.png') no-repeat right;
+            // background-size: 100% 100%;
+            background-size: 45.57rem 56.27rem;
+            width: 100%;
+            height: 100%;
+            // width: calc(100% + 0.4rem);
+            // height: calc(100% + 0.4rem);
             z-index: 0;
         }
     }
@@ -115,6 +130,31 @@
     }
 }
 
+
+// z-index: 1;
+.bg-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    pointer-events: none;
+}
+
+.bg03 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    filter: grayscale(0);
+    background: url('@assets/bg/bg03.png') no-repeat right;
+    background-size: auto 100%;
+    // background-size: 45.57rem 56.27rem;
+    width: 100%;
+    height: 100%;
+    // width: calc(100% + 0.4rem);
+    // height: calc(100% + 0.4rem);
+    z-index: 0;
+}
+
 :global {
     .bg {
         width: 100vw;
@@ -130,7 +170,7 @@
         border: none;
         margin-left: -0.2rem;
         margin-top: -0.2rem;
-        background-color: #0F1523;
+        background-color: rgba(15, 21, 35, 0.8);
         background-image: linear-gradient(
             90deg,
             rgba(34, 39, 52, 0.8) 4%,

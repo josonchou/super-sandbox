@@ -16,7 +16,7 @@ const UserInfoModel = makeModal<UserInfo>({
         uid: 1,
     },
     effects: {
-        *login({ payload }, ctx) {
+        *login({ payload, callback }, ctx) {
             const { username, password, navigate } = payload;
             yield ctx.delay(1000);
             if (username === 'root' && password === '123') {
@@ -28,8 +28,9 @@ const UserInfoModel = makeModal<UserInfo>({
                     },
                 });
                 navigate('/');
+            } else {
+                callback(new Error('登录失败'));
             }
-            console.log('Login UserInfo ==>');
             
         },
         *logout({ payload }) {

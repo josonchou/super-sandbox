@@ -3,6 +3,7 @@ import { generatePageName } from '@renderer/constanst';
 import React, { useCallback, useEffect, MouseEvent, useState, useMemo } from 'react';
 import DocumentTitle from 'react-document-title';
 import AccountManager from './AccountManager';
+import CourseManager from './CourseManager';
 
 import styles from './index.less';
 
@@ -47,7 +48,8 @@ const Settings = () => {
                         <div className={styles.selection} style={{ top: selectionOffset }} />
                     </div>
                 </div>
-                {currentMenu === 0 ? <AccountManager /> : null }
+                {currentMenu === 0 ? <AccountManager /> : null}
+                {currentMenu === 1 ? <CourseManager /> : null}
             </div>
         </DocumentTitle>
     );

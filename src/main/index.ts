@@ -20,6 +20,7 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
+            webSecurity: false,
         },
         title: APP_NAME,
         width: 1200,
@@ -29,6 +30,7 @@ const createWindow = () => {
         frame: false,
         titleBarStyle: 'hiddenInset',
         fullscreenable: true,
+        show: false,
     });
     mainWindow.setAspectRatio(16/9);
     Menu.setApplicationMenu(null);
@@ -41,6 +43,10 @@ const createWindow = () => {
     loadHTML(mainWindow);
     mainWindow.on('closed', () => {
         mainWindow = null;
+    });
+
+    mainWindow.on('ready-to-show', () => {
+        mainWindow?.show();
     });
 
     ipcMain.on('window-control', (event, args) => {

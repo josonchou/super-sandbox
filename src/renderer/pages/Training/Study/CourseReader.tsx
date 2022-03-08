@@ -47,6 +47,11 @@ const CourseReader: FC<CourseReaderProps> = ({ type, src, cover }) => {
                 <iframe
                     className={styles.pdf}
                     src={src}
+                    allowFullScreen
+                    // @ts-ignore
+                    webkitallowfullscreen="true"
+                    // @ts-ignore
+                    mozallowfullscreen="true"
                 />
             )
         }

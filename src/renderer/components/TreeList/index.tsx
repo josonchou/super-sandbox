@@ -32,6 +32,7 @@ const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
                     list.map((item) => {
                         const currentkey = `${parentKey}-${item.key}`;
                         const childs = item.children && item.children.length ? genChildDom(item.children, `${parentKey}-${item.key}`) : null;
+                        const isLeaf = childs === null;
                         return (
                             <li key={`${parentKey}-${item.key}`} className={classNames(styles['tree-sub-item'], {
                                 [styles.expended]: expendedMenus.includes(`${parentKey}-${item.key}`),
@@ -39,18 +40,26 @@ const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
                             })}>
                                 <div className={styles['tree-item']} onClick={() => {
                                     setExpendedMenus((prev) => {
-                                        if (prev.includes(item.key)) {
-                                            return prev.filter((key) => key !== `${parentKey}-${item.key}`);
+                                        if (prev.includes(currentkey)) {
+                                            return prev.filter((key) => key !== currentkey);
                                         }
                                         return [
                                             ...prev,
-                                            `${parentKey}-${item.key}`,
+                                            currentkey,
                                         ];
                                     });
-                                    if (!item.children || !item.children.length) {
+                                    if (isLeaf) {
                                         setSelectedMenu(currentkey);
                                     }
                                 }}>
+                                    {
+                                        !isLeaf ? (
+                                            <div className={classNames(styles.icon, {
+                                                [styles['right-arrow']]: !expendedMenus.includes(currentkey),
+                                                [styles['bottom-arrow']]: expendedMenus.includes(currentkey)
+                                            })} />
+                                        ) : null
+                                    }
                                     {/* <div className={styles.icon} /> */}
                                     <div className={styles.label}>
                                         {item.name}

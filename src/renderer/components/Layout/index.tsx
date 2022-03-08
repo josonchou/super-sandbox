@@ -7,14 +7,22 @@ import { dispatch, useGlobalState } from '@renderer/store';
 import UserInfoModel from '@renderer/models/userInfo.model';
 
 const Layout: FC = () => {
-    const { hideGlobalBg } = useGlobalState();
+    const { hideGlobalBg, showBgIII } = useGlobalState();
     const [userInfo] = UserInfoModel.useModel();
 
     return (
         <div className="bg">
+            {
+                showBgIII ? (
+                    <div className={styles['bg-wrapper']}>
+                        <div className={styles.bg03} />
+                    </div>
+                ) : null
+            }
             <div className="bg-grid" />
             <div className="container">
                 <div className={styles.layout}>
+                    
                     <div className={styles.wrapper}>
                         <div className={styles['top-blank']} />
                         <Header isLogin={!!userInfo.uid} />
@@ -23,6 +31,7 @@ const Layout: FC = () => {
                             <div className={classNames(styles.borderLeftTop, styles['border-slide-top'])} />
                             <div className={classNames(styles.borderRightTop, styles['border-slide-top'])} />
                             <div className={classNames(styles.borderRightBottom, styles['border-slide-bottom'])} />
+                            
                             {
                                 !hideGlobalBg ? (
                                     <div className={styles['bg-wrapper']}>
@@ -42,11 +51,21 @@ const Layout: FC = () => {
     );
 }
 
+export const showBgIII = () => {
+    dispatch({
+        type: 'global@apply',
+        payload: {
+            showBgIII: true,
+        },
+    });
+}
+
 export const hideGlobalBg = () => {
     dispatch({
         type: 'global@apply',
         payload: {
             hideGlobalBg: true,
+            showBgIII: false,
         },
     });
 };

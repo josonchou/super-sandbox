@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import UserInfoModel from '@renderer/models/userInfo.model';
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { hideGlobalBg } from '@renderer/components/Layout';
+import { hideGlobalBg, showBgIII } from '@renderer/components/Layout';
 import styles from './index.less';
 import AbilityTableModel from '@renderer/models/abilityTable.model';
 import AbilityMenu from './AbilityMenu';
@@ -21,6 +21,7 @@ const Home = () => {
 
     useEffect(() => {
         hideGlobalBg();
+        showBgIII();
         dispatch({ type: 'abilityTable@reqAbility' });
     }, [dispatch]);
 
@@ -33,20 +34,37 @@ const Home = () => {
 
     const subMenus = useMemo(() => {
         const foundMenu = abilityTable.abilityTree.find((item) => item.id === abilityTable.currentSelectMenu);
-        return (foundMenu?.children ?? []).map((item) => (
-            <div key={item.id} className={styles['sub-menu-box']}>
-                <div className={[styles['sub-menu-item'], styles.title].join(' ')}>
-                    {item.name}({item.code})
+        let count = 0;
+        const group: Array<Array<React.ReactNode>> = [];
+        (foundMenu?.children ?? []).forEach((item) => {
+            if (count > 2) {
+                count = 0;
+            }
+            if (!group[count]) {
+                group[count] = [];
+            }
+            group[count].push((
+                <div key={item.id} className={styles['sub-menu-box']}>
+                    <div className={[styles['sub-menu-item'], styles.title].join(' ')}>
+                        {item.name}({item.code})
+                    </div>
+                    {
+                        (item.children ?? []).map((subChild) => (
+                            <div key={subChild.id} className={styles['sub-menu-item']}>
+                                {subChild.name}({subChild.code})
+                            </div>
+                        ))
+                    }
                 </div>
-                {
-                    (item.children ?? []).map((subChild) => (
-                        <div key={subChild.id} className={styles['sub-menu-item']}>
-                            {subChild.name}({subChild.code})
-                        </div>
-                    ))
-                }
+            ));
+            count += 1;
+        });
+
+        return group.map((item, index) => (
+            <div key={index} className={styles['sub-menu-col']}>
+                {item}
             </div>
-        ));
+        ))
     }, [abilityTable.abilityTree, abilityTable.currentSelectMenu]);
 
     return (

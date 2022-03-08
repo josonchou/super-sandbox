@@ -1,0 +1,118 @@
+
+.course-manager {
+    width: 0;
+    min-width: 0;
+    flex: 1;
+    height: 100%;
+    display: flex;
+
+    .tree {
+        width: 0;
+        min-width: 0;
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .search-area {
+            width: 16.41rem;
+            margin-top: 6.31rem;
+        }
+
+        .tree-area {
+            margin-top: 2.35rem;
+            width: 17.41rem;
+            flex: 1;
+            height: 0;
+            min-height: 0;
+        }
+    }
+
+    .content {
+        width: 55.63rem;
+        height: 100%;
+        display: flex;
+        margin-right: 2.4rem;
+        flex-direction: column;
+        // margin-left: @content-gap-left * 1rem;
+
+        .section-header {
+            margin-top: 1.09rem;
+        }
+
+        .filter {
+            height: 8.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3.8rem 0 4.69rem;
+
+            .form-item {
+                display: inline-flex;
+                align-items: center;
+                .label {
+                    font-size: 1.44rem;
+                    font-weight: 400;
+                    color: #fff;
+                    line-height: 1.05rem;
+                    margin-right: 3.8rem;
+                }
+
+                .wrapper {
+                    width: 22.03rem;
+                }
+            }
+        }
+
+        .list {
+            height: 0;
+            min-height: 0;
+            flex: 1;
+            // background-color: @bg-gray-color;
+        }
+    }
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .form-item {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1.5rem;
+
+        .label {
+            width: auto;
+            // min-width: 0;
+            // flex: 1;
+            display: inline-flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 1.3rem;
+
+            &::after {
+                content: ':';
+                display: block;
+                margin-left: 0.3rem;
+                margin-right: 0.5rem;
+            }
+        }
+
+        .wrapper {
+            width: 0;
+            min-width: 0;
+            flex: 1;
+        }
+    }
+}
+
+.footer {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+}
