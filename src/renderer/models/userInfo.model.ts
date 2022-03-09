@@ -28,6 +28,15 @@ const UserInfoModel = makeModal<UserInfo>({
                     },
                 });
                 navigate('/');
+            } else if (username === 'user' && password === '123') {
+                yield ctx.put({
+                    type: 'apply',
+                    payload: {
+                        uid: 2,
+                        userName: 'user',
+                    },
+                });
+                navigate('/');
             } else {
                 callback(new Error('登录失败'));
             }

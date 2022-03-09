@@ -78,6 +78,8 @@ html {
 
 .window .titlebar {
     position: absolute;
+    left: 0;
+    height: 0;
     z-index: 999;
     width: 100%;
     height: 40px;
@@ -86,7 +88,7 @@ html {
     cursor: pointer;
     user-select: none;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
 
     .tooltip-box {
         -webkit-app-region: no-drag;
@@ -96,106 +98,103 @@ html {
         height: 100%;
         margin-right: 8px;
         margin-left: 8px;
-        transform: translateY(-1px);
-
-        &:hover {
-            .minimize {
-                &::after {
-                    content: '\f068';
-                    display: block;
-                    font-size: 10px;
-                    font-weight: 300;
-                }
-            }
-
-            .close {
-                &::after {
-                    content: '\f00d';
-                    display: block;
-                    font-size: 10px;
-                    font-weight: 300;
-                }
-            }
-
-            .maximize {
-                &::after {
-                    content: '\f065';
-                    display: block;
-                    font-size: 10px;
-                    font-weight: 300;
-                    transform: rotate(-45deg);
-                }
-            }
-
-            .unmaximize {
-                &::after {
-                    content: '\f066';
-                    display: block;
-                    font-size: 10px;
-                    font-weight: 300;
-                    transform: rotate(-45deg);
-                }
-            }
-
-            .fullscreen {
-                &::after {
-                    content: '\f065';
-                    display: block;
-                    font-size: 10px;
-                    font-weight: 300;
-                }
-            }
-
-            .unfullscreen {
-                &::after {
-                    content: '\f066';
-                    display: block;
-                    font-size: 10px;
-                    font-weight: 300;
-                }
-            }
-        }
+        // transform: translateY(-1px);
 
         .light_btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+            width: 30px;
+            height: 30px;
             cursor: pointer;
             font-size: 10px;
             text-align: center;
-            color: #000;
+            color: #FFF;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin: 4px;
+            border-radius: 6px;
+            &:hover {
+                // background-color: rgba(0,186,255, 0.8);
+                background-color: rgba(0, 0, 0, 0.8);
+                color: rgba(0,186,255, 0.8);
+            }
 
             &.fa-icon {
                 font: normal normal normal 14px/1 FontAwesome;
-            }
-
-            // &:hover {
-            //     opacity: 0.8;
-            // }
-
-            &.yellow {
-                background-color: #ffbf2b;
-            }
-
-            &.red {
-                background-color: #fd6458;
-            }
-
-            &.green {
-                background-color: #24cc3d;
-            }
-
-            &.blue {
-                background-color: rgba(138, 43, 226, 0.5);
+                font-size: 16px;
+                font-weight: lighter;
+                &.minimize {
+                    &::after {
+                        content: '';
+                        background: url('@assets/svg/minus.svg') no-repeat;
+                        background-size: 100% 100%;
+                        display: block;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+    
+                &.close {
+                    &::after {
+                        content: '';
+                        background: url('@assets/svg/close.svg') no-repeat;
+                        background-size: 100% 100%;
+                        display: block;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+    
+                &.maximize {
+                    &::after {
+                        content: '';
+                        background: url('@assets/svg/max.svg') no-repeat;
+                        background-size: 100% 100%;
+                        display: block;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+    
+                &.unmaximize {
+                    &::after {
+                        content: '';
+                        background: url('@assets/svg/min.svg') no-repeat;
+                        background-size: 100% 100%;
+                        display: block;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+    
+                &.fullscreen {
+                    &::after {
+                        content: '';
+                        background: url('@assets/svg/arrow-expand.svg') no-repeat;
+                        background-size: 100% 100%;
+                        display: block;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+    
+                &.unfullscreen {
+                    &::after {
+                        content: '';
+                        background: url('@assets/svg/arrow-compress.svg') no-repeat;
+                        background-size: 100% 100%;
+                        display: block;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
             }
         }
     }
 
+    &.win {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
     &:hover {
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(0, 0, 0, 0.2);
     }
 }

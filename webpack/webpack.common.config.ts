@@ -47,6 +47,13 @@ const config: Configuration = {
                     filename: 'static/files/[hash][ext][query]',
                 },
             },
+            {
+                test: /\.(mp4)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'static/files/[hash][ext][query]',
+                },
+            },
         ],
     },
     resolve: {

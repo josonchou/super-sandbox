@@ -29,7 +29,7 @@ const Accounts = [
         rowId: 4,
         username: 'user2',
         password: '666666',
-        remark: '讲师',
+        remark: '管理员',
     },
 ];
 

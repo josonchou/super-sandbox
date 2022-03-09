@@ -25,7 +25,7 @@ const Layout: FC = () => {
                     
                     <div className={styles.wrapper}>
                         <div className={styles['top-blank']} />
-                        <Header isLogin={!!userInfo.uid} />
+                        <Header isLogin={!!userInfo.uid} uid={userInfo.uid} />
                         <div className={styles.content}>
                             <div className={classNames(styles.borderLeftBottom, styles['border-slide-bottom'])} />
                             <div className={classNames(styles.borderLeftTop, styles['border-slide-top'])} />

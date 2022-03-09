@@ -47,7 +47,7 @@ const Study: FC = () => {
                     <CourseReader
                         type={currentCourse.kind}
                         src={currentCourse.src}
-                        cover={currentCourse.cover}
+                        // cover={currentCourse?.cover}
                     />
                 </div>
                 <div className={styles['courseware-list']}>

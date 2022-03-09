@@ -41,3 +41,8 @@ declare module '*.pdf' {
     const ref: string;
     export default ref;
 }
+
+declare module '*.mp4' {
+    const ref: string;
+    export default ref;
+}

@@ -28,6 +28,13 @@ const offsetY = -8.2222;
 const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange }) => {
     const [selected, setSelected] = useState<number>();
 
+    const selectedItem = useMemo(() => {
+        return (data ?? []).find(item => item.id === selected);
+    }, [selected, data]);
+
+    console.log(selectedItem, 'selectedItem');
+    
+
     const element = useMemo(() => {
         return (
             <>
@@ -69,6 +76,10 @@ const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange }) =
     return (
         <div className={styles.menu}>
             <div className={styles['menu-wrapper']}>
+                <div className={styles['menu-title']}>
+                    {selectedItem?.name}
+                </div>
+                
                 {element}
             </div>
         </div>

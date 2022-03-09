@@ -68,18 +68,22 @@ const Window: FC = ({ children }) => {
                 return {
                     ...prev,
                     isFullscreen: false,
+                    isMaximize: false,
                 };
             });
         }
     }, []);
 
     const toggleMaximize = useCallback(() => {
+        if (windowState.isFullscreen) {
+            return;
+        }
         if (windowState.isMaximize) {
             unmaximize();
         } else {
             maximize();
         }
-    }, [maximize, unmaximize, windowState.isMaximize]);
+    }, [maximize, unmaximize, windowState.isMaximize, windowState.isFullscreen]);
 
     const toggleFullscreen = useCallback(() => {
         if (windowState.isFullscreen) {
@@ -108,19 +112,10 @@ const Window: FC = ({ children }) => {
     
     return (
         <div className="window">
-            <div className="titlebar" ref={$titlebar as any}>
+            <div className={classNames('titlebar', { win: process.platform === 'win32' })} ref={$titlebar as any}>
                 {
                     process.platform !== 'darwin' ? (
                         <div className="tooltip-box">
-                            <div className="light_btn fa-icon close red" onClick={close} />
-                            <div className="light_btn fa-icon minimize yellow" onClick={minimize} />
-                            <div
-                                className={classNames('light_btn fa-icon green', {
-                                    maximize: !windowState.isMaximize,
-                                    unmaximize: windowState.isMaximize,
-                                })}
-                                onClick={toggleMaximize}
-                            />
                             <div
                                 className={classNames('light_btn fa-icon blue', {
                                     fullscreen: !windowState.isFullscreen,
@@ -128,6 +123,15 @@ const Window: FC = ({ children }) => {
                                 })}
                                 onClick={toggleFullscreen}
                             />
+                            <div className="light_btn fa-icon minimize" onClick={minimize} />
+                            <div
+                                className={classNames('light_btn fa-icon', {
+                                    maximize: !windowState.isMaximize,
+                                    unmaximize: windowState.isMaximize,
+                                })}
+                                onClick={toggleMaximize}
+                            />
+                            <div className="light_btn fa-icon close" onClick={close} />
                         </div>
                     ) : null
                 }

@@ -27,6 +27,7 @@ const CourseReader: FC<CourseReaderProps> = ({ type, src, cover }) => {
                             // poster="http://imgcdn.170hi.com/wmvpic/640/68/57/3075077292.jpg?imageView2/format/jpg/q/40"
                             poster={cover}
                             controls
+                            autoPlay={false}
                             className={styles.video}
                             // onContextMenu="return false;"
                             // height="100%" width="100%"

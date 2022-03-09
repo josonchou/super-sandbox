@@ -5,7 +5,8 @@
 
 import { TrainingItem } from '@renderer/constanst/training';
 import { makeModal } from '@renderer/store';
-import pdf from '@assets/test.pdf';
+import pdf from '@assets/files/test.pdf';
+import mp4 from '@assets/files/test.mp4';
 import videocover from '@assets/videocover.jpeg';
 
 
@@ -24,9 +25,9 @@ const TrainingModel = makeModal({
             {
                 key: 1,
                 name: '冷却灭火法',
-                cover: videocover,
+                // cover: videocover,
                 kind: 'video',
-                src: 'http://mvdown.kuwo.cn/2fe5f0ccfe069c05504904134ce92059/62261d80/resource/m2/58/99/3179728089.mp4',
+                src: mp4,
             },
             {
                 key: 2,
@@ -38,17 +39,17 @@ const TrainingModel = makeModal({
             {
                 key: 3,
                 name: '冷却灭火法',
-                cover: videocover,
+                // cover: videocover,
                 kind: 'video',
-                src: 'http://mvdown.kuwo.cn/2fe5f0ccfe069c05504904134ce92059/62261d80/resource/m2/58/99/3179728089.mp4',
+                src: mp4,
             },
         ],
         currentCourse: {
             key: 1,
             name: '冷却灭火法',
-            cover: videocover,
+            // cover: videocover,
             kind: 'video',
-            src: 'http://mvdown.kuwo.cn/2fe5f0ccfe069c05504904134ce92059/62261d80/resource/m2/58/99/3179728089.mp4',
+            src: mp4,
         },
     },
     effects: {

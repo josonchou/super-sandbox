@@ -8,9 +8,10 @@ import styles from './index.less';
 
 interface HeaderProps {
     isLogin?: boolean;
+    uid?: number;
 }
 
-const Header: FC<HeaderProps> = ({ isLogin }) => {
+const Header: FC<HeaderProps> = ({ isLogin, uid }) => {
     const navigate = useNavigate();
     const location = useLocation();
     
@@ -68,9 +69,13 @@ const Header: FC<HeaderProps> = ({ isLogin }) => {
                         <LinkButton active={activeMenu === 'Training'} icon="book" onClick={toTraining}>
                             培训项目总表
                         </LinkButton>
-                        <LinkButton active={activeMenu === 'Setting'} icon="settings" onClick={toSettings}>
-                            系统设置
-                        </LinkButton>
+                        {
+                            uid === 1 ? (
+                                <LinkButton active={activeMenu === 'Setting'} icon="settings" onClick={toSettings}>
+                                    系统设置
+                                </LinkButton>
+                            ) : null
+                        }
                         <LinkButton icon="exit" onClick={handleLoginOut}>
                             退出登录
                         </LinkButton>

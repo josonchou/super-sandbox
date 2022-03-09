@@ -20,6 +20,9 @@ const Space: FC<SpaceProps> = (props) => {
         };
         const lenOfChildren = React.Children.count(children);
         return React.Children.map(children, (child, index) => {
+            if (!child) {
+                return null;
+            }
             const { style } = (child as any)?.props;
             return (
                 <div className="dy-space-item" style={index !== lenOfChildren - 1 ? gapStyle : undefined}>

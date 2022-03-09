@@ -16,9 +16,10 @@ interface TreeData {
 
 export interface TreeListProps {
     treeData?: Array<TreeData>;
+    onSelected?: (args: { key: string|number, label: string }) => void;
 }
 
-const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
+const TreeList: FC<TreeListProps> = ({ treeData = [], onSelected = () => null }) => {
     const [expendedMenus, setExpendedMenus] = useState<Array<string|number>>([]);
     const [selectedMenu, setSelectedMenu] = useState<string|number>();
 
@@ -50,6 +51,10 @@ const TreeList: FC<TreeListProps> = ({ treeData = [] }) => {
                                     });
                                     if (isLeaf) {
                                         setSelectedMenu(currentkey);
+                                        onSelected({
+                                            key: currentkey,
+                                            label: `${item.name}(${item.code})`,
+                                        });
                                     }
                                 }}>
                                     {

@@ -12,7 +12,7 @@ import Table from '@renderer/components/Table';
 import TreeList from '@renderer/components/TreeList';
 import Upload from '@renderer/components/Upload';
 import CourseModel from '@renderer/models/course.model';
-import  React, { FC } from 'react';
+import  React, { FC, useState } from 'react';
 import Card from './Card';
 import styles from './CourseManager.less';
 import Header from './Header';
@@ -20,6 +20,7 @@ import { Account } from './models';
 
 const CourseManager: FC = () => {
     const [courseState] = CourseModel.useModel();
+    const [selectedKey, setSelectedKey] = useState<any>();
     const dialog = useMatinaDialogState();
     
     return (
@@ -34,18 +35,24 @@ const CourseManager: FC = () => {
                 <div className={styles['tree-area']}>
                     <TreeList
                         treeData={(courseState.category ?? []) as any}
+                        onSelected={(currKey) => {
+                            setSelectedKey(currKey);
+                        }}
                     />
                 </div>
             </div>
             <div className={styles.content}>
                 <Header
-                    title="账号管理"
+                    title="课件管理"
                     className={styles['section-header']}
                     extra={() => {
                         return (
                             <Space gap={1.56} gapUnit="rem">
                                 {/* <DialogDisclosure {...dialog}> */}
                                 <Button type="small" onClick={() => {
+                                    if (!selectedKey) {
+                                        return null;
+                                    }
                                     dialog.show();
                                 }}>
                                     新增
@@ -93,7 +100,7 @@ const CourseManager: FC = () => {
                                     accessor: 'courseName',
                                 },
                                 {
-                                    Header: '所属课程类别',
+                                    Header: '所属培训项目',
                                     accessor: 'category',
                                 }
                             ]}
@@ -112,6 +119,16 @@ const CourseManager: FC = () => {
             </div>
             <MatinaDialog dialog={dialog} title="新增课件">
                 <div className={styles.form}>
+                    <div className={styles['form-item']}>
+                        <div className={styles.label}>
+                            所属培训项目
+                        </div>
+                        <div className={styles.wrapper}>
+                            <div style={{ height: '3.18rem', lineHeight: '3.18rem', fontSize: '1.25rem' }}>
+                                {(selectedKey ?? {}).label}
+                            </div>
+                        </div>
+                    </div>
                     <div className={styles['form-item']}>
                         <div className={styles.label}>
                             课件名称

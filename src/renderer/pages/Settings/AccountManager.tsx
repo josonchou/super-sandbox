@@ -89,7 +89,7 @@ const AccountManager: FC = () => {
                                     accessor: 'username',
                                 },
                                 {
-                                    Header: '备注',
+                                    Header: '角色',
                                     accessor: 'remark',
                                 }
                             ]}
