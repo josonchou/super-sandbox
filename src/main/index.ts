@@ -58,10 +58,11 @@ const createWindow = () => {
                 mainWindow?.unmaximize();
                 break;
             case 'restore':
-                if (process.platform === 'darwin') {
-                    if (mainWindow?.isFullScreen()) {
-                        mainWindow.setFullScreen(false);
-                    }
+                // if (process.platform === 'darwin') {
+                    
+                // }
+                if (mainWindow?.isFullScreen()) {
+                    mainWindow.setFullScreen(false);
                 }
                 mainWindow?.unmaximize();
                 break;
