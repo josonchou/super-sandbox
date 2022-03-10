@@ -1,0 +1,41 @@
+
+.checkbox-group {
+    height: 3.18rem;
+    display: inline-flex;
+
+    label {
+        height: 100%;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.25rem;
+        color: #00A2FF;
+
+        input[type="checkbox"] {
+            margin-right: 0.8rem;
+            appearance: none;
+            border: 1px solid #00A2FF;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 5px;
+            &:after {
+                content: "✔";
+                display: none;
+                color: white;
+                font-size: 70%;
+            }
+            &:checked {
+                background-color: #00A2FF;
+                border: 2px solid #00A2FF;
+                &:after {
+                display: block;
+                }
+            }
+        }
+    }
+}

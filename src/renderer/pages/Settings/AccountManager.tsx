@@ -4,6 +4,7 @@
  */
 
 import Button from '@renderer/components/Button';
+import Checkbox from '@renderer/components/Checkbox';
 import Input from '@renderer/components/Input';
 import MatinaDialog, { useMatinaDialogState } from '@renderer/components/MatinaDialog';
 import message from '@renderer/components/message';
@@ -133,13 +134,10 @@ const AccountManager: FC = () => {
                     </div>
                     <div className={styles['form-item']}>
                         <div className={styles.label}>
-                            备注
+                            角色
                         </div>
                         <div className={styles.wrapper}>
-                            <Input
-                                placeholder="请输入备注"
-                                theme="matina"
-                            />
+                            <Checkbox />
                         </div>
                     </div>
                 </div>
