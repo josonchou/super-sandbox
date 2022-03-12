@@ -37,6 +37,7 @@ const TreeList: FC<TreeListProps> = ({ treeData = [], onSelected = () => null })
                         return (
                             <li key={`${parentKey}-${item.key}`} className={classNames(styles['tree-sub-item'], {
                                 [styles.expended]: expendedMenus.includes(`${parentKey}-${item.key}`),
+                                [styles.notExpended]: !expendedMenus.includes(`${parentKey}-${item.key}`),
                                 [styles.selected]: currentkey === selectedMenu,
                             })}>
                                 <div className={styles['tree-item']} onClick={() => {
@@ -68,7 +69,7 @@ const TreeList: FC<TreeListProps> = ({ treeData = [], onSelected = () => null })
                                     {/* <div className={styles.icon} /> */}
                                     <div className={styles.label}>
                                         {item.name}
-                                        {item.code ? ` (${item.code})` : null}
+                                        {item.code ? <span style={{ display: 'inline-block' }}>({item.code})</span> : null}
                                     </div>
                                 </div>
                                 {childs}
@@ -78,7 +79,7 @@ const TreeList: FC<TreeListProps> = ({ treeData = [], onSelected = () => null })
                 }
             </ul>
         )
-    }, [expendedMenus, selectedMenu]);
+    }, [expendedMenus, selectedMenu, onSelected]);
 
     const treeDom = useMemo(() => {
         return (
@@ -88,6 +89,7 @@ const TreeList: FC<TreeListProps> = ({ treeData = [], onSelected = () => null })
                         return (
                             <li key={item.key} className={classNames(styles['tree-master-item'], {
                                 [styles.expended]: expendedMenus.includes(item.key),
+                                [styles.notExpended]: !expendedMenus.includes(item.key),
                             })}>
                                 <div className={styles['tree-item']} onClick={() => {
                                     setExpendedMenus((prev) => {
@@ -106,7 +108,7 @@ const TreeList: FC<TreeListProps> = ({ treeData = [], onSelected = () => null })
                                     })} />
                                     <div className={styles.label}>
                                         {item.name}
-                                        {item.code ? ` (${item.code})` : null}
+                                        {item.code ? <span style={{ display: 'inline-block' }}>({item.code})</span> : null}
                                     </div>
                                 </div>
                                 {genChildDom(item.children ?? [], item.key)}

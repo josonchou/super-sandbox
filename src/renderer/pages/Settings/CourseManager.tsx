@@ -7,6 +7,7 @@ import Button from '@renderer/components/Button';
 import LinkButton from '@renderer/components/Button/LinkButton';
 import Input from '@renderer/components/Input';
 import MatinaDialog, { useMatinaDialogState } from '@renderer/components/MatinaDialog';
+import message from '@renderer/components/message';
 import Space from '@renderer/components/Space';
 import Table from '@renderer/components/Table';
 import TreeList from '@renderer/components/TreeList';
@@ -51,6 +52,7 @@ const CourseManager: FC = () => {
                                 {/* <DialogDisclosure {...dialog}> */}
                                 <Button type="small" onClick={() => {
                                     if (!selectedKey) {
+                                        message.tips('请先选择所属培训项目，再进行新建');
                                         return null;
                                     }
                                     dialog.show();
@@ -59,9 +61,13 @@ const CourseManager: FC = () => {
                                 </Button>
                                 {/* </DialogDisclosure> */}
                                 
-                                <LinkButton theme="danger" fontSize="1.09rem">
+                                <Button type="small" theme="danger" onClick={() => {
+                                    message.confirm(
+                                        '是否要删除已经选中的课程？',
+                                    );
+                                }}>
                                     删除
-                                </LinkButton>
+                                </Button>
                             </Space>
                         )
                     }}

@@ -13,7 +13,7 @@ interface UserInfo {
 const UserInfoModel = makeModal<UserInfo>({
     name: 'userInfo',
     initialState: {
-        uid: 0,
+        uid: 1,
     },
     effects: {
         *login({ payload, callback }, ctx) {
@@ -42,7 +42,8 @@ const UserInfoModel = makeModal<UserInfo>({
             }
             
         },
-        *logout({ payload }) {
+        *logout({ payload }, { put }) {
+            yield put({ type: 'apply', payload: { uid: 0 }});
             const { navigate } = payload;
             navigate('/login');
         }

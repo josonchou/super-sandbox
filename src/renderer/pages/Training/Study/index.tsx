@@ -72,7 +72,7 @@ const Study: FC = () => {
                                             });
                                         }}
                                     >
-                                        <div className={styles.cover} />
+                                        <div className={classNames(styles.cover, item.kind)} />
                                         <div className={styles['item-title']}>
                                             {item.name}
                                         </div>

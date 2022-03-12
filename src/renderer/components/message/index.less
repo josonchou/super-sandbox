@@ -1,0 +1,87 @@
+
+.backdrop {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    inset: 0px;
+    z-index: 999;
+    perspective: 800px;
+    transition: opacity 250ms ease-in-out 0s;
+    opacity: 0;
+    &[data-enter] {
+        opacity: 1;
+    }
+}
+
+.dialog {
+    background-color: #0F1523;
+    width: 35.5rem;
+    box-shadow: 0 0 1rem #00A2FF;
+    color: #fff;
+
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 10rem;
+    left: 50%;
+    border-radius: 1rem;
+    // padding: 1rem;
+    max-height: calc(100vh - 56px);
+    outline: 0px;
+    border: 1px solid rgba(33, 33, 33, 0.25);
+    // color: rgb(33, 33, 33);
+    z-index: 999;
+    transition: opacity 250ms ease-in-out 0s, transform 250ms ease-in-out 0s;
+    opacity: 0;
+    transform-origin: center top;
+    transform: translate3d(-50%, -10%, 0px) rotateX(90deg);
+    &[data-enter] {
+        opacity: 1;
+        transform: translate3d(-50%, 0, 0);
+    }
+
+    display: flex;
+    flex-direction: column;
+
+    .title {
+        width: 100%;
+        font-size: 1.5rem;
+        padding: 1rem 1rem 0.35rem 1rem;
+        border-bottom: 0.1rem solid #00A2FF;
+        position: relative;
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 0.5rem;
+            background-color: #fd6458;
+            color: #333;
+
+            &:hover::after {
+                color: #333;
+            }
+            &::after {
+                content: '\f00d';
+                color: transparent;
+                display: block;
+                font-size: 1rem;
+                font-weight: 300;
+                text-align: center;
+            }
+        }
+    }
+
+    .content {
+        padding: 1.5rem;
+
+        .footer {
+            display: inline-flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+    }
+}

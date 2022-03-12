@@ -13,6 +13,18 @@
         cursor: pointer;
         position: relative;
 
+        &.theme-danger {
+            color: red !important;
+
+            &:hover {
+                text-shadow: 0 0 0px #C82D2D,
+                        0 0 3rem #C82D2D,
+                        0 0 2rem #C82D2D,
+                        0 0 8rem #C82D2D,
+                        0 0 20rem #C82D2D !important;
+            }
+        }
+
         .bg-wrapper {
             position: absolute;
             overflow: hidden;

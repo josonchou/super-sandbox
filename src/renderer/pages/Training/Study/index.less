@@ -131,9 +131,18 @@
                         align-items: center;
 
                         &::after {
-                            content: '封面';
+                            content: '';
                             display: block;
                             color: #fff;
+                        }
+                        &:global(.pdf) {
+                            background: url('@assets/pdf.png') no-repeat center;
+                            background-size: cover;
+                        }
+
+                        &:global(.video) {
+                            background: url('@assets/video.png') no-repeat center;
+                            background-size: cover;
                         }
                     }
 

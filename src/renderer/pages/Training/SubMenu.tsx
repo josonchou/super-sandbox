@@ -24,7 +24,7 @@ const SubMenu: FC<SubMenuProps> = (props) => {
                     return (
                         <div key={item.key} onClick={() => onSelect(item.key)} className={styles['menu-item']}>
                             <div className={styles['menu-item-bg']} />
-                            <span>{item.name} ({item.code ?? '--'})</span>
+                            <span>{item.name} <br />({item.code ?? '--'})</span>
                         </div>
                     )
                 })

@@ -13,21 +13,22 @@ interface ButtonProps {
     style?: HTMLButtonElement['style'];
     type?: 'big'|'default'|'small';
     onClick?: HTMLButtonElement['onclick'];
+    theme?: 'primary'|'danger';
 }
 
 const Button: FC<ButtonProps> = (props) => {
-    const { type = 'big', children, className, ...restProps } = props;
+    const { type = 'big', children, className, theme = 'primary', ...restProps } = props;
     const classNameByType = useMemo(() => {
         if (type === 'big' || type === 'default') {
-            return classNames('btn-text', 'size-big');
+            return classNames('btn-text', 'size-big',  `theme-${theme}`);
         }
 
         if (type === 'small') {
-            return classNames('btn-text', 'size-small');
+            return classNames('btn-text', 'size-small', `theme-${theme}`);
         }
 
         return '';
-    }, [type]);
+    }, [type, theme]);
 
     const bg = useMemo(() => {
         return (

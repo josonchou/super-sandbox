@@ -46,12 +46,18 @@ const Home = () => {
             group[count].push((
                 <div key={item.id} className={styles['sub-menu-box']}>
                     <div className={[styles['sub-menu-item'], styles.title].join(' ')}>
-                        {item.name}({item.code})
+                        <span style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+                            <span>{item.name}</span>
+                            <span style={{ display: 'inline-block'}}>({item.code})</span>
+                        </span>
                     </div>
                     {
                         (item.children ?? []).map((subChild) => (
                             <div key={subChild.id} className={styles['sub-menu-item']}>
-                                {subChild.name}({subChild.code})
+                                <span style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+                                    <span>{subChild.name}</span>
+                                    <span style={{ display: 'inline-block' }}>({subChild.code})</span>
+                                </span>
                             </div>
                         ))
                     }

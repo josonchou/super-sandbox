@@ -4,9 +4,9 @@
  */
 
 import Button from '@renderer/components/Button';
-import LinkButton from '@renderer/components/Button/LinkButton';
 import Input from '@renderer/components/Input';
 import MatinaDialog, { useMatinaDialogState } from '@renderer/components/MatinaDialog';
+import message from '@renderer/components/message';
 import Space from '@renderer/components/Space';
 import Table from '@renderer/components/Table';
 import AccountModel from '@renderer/models/account.model';
@@ -48,9 +48,13 @@ const AccountManager: FC = () => {
                                 }}>
                                     新增
                                 </Button>
-                                <LinkButton theme="danger" fontSize="1.09rem">
+                                <Button theme="danger" type="small" onClick={() => {
+                                    message.confirm(
+                                        '是否要删除已经选中的角色？',
+                                    );
+                                }}>
                                     删除
-                                </LinkButton>
+                                </Button>
                             </Space>
                         )
                     }}

@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    overflow-x: hidden;
 
     ul {
         width: auto;
@@ -11,12 +12,17 @@
     }
 
     ul.tree-master {
-        width: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
 
     ul.tree-sub {
         padding-left: 1.58rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     li.tree-master-item {
@@ -26,17 +32,18 @@
         display: flex;
         flex-direction: column;
 
-        &.expended {
-            & > ul.tree-sub {
-                height: auto !important;
-                visibility: visible !important;
-            }
-        }
+        // &.expended {
+        //     & > ul.tree-sub {
+        //         height: auto !important;
+        //         visibility: visible !important;
+        //     }
+        // }
 
         .tree-item {
             display: flex;
             align-items: center;
-            width: 15.52rem;
+            // width: 15.52rem;
+            width: 100%;
             padding: 1.07rem 0;
             cursor: pointer;
             user-select: none;
@@ -67,8 +74,8 @@
 
         ul.tree-sub {
             padding-left: 2.34rem;
-            height: 0;
-            visibility: hidden;
+            // height: 0;
+            // visibility: hidden;
             transform: all 300ms;
         }
     }
@@ -86,12 +93,12 @@
             }
         }
 
-        &.expended {
-            & > ul.tree-sub {
-                height: auto !important;
-                visibility: visible !important;
-            }
-        }
+        // &.expended {
+        //     & > ul.tree-sub {
+        //         height: auto !important;
+        //         visibility: visible !important;
+        //     }
+        // }
 
         ul {
             height: 0;
@@ -103,7 +110,8 @@
         .tree-item {
             display: flex;
             align-items: center;
-            width: 15.52rem;
+            // width: 15.52rem;
+            width: 100%;
             padding: 1.07rem 0;
             cursor: pointer;
             user-select: none;
@@ -130,6 +138,24 @@
                 width: 0;
                 min-width: 0;
                 padding-left: 1.2rem;
+            }
+        }
+    }
+
+    li.tree-master-item, li.tree-sub-item {
+        &.expended {
+            & > ul.tree-sub {
+                height: auto;
+                visibility: visible;
+            }
+        }
+    }
+
+    li.tree-master-item, li.tree-sub-item {
+        &.notExpended {
+            & ul.tree-sub {
+                height: 0 !important;
+                visibility: hidden !important;
             }
         }
     }
