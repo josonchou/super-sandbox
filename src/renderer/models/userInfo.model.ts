@@ -13,7 +13,7 @@ interface UserInfo {
 const UserInfoModel = makeModal<UserInfo>({
     name: 'userInfo',
     initialState: {
-        uid: 1,
+        uid: 0,
     },
     effects: {
         *login({ payload, callback }, ctx) {
