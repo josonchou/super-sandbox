@@ -51,7 +51,7 @@ const AccountManager: FC = () => {
                                 </Button>
                                 <Button theme="danger" type="small" onClick={() => {
                                     message.confirm(
-                                        '是否要删除已经选中的角色？',
+                                        '是否要删除已经选中的账号？',
                                     );
                                 }}>
                                     删除
