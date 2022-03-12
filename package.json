@@ -41,6 +41,7 @@
       "title": "Electron App"
     },
     "win": {
+      "icon": "./resources/icons/app.ico",
       "target": [
         "nsis",
         "msi"
