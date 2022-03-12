@@ -52,7 +52,7 @@ const CourseManager: FC = () => {
                                 {/* <DialogDisclosure {...dialog}> */}
                                 <Button type="small" onClick={() => {
                                     if (!selectedKey) {
-                                        message.tips('请先选择所属培训项目，再进行新建');
+                                        message.tips('请先选择所属培训项目，再进行新增');
                                         return null;
                                     }
                                     dialog.show();
@@ -152,6 +152,7 @@ const CourseManager: FC = () => {
                         </div>
                         <div className={styles.wrapper}>
                             <Upload />
+                            <p style={{ paddingTop: 5 }}>课件仅支持MP4、PDF、PPT、WORD、EXCEL</p>
                         </div>
                     </div>
                 </div>
