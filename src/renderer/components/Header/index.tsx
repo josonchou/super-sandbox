@@ -1,6 +1,5 @@
 import { dispatch } from '@renderer/store';
 import React, { FC, useCallback, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router';
 import LinkButton from '../Button/LinkButton';
 import Space from '../Space';
@@ -63,20 +62,20 @@ const Header: FC<HeaderProps> = ({ isLogin, uid }) => {
             <div className={styles.action}>
                 {isLogin ? (
                     <Space gap={1.56} gapUnit="rem" >
-                        <LinkButton active={activeMenu === 'Home'} icon="data" onClick={toHome}>
+                        <LinkButton active={activeMenu === 'Home'} className={styles.menuItem} icon="data" onClick={toHome}>
                             能力总表
                         </LinkButton>
-                        <LinkButton active={activeMenu === 'Training'} icon="book" onClick={toTraining}>
+                        <LinkButton active={activeMenu === 'Training'} className={styles.menuItem} icon="book" onClick={toTraining}>
                             培训项目总表
                         </LinkButton>
                         {
                             uid === 1 ? (
-                                <LinkButton active={activeMenu === 'Setting'} icon="settings" onClick={toSettings}>
+                                <LinkButton active={activeMenu === 'Setting'} className={styles.menuItem} icon="settings" onClick={toSettings}>
                                     系统设置
                                 </LinkButton>
                             ) : null
                         }
-                        <LinkButton icon="exit" onClick={handleLoginOut}>
+                        <LinkButton icon="exit" className={styles.menuItem} onClick={handleLoginOut}>
                             退出登录
                         </LinkButton>
                     </Space>

@@ -9,9 +9,10 @@ interface LinkButtonProps {
     active?: boolean;
     theme?: 'default'|'danger';
     fontSize?: string;
+    className?: HTMLDivElement['className'];
 }
 
-const LinkButton: FC<LinkButtonProps> = ({ active, fontSize, theme = 'default', onClick, icon, children }) => {
+const LinkButton: FC<LinkButtonProps> = ({ active, fontSize, className, theme = 'default', onClick, icon, children }) => {
 
     const fontSizeStyle: CSSProperties = useMemo(() => {
         if (!fontSize) {
@@ -27,7 +28,7 @@ const LinkButton: FC<LinkButtonProps> = ({ active, fontSize, theme = 'default', 
             className={classNames('sandbox-link-button', {
                 active,
                 'theme-danger': theme === 'danger',
-            })}
+            }, className)}
             onClick={onClick}
         >
             {icon ? <Icon type={icon} /> : null}
