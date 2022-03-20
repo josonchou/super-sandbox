@@ -32,11 +32,12 @@ const Menu: FC<MenuProps> = (props) => {
         const $activeLi = $menu.current?.querySelector(`.${styles['menu-item']}.${styles.active}`);
         if ($activeLi) {
             const { x, y } = $activeLi?.getBoundingClientRect() ?? { x: 0, y: 0 };
-            
+            const fixedX = -6;
+            const fixedY = 0.1;
             const { x: boxOffsetX, y: boxOffsetY } = $menu.current?.getBoundingClientRect() ?? { x: 0, y : 0 };
             const unitWidth = getUnitWidth();
-            const offsetX = (x - boxOffsetX) / unitWidth - 2.6;
-            const offsetY = (y - boxOffsetY) / unitWidth - 2.9;
+            const offsetX = (x - boxOffsetX) / unitWidth - fixedX;
+            const offsetY = (y - boxOffsetY) / unitWidth - fixedY;
             if ($selectedBox.current) {
                 if ($selectedBox.current.style) {
                     $selectedBox.current.style.top = `${offsetY}rem`;

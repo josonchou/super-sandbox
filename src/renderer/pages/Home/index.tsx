@@ -89,8 +89,10 @@ const Home = () => {
                 <div className={styles.split} />
                 <div className={styles['sub-menu']}>
                     <div className={styles['sub-menu-wrapper']}>
-                        <div className={styles.masonry}>
-                            {subMenus}
+                        <div className={styles.inline}>
+                            <div className={styles.masonry}>
+                                {subMenus}
+                            </div>
                         </div>
                     </div>
                 </div>

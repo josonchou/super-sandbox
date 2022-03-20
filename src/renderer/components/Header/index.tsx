@@ -54,11 +54,7 @@ const Header: FC<HeaderProps> = ({ isLogin, uid }) => {
                     应急课程教学数字沙盘系统
                 </div>
             </div>
-            <div className={styles.icon}>
-                <span>
-                    中国华能
-                </span>
-            </div>
+            <div className={styles.icon} />
             <div className={styles.action}>
                 {isLogin ? (
                     <Space gap={1.56} gapUnit="rem" >
