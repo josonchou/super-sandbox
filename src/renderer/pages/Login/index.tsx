@@ -1,6 +1,6 @@
 import Button from '@renderer/components/Button';
 import Input from '@renderer/components/Input';
-import { showGlobalBg } from '@renderer/components/Layout';
+import { showBgIII, showGlobalBg, showLoginBg } from '@renderer/components/Layout';
 import { generatePageName } from '@renderer/constanst';
 import UserInfoModel from '@renderer/models/userInfo.model';
 import { useLoading } from '@renderer/store';
@@ -17,7 +17,7 @@ const Login = () => {
     const navigate = useNavigate();
     const loading = useLoading();
     useEffect(() => {
-        showGlobalBg();
+        showLoginBg();
     }, []);
     const submitLogin = useCallback(() => {
         UserInfoModel.dispatch({
@@ -74,6 +74,7 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
+                <div className={styles.map} />
             </div>
         </DocumentTitle>
     );

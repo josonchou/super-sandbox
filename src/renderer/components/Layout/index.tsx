@@ -7,8 +7,11 @@ import { dispatch, useGlobalState } from '@renderer/store';
 import UserInfoModel from '@renderer/models/userInfo.model';
 
 const Layout: FC = () => {
-    const { hideGlobalBg, showBgIII } = useGlobalState();
+    const { showBgIII, showLoginBg } = useGlobalState();
     const [userInfo] = UserInfoModel.useModel();
+
+    console.log(showLoginBg, 'showLoginBg');
+    
 
     return (
         <div className="bg">
@@ -19,7 +22,16 @@ const Layout: FC = () => {
                     </div>
                 ) : null
             }
-            <div className="bg-grid" />
+            {
+                showLoginBg ? (
+                    <div className={styles['bg-wrapper']}>
+                        <div className={styles.bg01} />
+                    </div>
+                ) : null
+            }
+            <div className={classNames('bg-grid', {
+                login: showLoginBg,
+            })} />
             <div className="container">
                 <div className={styles.layout}>
                     
@@ -32,13 +44,13 @@ const Layout: FC = () => {
                             <div className={classNames(styles.borderRightTop, styles['border-slide-top'])} />
                             <div className={classNames(styles.borderRightBottom, styles['border-slide-bottom'])} />
                             
-                            {
+                            {/* {
                                 !hideGlobalBg ? (
                                     <div className={styles['bg-wrapper']}>
                                         <div className={styles.bg} />
                                     </div>
                                 ) : null
-                            }
+                            } */}
                             <div className={styles['content-wrapper']}>
                                 <Outlet />
                             </div>
@@ -56,6 +68,17 @@ export const showBgIII = () => {
         type: 'global@apply',
         payload: {
             showBgIII: true,
+            showLoginBg: false,
+        },
+    });
+}
+
+export const showLoginBg = () => {
+    dispatch({
+        type: 'global@apply',
+        payload: {
+            showLoginBg: true,
+            showBgIII: false,
         },
     });
 }
@@ -66,6 +89,7 @@ export const hideGlobalBg = () => {
         payload: {
             hideGlobalBg: true,
             showBgIII: false,
+            showLoginBg: false,
         },
     });
 };

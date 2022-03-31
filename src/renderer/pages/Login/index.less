@@ -6,6 +6,7 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-start;
+    position: relative;
 
     .login-box {
         position: relative;
@@ -39,7 +40,7 @@
             left: 0.6rem;
             top: 0.5rem;
             position: absolute;
-            background-color: rgba(0, 13, 43);
+            // background-color: rgba(0, 13, 43);
             z-index: 0;
         }
 
@@ -87,5 +88,15 @@
                 text-align: center;
             }
         }
+    }
+
+    .map {
+        position: absolute;
+        top: 3.23rem;
+        left: 4.69rem;
+        background: url(./map.png) no-repeat center;
+        background-size: cover;
+        width: 54.17rem;
+        height: 38.54rem;
     }
 }

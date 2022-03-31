@@ -51,7 +51,7 @@
             position: absolute;
             left: -0.2rem;
             top: -0.2rem;
-            background: url('@assets/bg/bg.png') no-repeat;
+            background: url('@assets/bg/bg01.png') no-repeat;
             // background-size: 100% 100%;
             background-size: cover;
             width: calc(100% + 0.4rem);
@@ -155,6 +155,21 @@
     z-index: 0;
 }
 
+.bg01 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    filter: grayscale(0);
+    background: url('@assets/bg/bg01.png') no-repeat center;
+    background-size: 100% 100%;
+    // background-size: 45.57rem 56.27rem;
+    width: 100%;
+    height: 100%;
+    // width: calc(100% + 0.4rem);
+    // height: calc(100% + 0.4rem);
+    z-index: 0;
+}
+
 :global {
     .bg {
         width: 100vw;
@@ -164,6 +179,7 @@
     }
 
     .bg-grid {
+        // display: none;
         position: absolute;
         width: calc(100vw + 0.2rem);
         height: calc(100vh + 0.2rem);
@@ -179,6 +195,11 @@
             linear-gradient(rgba(34, 39, 52, 0.8) 4%, rgba(0, 0, 0, 0) 4%);
         background-size: 2.2rem 2.2rem;
         z-index: 0;
+
+        &.login {
+            background-color: rgba(15, 21, 35, 0.5);
+            background-image: none;
+        }
     }
 
     .container {
