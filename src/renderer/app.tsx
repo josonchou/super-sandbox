@@ -116,6 +116,7 @@ const Window: FC = ({ children }) => {
                 {
                     process.platform !== 'darwin' ? (
                         <div className="tooltip-box">
+                            <a href="#" onClick={() => window.location.reload()}>刷新</a>
                             <div
                                 className={classNames('light_btn fa-icon blue', {
                                     fullscreen: !windowState.isFullscreen,

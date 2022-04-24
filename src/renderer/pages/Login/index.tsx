@@ -2,6 +2,7 @@ import Button from '@renderer/components/Button';
 import Input from '@renderer/components/Input';
 import { showBgIII, showGlobalBg, showLoginBg } from '@renderer/components/Layout';
 import { generatePageName } from '@renderer/constanst';
+import useLoginState from '@renderer/models/useLoginState';
 import UserInfoModel from '@renderer/models/userInfo.model';
 import { useLoading } from '@renderer/store';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -10,10 +11,10 @@ import { useNavigate } from 'react-router';
 import styles from './index.less';
 
 const Login = () => {
+    useLoginState();
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [loginError, setLoginError] = useState(false);
-    
     const navigate = useNavigate();
     const loading = useLoading();
     useEffect(() => {

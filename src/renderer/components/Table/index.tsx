@@ -3,7 +3,7 @@
  * @author: 周金顺（云天河）
  */
 
-import React, { ForwardRefExoticComponent, forwardRef, ReactElement } from 'react';
+import React, { ForwardRefExoticComponent, forwardRef, ReactElement, useEffect } from 'react';
 import { useTable, UseTableOptions, useRowSelect, usePagination } from 'react-table';
 import Loading from '../Loading';
 import './index.less';
@@ -12,12 +12,14 @@ interface TableProps<T extends object> {
     rowKey: string;
     columns?: UseTableOptions<T>['columns'];
     dataSource?: UseTableOptions<T>['data'];
+    currentPage?: number;
     pageSize?: number;
     pageCount?: number;
     loading?: boolean;
     onPageChange?: (page: number) => void;
     rowSelection?: {
         rowKey: string;
+        onSelectedChange?: (rows: { [key: string]: boolean }) => void;
     };
 }
 
@@ -48,7 +50,7 @@ const IndeterminateCheckbox: ForwardRefExoticComponent<IndeterminateCheckboxProp
   );
 
 const Table: TableComponent = (props) => {
-    const { rowKey, loading, columns = [], dataSource = [], rowSelection, pageCount, pageSize = 3, onPageChange = (page: number) => page } = props;
+    const { rowKey, loading, columns = [], dataSource = [], currentPage, rowSelection, pageCount, pageSize = 3, onPageChange = (page: number) => page } = props;
     const {
         getTableBodyProps,
         getTableProps,
@@ -63,9 +65,13 @@ const Table: TableComponent = (props) => {
         nextPage,
         // @ts-ignore
         previousPage,
+        // @ts-ignore
+        gotoPage,
         state: {
             // @ts-ignore
             pageIndex,
+            // @ts-ignore
+            selectedRowIds
         },
         // state,
         // useControlledState,
@@ -107,6 +113,16 @@ const Table: TableComponent = (props) => {
             });
         },
     );
+
+    useEffect(() => {
+        gotoPage((currentPage ?? 1) - 1);
+    }, [currentPage]);
+
+    useEffect(() => {
+        rowSelection?.onSelectedChange && rowSelection.onSelectedChange(selectedRowIds);
+    }, [selectedRowIds])
+
+    console.log(selectedRowIds, 'selectedRowIds ==>');
 
     return (
         <Loading loading={loading}>

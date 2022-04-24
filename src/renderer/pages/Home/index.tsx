@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router';
-import UserInfoModel from '@renderer/models/userInfo.model';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { hideGlobalBg, showBgIII } from '@renderer/components/Layout';
 import styles from './index.less';
@@ -7,17 +5,13 @@ import AbilityTableModel from '@renderer/models/abilityTable.model';
 import AbilityMenu from './AbilityMenu';
 import DocumentTitle from 'react-document-title';
 import { generatePageName } from '@renderer/constanst';
+import useLoginState from '@renderer/models/useLoginState';
+
+
 
 const Home = () => {
-    const [userInfo] = UserInfoModel.useModel();
     const [abilityTable, dispatch] = AbilityTableModel.useModel();
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (!userInfo.uid) {
-            navigate('/login');
-        }
-    }, [userInfo, navigate]);
+    useLoginState();
 
     useEffect(() => {
         hideGlobalBg();

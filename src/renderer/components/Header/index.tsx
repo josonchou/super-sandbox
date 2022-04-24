@@ -7,10 +7,10 @@ import styles from './index.less';
 
 interface HeaderProps {
     isLogin?: boolean;
-    uid?: number;
+    isManager?: boolean;
 }
 
-const Header: FC<HeaderProps> = ({ isLogin, uid }) => {
+const Header: FC<HeaderProps> = ({ isLogin, isManager }) => {
     const navigate = useNavigate();
     const location = useLocation();
     
@@ -65,7 +65,7 @@ const Header: FC<HeaderProps> = ({ isLogin, uid }) => {
                             培训项目总表
                         </LinkButton>
                         {
-                            uid === 1 ? (
+                            isManager ? (
                                 <LinkButton active={activeMenu === 'Setting'} className={styles.menuItem} icon="settings" onClick={toSettings}>
                                     系统设置
                                 </LinkButton>

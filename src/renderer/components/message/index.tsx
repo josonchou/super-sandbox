@@ -16,11 +16,12 @@ interface MessageDialogProps {
     title?: string;
     dialogType?: 'confirm'|'tips';
     onClose: () => void;
+    onOk?: () => void;
 }
 
 export const useMatinaDialogState = () => useDialogState({ animated: true, visible: true, });
 
-const MessageDialog: FC<MessageDialogProps> = ({ children, title, dialogType, onClose }) => {
+const MessageDialog: FC<MessageDialogProps> = ({ children, title, dialogType, onOk, onClose }) => {
     const dialog = useMatinaDialogState();
     const footer = useMemo(() => {
         if (dialogType === 'confirm') {
@@ -29,6 +30,7 @@ const MessageDialog: FC<MessageDialogProps> = ({ children, title, dialogType, on
                     <Space>
                         <Button type="small" onClick={() => {
                             dialog.hide();
+                            onOk && onOk();
                             onClose();
                         }}>
                             确定
@@ -49,6 +51,7 @@ const MessageDialog: FC<MessageDialogProps> = ({ children, title, dialogType, on
                     <Space>
                         <Button type="small" onClick={() => {
                             dialog.hide();
+                            onOk && onOk();
                             onClose();
                         }}>
                             知道啦
@@ -58,6 +61,7 @@ const MessageDialog: FC<MessageDialogProps> = ({ children, title, dialogType, on
             );
         }
     }, [dialogType, onClose, dialog]);
+
     return (
         <DialogBackdrop {...dialog} className={styles.backdrop}>
             <Dialog {...dialog} aria-label="Dialog" className={styles.dialog}>
@@ -81,7 +85,8 @@ const MessageDialog: FC<MessageDialogProps> = ({ children, title, dialogType, on
 export { MessageDialog };
 
 const message = {
-    confirm: (title: string, content?: ReactNode) => {
+    confirm: (title: string, options?: { content?: ReactNode, onOk?: () => void }) => {
+        const { content, onOk } = options ?? {};
         const div = document.createElement('div');
         document.body.appendChild(div);
 
@@ -92,7 +97,7 @@ const message = {
             }, 300);
         };
 
-        render(<MessageDialog title={title} dialogType="confirm" onClose={destory}>{content}</MessageDialog>, div);
+        render(<MessageDialog title={title} dialogType="confirm" onOk={onOk} onClose={destory}>{content}</MessageDialog>, div);
         
     },
     tips: (title: string) => {

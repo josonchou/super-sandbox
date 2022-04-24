@@ -3,7 +3,9 @@
  * @author: 周金顺（云天河）
  */
 
-import { getAccounts } from '@renderer/service/account';
+import message from '@renderer/components/message';
+import { ResponseTuple } from '@renderer/lib/request';
+import { batchRemove, createUser, getAccounts } from '@renderer/service/account';
 import { makeModal } from '@renderer/store';
 
 const AccountModel = makeModal({
@@ -11,6 +13,7 @@ const AccountModel = makeModal({
     initialState: {
         records: [],
         total: 0,
+        currentPage: 1,
     },
     reducers: {
         apply(state, { payload }) {
@@ -22,18 +25,53 @@ const AccountModel = makeModal({
     },
     effects: {
         *fetchAccountList({ payload = {} }, { put, call }) {
-            const result: any = yield call(getAccounts, payload ?? { page: 1 });
-            console.log('result ==>', result);
-            
-            const { total, records } = result;
+            const [isOk, result] = (yield call(getAccounts, payload ?? { page: 1 })) as unknown as ResponseTuple<any>;
+            if (isOk) {
+                const { total, records, page } = result as any;
+                console.log(result, 'result')
+                yield put({
+                    type: 'apply',
+                    payload: {
+                        records,
+                        total,
+                        currentPage: page,
+                    },
+                });
+            }
+        },
+        *removeUsers({ payload = {} }, { put, call, select }) {
+            const account = (yield select((s) => s.account)) as any;
+            const [isOk, _, msg] = (yield call(batchRemove, payload)) as unknown as ResponseTuple<any>;
 
-            yield put({
-                type: 'apply',
-                payload: {
-                    records,
-                    total,
-                },
-            });
+            if (isOk) {
+                message.tips('删除成功');
+                yield put({
+                    type: 'fetchAccountList',
+                    payload: {
+                        page: account.currentPage,
+                        pageSize: 3,
+                    }
+                })
+            } else {
+                message.tips(msg);
+            }
+        },
+        *createOne({ payload = {}, callback }, { put, call, select }) {
+            const [isOk, _, msg] = (yield call(createUser, payload)) as unknown as ResponseTuple<any>;
+            const account = (yield select((s) => s.account)) as any;
+            if (isOk) {
+                message.tips('删除成功');
+                callback && callback();
+                yield put({
+                    type: 'fetchAccountList',
+                    payload: {
+                        page: account.currentPage,
+                        pageSize: 3,
+                    }
+                });
+            } else {
+                message.tips(msg);
+            }
         }
     },
 });

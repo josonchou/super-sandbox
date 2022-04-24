@@ -1,6 +1,7 @@
 import { hideGlobalBg, showBgIII } from '@renderer/components/Layout';
 import { APP_NAME, generatePageName } from '@renderer/constanst';
 import TrainingModel from '@renderer/models/training.model';
+import useLoginState from '@renderer/models/useLoginState';
 import React, { useCallback, useEffect, useState } from 'react';
 import DocumentTitle from 'react-document-title';
 import { useNavigate } from 'react-router';
@@ -11,6 +12,7 @@ import SubMenu from './SubMenu';
 // 3.18rem; 7.08
 
 const Training = () => {
+    useLoginState();
     const [trainingState, dispatch] = TrainingModel.useModel();
     const navigate = useNavigate();
     const { selectedMasterCate, secondMenu = [] } = trainingState;

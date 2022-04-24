@@ -1,5 +1,6 @@
 import { hideGlobalBg } from '@renderer/components/Layout';
 import { generatePageName } from '@renderer/constanst';
+import useLoginState from '@renderer/models/useLoginState';
 import React, { useCallback, useEffect, MouseEvent, useState, useMemo } from 'react';
 import DocumentTitle from 'react-document-title';
 import AccountManager from './AccountManager';
@@ -9,6 +10,7 @@ import styles from './index.less';
 
 const Settings = () => {
     const [currentMenu, setCurrentMenu] = useState(0);
+    useLoginState();
     useEffect(() => {
         hideGlobalBg();
     }, []);

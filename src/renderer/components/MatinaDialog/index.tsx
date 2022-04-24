@@ -11,9 +11,10 @@ import styles from './index.less';
 interface MatinaDialogProps {
     dialog: any;
     title?: string;
+    onClose?: () => void;
 }
 
-const MatinaDialog: FC<MatinaDialogProps> = ({ children, title, dialog }) => {
+const MatinaDialog: FC<MatinaDialogProps> = ({ children, title, dialog, onClose }) => {
     return (
         <DialogBackdrop {...dialog} className={styles.backdrop}>
             <Dialog {...dialog} aria-label="Dialog" className={styles.dialog}>
@@ -21,6 +22,7 @@ const MatinaDialog: FC<MatinaDialogProps> = ({ children, title, dialog }) => {
                     {title}
                     <div className={classNames('fa-font', styles.close)} onClick={() => {
                         dialog.hide();
+                        onClose && onClose();
                     }} />
                 </div>
                 <div className={styles.content}>

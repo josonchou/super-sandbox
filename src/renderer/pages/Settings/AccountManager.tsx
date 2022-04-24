@@ -12,7 +12,7 @@ import Space from '@renderer/components/Space';
 import Table from '@renderer/components/Table';
 import AccountModel from '@renderer/models/account.model';
 import { useLoading } from '@renderer/store';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Card from './Card';
 import Header from './Header';
 import styles from './index.less';
@@ -20,8 +20,13 @@ import { Account } from './models';
 
 const AccountManager: FC = () => {
     const [account, dispatch] = AccountModel.useModel();
+    const keywords = useRef();
+    const selectRows = useRef();
     const dialog = useMatinaDialogState();
-    const { records, total } = account;
+    const { records, total, currentPage } = account;
+    const [checkedRoles, setCheckedRoles] = useState();
+    const [username, setUsername] = useState();
+    
     const laoding = useLoading();
 
     useEffect(() => {
@@ -33,6 +38,36 @@ const AccountManager: FC = () => {
             },
         });
     }, [dispatch]);
+
+    const handleSearch = useCallback(() => {
+        dispatch({
+            type: 'account@fetchAccountList',
+            payload: {
+                page: 1,
+                pageSize: 3,
+                username: keywords.current,
+            }
+        });
+    }, []);
+
+    const afterClose = useCallback(() => {
+        setUsername(undefined);
+        setCheckedRoles(undefined);
+    }, []);
+
+    const handleSubmit = useCallback(() => {
+        dispatch({
+            type: 'account@createOne',
+            payload: {
+                username,
+                role: Number((checkedRoles ?? [])[0] ?? 2),
+            },
+            callback: () => {
+                afterClose();
+            }
+        });
+        dialog.hide();
+    }, [afterClose, username, checkedRoles, dialog.hide]);
     
 
     return (
@@ -52,6 +87,14 @@ const AccountManager: FC = () => {
                                 <Button theme="danger" type="small" onClick={() => {
                                     message.confirm(
                                         '是否要删除已经选中的账号？',
+                                        {
+                                            onOk: () => {
+                                                dispatch({
+                                                    type: 'account@removeUsers',
+                                                    payload: selectRows.current,
+                                                });
+                                            }
+                                        }
                                     );
                                 }}>
                                     删除
@@ -61,7 +104,11 @@ const AccountManager: FC = () => {
                     }}
                 />
                 <Card>
-                    <div className={styles.filter}>
+                    <div className={styles.filter} onKeyUp={(e) => {
+                        if (e.nativeEvent.keyCode === 13) {
+                            handleSearch();
+                        }
+                    }}>
                         <div className={styles['form-item']}>
                             <div className={styles.label}>
                                 账号
@@ -70,12 +117,17 @@ const AccountManager: FC = () => {
                                 <Input
                                     placeholder="请输入账号"
                                     theme="matina"
+                                    onChange={(e) => {
+                                        const target = (e?.target ?? {}) as any;
+                                        keywords.current = (target.value ?? '');
+                                    }}
                                 />
                             </div>
                         </div>
                         <div>
                             <Button
                                 type="small"
+                                onClick={handleSearch}
                             >
                                 查询
                             </Button>
@@ -86,7 +138,7 @@ const AccountManager: FC = () => {
                     <Header title="列表" />
                     <Card>
                         <Table<Account>
-                            rowKey="rowId"
+                            rowKey="id"
                             loading={laoding['account@fetchAccountList']}
                             columns={[
                                 {
@@ -95,18 +147,25 @@ const AccountManager: FC = () => {
                                 },
                                 {
                                     Header: '角色',
-                                    accessor: 'remark',
+                                    accessor: 'role',
                                 }
                             ]}
-                            dataSource={records}
+                            dataSource={records.map((item: Account) => {
+                                return {
+                                    ...item,
+                                    role: item.role === 1 ? '管理员' : '讲师',
+                                }
+                            })}
+                            currentPage={currentPage}
                             pageSize={3}
                             rowSelection={{
                                 rowKey: 'id',
+                                onSelectedChange: (rowsMap) => {
+                                    selectRows.current = (Object.keys(rowsMap)) as any;
+                                },
                             }}
                             pageCount={Math.ceil(total / 3)}
                             onPageChange={(page: number) => {
-                                console.log(page, 'page==>');
-                                
                                 dispatch({
                                     type: 'account@fetchAccountList',
                                     payload: {
@@ -119,7 +178,7 @@ const AccountManager: FC = () => {
                     </Card>
                 </div>
             </div>
-            <MatinaDialog dialog={dialog} title="新增账号">
+            <MatinaDialog dialog={dialog} title="新增账号" onClose={afterClose}>
                 <div className={styles.form}>
                     <div className={styles['form-item']}>
                         <div className={styles.label}>
@@ -129,6 +188,11 @@ const AccountManager: FC = () => {
                             <Input
                                 placeholder="请输入账号"
                                 theme="matina"
+                                value={username}
+                                onChange={(e) => {
+                                    const target = (e?.target ?? {}) as any;
+                                    setUsername(target.value ?? '');
+                                }}
                             />
                         </div>
                     </div>
@@ -137,15 +201,16 @@ const AccountManager: FC = () => {
                             角色
                         </div>
                         <div className={styles.wrapper}>
-                            <Checkbox />
+                            <Checkbox
+                                value={checkedRoles}
+                                onChange={setCheckedRoles as any}
+                            />
                         </div>
                     </div>
                 </div>
                 <div className={styles.footer}>
                     <Space>
-                        <Button type="small" onClick={() => {
-                            dialog.hide();
-                        }}>
+                        <Button type="small" onClick={handleSubmit}>
                             保存
                         </Button>
                     </Space>

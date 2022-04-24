@@ -1,13 +1,7 @@
-/*
- * @description: 
- * @author: 周金顺（云天河）
- */
-
 import request from '@renderer/lib/request';
-import { AdminListResult, CreateUserDTO } from '@renderer/schema/admin';
 import { AnyParams } from './interface';
 
-export async function getAccounts(params: AnyParams) {
+export async function getCourseList(params: AnyParams) {
     const [isOk, result] = await request<AdminListResult>({
         url: '/admin/users',
         method: 'get',
