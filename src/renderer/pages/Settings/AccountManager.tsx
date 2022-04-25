@@ -171,6 +171,7 @@ const AccountManager: FC = () => {
                                     payload: {
                                         page,
                                         pageSize: 3,
+                                        username: keywords.current,
                                     }
                                 });
                             }}

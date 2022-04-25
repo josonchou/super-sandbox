@@ -1,9 +1,11 @@
 import request from '@renderer/lib/request';
+import { CreateUserDTO } from '@renderer/schema/admin';
+import { CourseListResult } from '@renderer/schema/course';
 import { AnyParams } from './interface';
 
 export async function getCourseList(params: AnyParams) {
-    const [isOk, result] = await request<AdminListResult>({
-        url: '/admin/users',
+    const [isOk, result] = await request<CourseListResult>({
+        url: '/courses/list',
         method: 'get',
         params,
     });
@@ -25,18 +27,40 @@ export async function getCourseList(params: AnyParams) {
 
 export async function batchRemove(ids: number[]) {
     return await request({
-        url: '/admin/users',
+        url: '/courses/batch',
         method: 'delete',
         data: {
-            uids: ids,
+            ids,
         }
     });
 }
 
-export async function createUser(data: CreateUserDTO) {
+export async function createCourse(data: CreateUserDTO) {
     return await request({
-        url: '/admin/users',
+        url: '/courses/createOne',
         method: 'post',
         data,
+    });
+}
+
+export async function getAbilityTable() {
+    return await request({
+        url: '/courses/ability/category',
+        method: 'get',
+    });
+}
+
+export async function getCourseCategory() {
+    return await request({
+        url: '/courses/training/category',
+        method: 'get',
+    });
+}
+
+export async function getAllCourse(params: AnyParams) {
+    return await request({
+        url: '/courses/listByCategory',
+        method: 'get',
+        params,
     });
 }

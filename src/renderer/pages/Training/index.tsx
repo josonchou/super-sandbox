@@ -17,6 +17,9 @@ const Training = () => {
     const navigate = useNavigate();
     const { selectedMasterCate, secondMenu = [] } = trainingState;
     useEffect(() => {
+        dispatch({
+            type: 'training@loadCategory'
+        });
         hideGlobalBg();
         showBgIII();
     }, []);

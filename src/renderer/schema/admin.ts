@@ -11,6 +11,12 @@ export interface AdminDTO {
     role?: number; // 1: 管理员 2: 讲师
 }
 
+export interface UserInfoDTO {
+    admin?: AdminDTO;
+    ability?: { [key: string]: any };
+    trainingCategory?: { [key: string]: any };
+}
+
 export interface LoginResult {
     admin: AdminDTO;
     token: string;

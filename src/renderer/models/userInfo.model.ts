@@ -4,7 +4,7 @@
  */
 
 import { ResponseTuple } from '@renderer/lib/request';
-import { AdminDTO, LoginResult } from '@renderer/schema/admin';
+import { AdminDTO, LoginResult, UserInfoDTO } from '@renderer/schema/admin';
 import { getUserInfo, login } from '@renderer/service/user';
 import { makeModal } from '@renderer/store';
 
@@ -13,6 +13,8 @@ interface UserInfo {
     userName?: string;
     token?: string;
     role?: number;
+    ability?: any;
+    trainingCategory?: any;
 }
 
 const UserInfoModel = makeModal<UserInfo>({
@@ -20,6 +22,8 @@ const UserInfoModel = makeModal<UserInfo>({
     initialState: {
         uid: 0,
         token: '',
+        ability: [],
+        trainingCategory: [],
     },
     effects: {
         *login({ payload, callback }, ctx) {
@@ -58,16 +62,19 @@ const UserInfoModel = makeModal<UserInfo>({
         },
         *refreshUserInfo(_, { put, call }) {
             const token = localStorage.getItem('token');
-            console.log('refreshLogin', token)
-            const [isOk, userInfo] = (yield call(getUserInfo)) as unknown as ResponseTuple<AdminDTO>;
+            const [isOk, userInfo] = (yield call(getUserInfo)) as unknown as ResponseTuple<UserInfoDTO>;
+            const { admin, ability, trainingCategory } = userInfo ?? {};
+            console.log(userInfo, 'userInfo ==>');
             if (isOk) {
                 yield put({
                     type: 'apply',
                     payload: {
-                        uid: userInfo?.id,
-                        userName: userInfo?.nickname,
-                        role: userInfo?.role,
+                        uid: admin?.id,
+                        userName: admin?.nickname,
+                        role: admin?.role,
                         token,
+                        ability,
+                        trainingCategory
                     }
                 });
             }

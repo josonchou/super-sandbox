@@ -412,11 +412,10 @@ export const TrainingItem = [
     },
 ]
 
+
 export const getAllSecondTrainingItems = () => {
     let list: typeof TrainingItem = [];
     TrainingItem.map((item) => {
-        console.log(item.children, 'children');
-        
         list = [...list, ...(item.children ?? [])] as any;
     });
     return list;

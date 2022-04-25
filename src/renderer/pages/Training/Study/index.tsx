@@ -5,6 +5,7 @@
 
 import { hideGlobalBg } from '@renderer/components/Layout';
 import TreeList from '@renderer/components/TreeList';
+import { HOST, PORT } from '@renderer/constanst';
 import TrainingModel from '@renderer/models/training.model';
 import classNames from 'classnames';
 import React, { FC, useEffect } from 'react';
@@ -16,6 +17,8 @@ const Study: FC = () => {
     const [trainingState, dispatch] = TrainingModel.useModel();
     const { courseList, currentCourse } = trainingState;
     const { secCate, thirdCate } = useParams();
+
+    console.log(courseList, 'courseList')
     useEffect(() => {
         hideGlobalBg();
     }, []);
@@ -39,14 +42,21 @@ const Study: FC = () => {
                 <div className={styles.tree}>
                     <TreeList
                         treeData={trainingState.currentStudyCategory ?? []}
+                        onSelected={({ key }) => {
+                            const keyArr = String(key ?? '').split('-');
+                            dispatch({
+                                type: 'training@loadCourse',
+                                payload: keyArr[(keyArr.length ?? 1) - 1],
+                            });
+                        }}
                     />
                 </div>
             </div>
             <div className={styles.content}>
                 <div className={styles.reader}>
                     <CourseReader
-                        type={currentCourse.kind}
-                        src={currentCourse.src}
+                        type={(currentCourse as any).courseType}
+                        src={`http://${HOST}:${PORT}/files/view/${(currentCourse as any).fileUUID}`}
                         // cover={currentCourse?.cover}
                     />
                 </div>
@@ -56,12 +66,12 @@ const Study: FC = () => {
                     </div>
                     <div className={styles.list}>
                         {
-                            courseList.map((item) => {
+                            courseList.map((item: any) => {
                                 return (
                                     <div
-                                        key={item.key}
+                                        key={item.id}
                                         className={classNames(styles['course-item'], {
-                                            [styles.active]: item.key === currentCourse.key,
+                                            [styles.active]: item.id === (currentCourse as any).id,
                                         })}
                                         onClick={() => {
                                             dispatch({
@@ -72,9 +82,9 @@ const Study: FC = () => {
                                             });
                                         }}
                                     >
-                                        <div className={classNames(styles.cover, item.kind)} />
+                                        <div className={classNames(styles.cover, (item as any).courseType)} />
                                         <div className={styles['item-title']}>
-                                            {item.name}
+                                            {item.courseName}
                                         </div>
                                     </div>
                                 )

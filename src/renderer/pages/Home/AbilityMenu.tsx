@@ -1,5 +1,5 @@
 import { AbilityTable } from '@renderer/models/abilityTable.model';
-import React, { FC, MouseEventHandler, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import styles from './AbilityMenu.less';
 

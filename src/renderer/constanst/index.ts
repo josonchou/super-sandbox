@@ -2,6 +2,9 @@ import { APP_NAME as name } from '@config/index';
 
 export const APP_NAME = name;
 
+export const HOST = '172.30.96.226';
+export const PORT = 3000;
+
 export const Ability = [
     {
         name: '基础能力',

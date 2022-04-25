@@ -2,8 +2,8 @@
  * @description: 
  * @author: 周金顺（云天河）
  */
-
-import { Ability } from '@renderer/constanst';
+import { ResponseTuple } from '@renderer/lib/request';
+import { getAbilityTable } from '@renderer/service/course';
 import { makeModal } from '@renderer/store';
 
 interface AbilityData {
@@ -26,15 +26,17 @@ const AbilityTableModel = makeModal<AbilityTable>({
     },
     effects: {
         *reqAbility(_, ctx) {
-            // yield ctx.delay(1000);
-            yield ctx.put({
-                type: 'setAbility',
-                payload: Ability.sort((a, b) => a.sort - b.sort),
-            });
-            yield ctx.put({
-                type: 'selectMenu',
-                payload: Ability[0].id,
-            });
+            const [isOk, ability = []] = (yield ctx.call(getAbilityTable)) as unknown as ResponseTuple<Array<any>>;
+            if (isOk) {
+                yield ctx.put({
+                    type: 'setAbility',
+                    payload: ability.sort((a, b) => a.sort - b.sort),
+                });
+                yield ctx.put({
+                    type: 'selectMenu',
+                    payload: (ability[0] || {}).id,
+                });
+            }
         }
     },
     reducers: {
