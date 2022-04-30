@@ -24,7 +24,7 @@ const Header: FC<HeaderProps> = ({ isLogin, isManager }) => {
     }, [navigate]);
 
     const toHome = useCallback(() => {
-        navigate('/');
+        navigate('/home');
     }, [navigate]);
 
     const toTraining = useCallback(() => {

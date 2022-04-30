@@ -13,7 +13,6 @@ export default function useLoginState() {
     const location = useLocation();
 
     useEffect(() => {
-        console.log(location);
         dispatch({
             type: 'userInfo@initLoginState',
             callback: (res: any) => {
@@ -23,7 +22,7 @@ export default function useLoginState() {
                     }
                 } else {
                     if (location.pathname.includes('/login')) {
-                        navigate('/');
+                        navigate('home');
                     }
                 }
             }

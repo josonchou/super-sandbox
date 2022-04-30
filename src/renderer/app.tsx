@@ -2,6 +2,7 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ipcRenderer } from 'electron';
+import { useNavigate } from 'react-router';
 import routes from './routes';
 import './global.less';
 import { AppRouter } from './lib/router';
@@ -116,7 +117,7 @@ const Window: FC = ({ children }) => {
                 {
                     process.platform !== 'darwin' ? (
                         <div className="tooltip-box">
-                            <a href="#" onClick={() => window.location.reload()}>刷新</a>
+                            {/* <a href="#" onClick={() => window.location.reload()}>刷新</a> */}
                             <div
                                 className={classNames('light_btn fa-icon blue', {
                                     fullscreen: !windowState.isFullscreen,
@@ -142,11 +143,34 @@ const Window: FC = ({ children }) => {
     );
 };
 
+const Rate = 1000;
+
+const Ping: FC = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const num = setInterval(() => {
+            console.log('ping');
+            const ip = localStorage.getItem('host');
+            if (!ip) {
+                navigate('/');
+            }
+        }, Rate);
+
+        return () => {
+            clearInterval(num);
+        }
+    }, []);
+
+    return null;
+}
+
 ReactDOM.render(
     <React.StrictMode>
         <HashRouter>
             <StoreProvider>
                 <Window>
+                    <Ping />
                     <AppRouter routes={routes} />
                 </Window>
             </StoreProvider>

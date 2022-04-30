@@ -5,7 +5,7 @@
 
 import { hideGlobalBg } from '@renderer/components/Layout';
 import TreeList from '@renderer/components/TreeList';
-import { HOST, PORT } from '@renderer/constanst';
+import { getServerHost } from '@renderer/lib/request';
 import TrainingModel from '@renderer/models/training.model';
 import classNames from 'classnames';
 import React, { FC, useEffect } from 'react';
@@ -56,8 +56,10 @@ const Study: FC = () => {
                 <div className={styles.reader}>
                     <CourseReader
                         type={(currentCourse as any).courseType}
-                        src={`http://${HOST}:${PORT}/files/view/${(currentCourse as any).fileUUID}`}
-                        // cover={currentCourse?.cover}
+                        src={`${getServerHost()}/files/view/${(currentCourse as any).fileUUID}`}
+                        // cover={currentCourse?.cover}\
+                        uuid={(currentCourse as any).fileUUID}
+                        title={(currentCourse as any).courseName}
                     />
                 </div>
                 <div className={styles['courseware-list']}>

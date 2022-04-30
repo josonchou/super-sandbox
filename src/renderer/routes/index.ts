@@ -19,6 +19,10 @@ const routes: RoutesConfig = [
             {
                 home: true,
                 path: '/',
+                asyncComponent: lazy(() => import('@renderer/pages/Welcome')),
+            },
+            {
+                path: '/home',
                 asyncComponent: lazy(() => import('@renderer/pages/Home')),
             },
             {

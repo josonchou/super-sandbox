@@ -3,9 +3,16 @@
  * @author: 周金顺（云天河）
  */
 
+import { PORT } from '@config/index';
 import axios, { AxiosRequestConfig } from 'axios';
 
 export type ResponseTuple<T = any> = [boolean, T, string];
+
+export const getServerHost = (port?: string) => {
+    const ip = localStorage.getItem('host');
+
+    return `http://${ip}:${port ?? PORT}`;
+}
 
 const returnData = (response: any) => {
     const { data = {} } = response || {};
@@ -20,7 +27,7 @@ export default async function request<T>(config: AxiosRequestConfig): Promise<Re
     try {
         const response = await axios({
             ...config,
-            baseURL: 'http://localhost:3000',
+            baseURL: getServerHost(),
             headers: {
                 'authorization': token ? `Bearer ${token}` : '',
             }
@@ -31,4 +38,15 @@ export default async function request<T>(config: AxiosRequestConfig): Promise<Re
         return returnData(e.response ?? {});
     }
     
+}
+
+export async function remote(config: AxiosRequestConfig) {
+    const token = localStorage.getItem('token');
+    return await axios({
+        ...config,
+        baseURL: 'http://localhost:3000',
+        headers: {
+            'authorization': token ? `Bearer ${token}` : '',
+        }
+    });
 }

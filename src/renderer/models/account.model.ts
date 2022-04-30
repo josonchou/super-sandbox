@@ -44,7 +44,7 @@ const AccountModel = makeModal({
             const [isOk, _, msg] = (yield call(batchRemove, payload)) as unknown as ResponseTuple<any>;
 
             if (isOk) {
-                message.tips('删除成功');
+                message.success('删除成功');
                 yield put({
                     type: 'fetchAccountList',
                     payload: {
@@ -53,14 +53,14 @@ const AccountModel = makeModal({
                     }
                 })
             } else {
-                message.tips(msg);
+                message.error(msg);
             }
         },
         *createOne({ payload = {}, callback }, { put, call, select }) {
             const [isOk, _, msg] = (yield call(createUser, payload)) as unknown as ResponseTuple<any>;
             const account = (yield select((s) => s.account)) as any;
             if (isOk) {
-                message.tips('删除成功');
+                message.success('删除成功');
                 callback && callback();
                 yield put({
                     type: 'fetchAccountList',
@@ -70,7 +70,7 @@ const AccountModel = makeModal({
                     }
                 });
             } else {
-                message.tips(msg);
+                message.error(msg);
             }
         }
     },

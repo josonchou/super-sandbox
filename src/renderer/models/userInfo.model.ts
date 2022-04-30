@@ -49,7 +49,7 @@ const UserInfoModel = makeModal<UserInfo>({
                 // Token 7天后过期
                 const tokenExpireAt = Date.now() + (7 * 24 * 3600 * 1000);
                 localStorage.setItem('token_expire_at', String(tokenExpireAt));
-                navigate('/');
+                navigate('/home');
             } else {
                 callback(new Error('登录失败'));
             }
@@ -60,11 +60,11 @@ const UserInfoModel = makeModal<UserInfo>({
             const { navigate } = payload;
             navigate('/login');
         },
-        *refreshUserInfo(_, { put, call }) {
+        *refreshUserInfo({ callback }, { put, call }) {
             const token = localStorage.getItem('token');
             const [isOk, userInfo] = (yield call(getUserInfo)) as unknown as ResponseTuple<UserInfoDTO>;
-            const { admin, ability, trainingCategory } = userInfo ?? {};
-            console.log(userInfo, 'userInfo ==>');
+            const { userInfo: admin, ability, trainingCategory } = userInfo ?? {};
+            console.log(userInfo, 'refresh userInfo ==>');
             if (isOk) {
                 yield put({
                     type: 'apply',
@@ -77,6 +77,9 @@ const UserInfoModel = makeModal<UserInfo>({
                         trainingCategory
                     }
                 });
+                callback && callback(false);
+            } else {
+                callback && callback(true);
             }
         },
         *initLoginState({ callback }, { put, select }) {
@@ -91,8 +94,13 @@ const UserInfoModel = makeModal<UserInfo>({
             }
             
             if (userInfo.token !== token) {
-                yield put({ type: 'refreshUserInfo' });
-                callback({ needLogin: false });
+                yield put({
+                    type: 'refreshUserInfo',
+                    callback: (isOk: any) => {
+                        callback({ needLogin: isOk });
+                    }
+                });
+                
             }
         }
     },

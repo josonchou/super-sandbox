@@ -4,15 +4,15 @@
  */
 
 import message from '@renderer/components/message';
-import { getAllSecondTrainingItems } from '@renderer/constanst/training';
 import { ResponseTuple } from '@renderer/lib/request';
-import { batchRemove, createCourse, getCourseList } from '@renderer/service/course';
+import { getKeyFromKeyPath } from '@renderer/lib/util';
+import { batchRemove, createCourse, getAllSecondTrainingItems, getCourseList, uploadFile } from '@renderer/service/course';
 import { makeModal } from '@renderer/store';
 
 const CourseModel = makeModal({
     name: 'course',
     initialState: {
-        category: getAllSecondTrainingItems(),
+        category: [],
         records: [],
         total: 0,
         currentPage: 1,
@@ -26,6 +26,16 @@ const CourseModel = makeModal({
         }
     },
     effects: {
+        *refreshAllSecondCategory({ payload }, { put, call }) {
+            const list = yield call(getAllSecondTrainingItems, payload);
+
+            yield put({
+                type: 'apply',
+                payload: {
+                    category: list,
+                },
+            });
+        },
         *fetchCourseList({ payload = {} }, { put, call }) {
             const [isOk, result] = (yield call(getCourseList, payload ?? { page: 1 })) as unknown as ResponseTuple<any>;
             if (isOk) {
@@ -42,39 +52,51 @@ const CourseModel = makeModal({
             }
         },
         *removeCourse({ payload = {} }, { put, call, select }) {
-            const account = (yield select((s) => s.account)) as any;
+            const course = (yield select((s) => s.course)) as any;
             const [isOk, _, msg] = (yield call(batchRemove, payload)) as unknown as ResponseTuple<any>;
 
             if (isOk) {
-                message.tips('删除成功');
+                message.success('删除成功');
                 yield put({
                     type: 'fetchCourseList',
                     payload: {
-                        page: account.currentPage,
+                        page: course.currentPage,
                         pageSize: 3,
                     }
                 })
             } else {
-                message.tips(msg);
+                message.error(msg);
             }
         },
         *createOne({ payload = {}, callback }, { put, call, select }) {
-            const [isOk, _, msg] = (yield call(createCourse, payload)) as unknown as ResponseTuple<any>;
-            const account = (yield select((s) => s.account)) as any;
+            const destory = message.toast('正在上传文件', 0);
+            const resp = (yield call(uploadFile, (payload.file || [])[0])) as any;
+            message.toast('正在提交', 0);
+            const { data = {} } = (resp || {}).data || {};
+            const [isOk, _, msg] = (yield call(createCourse, {
+                courseName: payload.courseName,
+                fileUUID: data.uuid,
+                categoryKey: getKeyFromKeyPath(payload.categoryKey ?? ''),
+            })) as unknown as ResponseTuple<any>;
+            const course = (yield select((s) => s.course)) as any;
+            
             if (isOk) {
-                message.tips('删除成功');
+                
+                message.toast('创建成功', 1000);
                 callback && callback();
+                
                 yield put({
                     type: 'fetchCourseList',
                     payload: {
-                        page: account.currentPage,
+                        page: course.currentPage,
                         pageSize: 3,
                     }
                 });
             } else {
-                message.tips(msg);
+                destory();
+                message.error(msg);
             }
-        }
+        },
     },
 });
 

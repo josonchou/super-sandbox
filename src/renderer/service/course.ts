@@ -1,6 +1,7 @@
-import request from '@renderer/lib/request';
+import request, { remote } from '@renderer/lib/request';
 import { CreateUserDTO } from '@renderer/schema/admin';
 import { CourseListResult } from '@renderer/schema/course';
+import axios from 'axios';
 import { AnyParams } from './interface';
 
 export async function getCourseList(params: AnyParams) {
@@ -35,7 +36,7 @@ export async function batchRemove(ids: number[]) {
     });
 }
 
-export async function createCourse(data: CreateUserDTO) {
+export async function createCourse(data: any) {
     return await request({
         url: '/courses/createOne',
         method: 'post',
@@ -63,4 +64,36 @@ export async function getAllCourse(params: AnyParams) {
         method: 'get',
         params,
     });
+}
+
+export async function uploadFile(file: any) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await remote({
+        url: '/files/upload',
+        method: 'post',
+        data: formData,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    console.log(response, 'Upload==>');
+    return response;
+}
+
+export async function getAllSecondTrainingItems(keywords: string) {
+    const [isOk, data] = await request({
+        url: '/courses/training/second/category',
+        method: 'get',
+        params: {
+            keywords,
+        }
+    });
+
+    if (isOk) {
+        return data ??[];
+    }
+
+    return [];
 }

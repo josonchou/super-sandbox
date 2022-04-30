@@ -15,3 +15,9 @@ export const getUnitWidth = () => {
     document.body.removeChild(div);
     return width;
 };
+
+export const getKeyFromKeyPath = (keyPath: string, split?: string) => {
+    const keyArr = keyPath.split(split ?? '-');
+
+    return keyArr[(keyArr.length - 1) || 0];
+}

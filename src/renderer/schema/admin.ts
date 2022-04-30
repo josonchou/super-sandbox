@@ -12,7 +12,7 @@ export interface AdminDTO {
 }
 
 export interface UserInfoDTO {
-    admin?: AdminDTO;
+    userInfo?: AdminDTO;
     ability?: { [key: string]: any };
     trainingCategory?: { [key: string]: any };
 }

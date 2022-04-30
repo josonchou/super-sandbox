@@ -56,6 +56,7 @@ const AccountManager: FC = () => {
     }, []);
 
     const handleSubmit = useCallback(() => {
+        
         dispatch({
             type: 'account@createOne',
             payload: {

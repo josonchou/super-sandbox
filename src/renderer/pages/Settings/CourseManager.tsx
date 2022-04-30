@@ -22,15 +22,25 @@ import { Account } from './models';
 const CourseManager: FC = () => {
     const [courseState, dispatch] = CourseModel.useModel();
     const [selectedKey, setSelectedKey] = useState<any>();
+    const [searchKeywords, setSearchKeywords] = useState();
     const keywords = useRef();
     const dialog = useMatinaDialogState();
     const loading = useLoading();
     const selectRows = useRef([]);
-    const { records, total, currentPage } = courseState;
-
+    const [form, setForm] = useState({
+        file: undefined,
+        courseName: '',
+    });
+    const { records, total, currentPage, category } = courseState;
+    console.log(category, 'category==?');
+    
     console.log(selectedKey, 'courseState==>');
 
     useEffect(() => {
+        dispatch({
+            type: 'course@refreshAllSecondCategory',
+            payload: '',
+        });
         dispatch({
             type: 'course@fetchCourseList',
             payload: {
@@ -42,6 +52,7 @@ const CourseManager: FC = () => {
 
     const handleSearch = useCallback((page?: number) => {
         const keyArr = String(selectedKey?.key ?? '').split('-');
+        console.log(keyArr, 'debug keyArr==>')
         dispatch({
             type: 'course@fetchCourseList',
             payload: {
@@ -52,14 +63,51 @@ const CourseManager: FC = () => {
             }
         });
     }, [selectedKey, dispatch]);
+
+    const handleSubmit = useCallback(() => {
+        dispatch({
+            type: 'course@createOne',
+            payload: {
+                courseName: form.courseName,
+                file: form.file,
+                categoryKey: selectedKey?.key,
+            },
+            callback: () => {
+                setForm({
+                    file: undefined,
+                    courseName: '',
+                });
+                dialog.hide();
+            }
+        });
+    }, [form, dialog.hide]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            handleSearch(1);
+        }, 60);
+    }, [(selectedKey ?? {})?.key])
     
     return (
         <div className={styles['course-manager']}>
             <div className={styles.tree}>
-                <div className={styles['search-area']}>
+                <div className={styles['search-area']}
+                    onKeyUp={(e) => {
+                        if (e.nativeEvent.keyCode === 13) {
+                            dispatch({
+                                type: 'course@refreshAllSecondCategory',
+                                payload: searchKeywords,
+                            });
+                        }
+                    }}
+                >
                     <Input
                         placeholder="请输入"
                         theme="matina"
+                        value={searchKeywords}
+                        onChange={(ev: any) => {
+                            setSearchKeywords(ev?.target?.value);
+                        }}
                     />
                 </div>
                 <div className={styles['tree-area']}>
@@ -67,9 +115,6 @@ const CourseManager: FC = () => {
                         treeData={(courseState.category ?? []) as any}
                         onSelected={(currKey) => {
                             setSelectedKey(currKey);
-                            setTimeout(() => {
-                                handleSearch(1);
-                            }, 60);
                         }}
                     />
                 </div>
@@ -95,7 +140,7 @@ const CourseManager: FC = () => {
                                 
                                 <Button type="small" theme="danger" onClick={() => {
                                     if (!selectRows.current.length) {
-                                        message.tips(
+                                        message.error(
                                             '请至少选择一行数据',
                                         );
                                         return;
@@ -138,6 +183,7 @@ const CourseManager: FC = () => {
                                     onChange={(e) => {
                                         const target = (e?.target ?? {}) as any;
                                         keywords.current = (target.value ?? '');
+
                                     }}
                                 />
                             </div>
@@ -202,7 +248,17 @@ const CourseManager: FC = () => {
                         <div className={styles.wrapper}>
                             <Input
                                 placeholder="请输入课件名称"
+                                value={form.courseName}
                                 theme="matina"
+                                onChange={(e) => {
+                                    const target = (e?.target ?? {}) as any;
+                                    setForm((last) => {
+                                        return {
+                                            ...last,
+                                            courseName: (target.value ?? ''),
+                                        }
+                                    });
+                                }}
                             />
                         </div>
                     </div>
@@ -211,16 +267,24 @@ const CourseManager: FC = () => {
                             选择课件
                         </div>
                         <div className={styles.wrapper}>
-                            <Upload />
+                            <Upload
+                                value={form.file}
+                                onChange={(val) => {
+                                    setForm((last) => {
+                                        return {
+                                            ...last,
+                                            file: val,
+                                        }
+                                    });
+                                }}
+                            />
                             <p style={{ paddingTop: 5 }}>课件仅支持MP4、PDF、PPT、WORD、EXCEL</p>
                         </div>
                     </div>
                 </div>
                 <div className={styles.footer}>
                     <Space>
-                        <Button type="small" onClick={() => {
-                            dialog.hide();
-                        }}>
+                        <Button type="small" onClick={handleSubmit}>
                             保存
                         </Button>
                     </Space>
