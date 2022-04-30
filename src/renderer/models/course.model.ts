@@ -70,13 +70,19 @@ const CourseModel = makeModal({
         },
         *createOne({ payload = {}, callback }, { put, call, select }) {
             const destory = message.toast('正在上传文件', 0);
-            const resp = (yield call(uploadFile, (payload.file || [])[0])) as any;
+            const [isUploadSuccess, resp] = (yield call(uploadFile, (payload.file || [])[0])) as any;
+            if (!isUploadSuccess) {
+                message.error(resp?.message ?? '文件上传失败');
+                destory();
+                return;
+            }
             message.toast('正在提交', 0);
+            const categoryKey = getKeyFromKeyPath(payload.categoryKey ?? '')
             const { data = {} } = (resp || {}).data || {};
             const [isOk, _, msg] = (yield call(createCourse, {
                 courseName: payload.courseName,
                 fileUUID: data.uuid,
-                categoryKey: getKeyFromKeyPath(payload.categoryKey ?? ''),
+                categoryKey,
             })) as unknown as ResponseTuple<any>;
             const course = (yield select((s) => s.course)) as any;
             
@@ -90,6 +96,7 @@ const CourseModel = makeModal({
                     payload: {
                         page: course.currentPage,
                         pageSize: 3,
+                        categoryKey,
                     }
                 });
             } else {

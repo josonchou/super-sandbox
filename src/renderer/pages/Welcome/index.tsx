@@ -76,7 +76,7 @@ const Welcome: FC = () => {
                 return Promise.resolve(true);
             } else {
                 setShowForm(false);
-                addScript(`${getServerHost('8090')}/web-apps/apps/api/documents/api.js`);
+                addScript(`${getServerHost('9080')}/web-apps/apps/api/documents/api.js`);
                 return doLogin();
             }
         }).then(() => {

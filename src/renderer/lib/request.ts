@@ -44,7 +44,7 @@ export async function remote(config: AxiosRequestConfig) {
     const token = localStorage.getItem('token');
     return await axios({
         ...config,
-        baseURL: 'http://localhost:3000',
+        baseURL: getServerHost(),
         headers: {
             'authorization': token ? `Bearer ${token}` : '',
         }

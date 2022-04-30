@@ -60,7 +60,7 @@ const AccountModel = makeModal({
             const [isOk, _, msg] = (yield call(createUser, payload)) as unknown as ResponseTuple<any>;
             const account = (yield select((s) => s.account)) as any;
             if (isOk) {
-                message.success('删除成功');
+                message.success('新增成功');
                 callback && callback();
                 yield put({
                     type: 'fetchAccountList',

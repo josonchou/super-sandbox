@@ -39,7 +39,7 @@ const Upload: FC<UploadProps> = ({ value, onChange }) => {
     return (
         <div className={styles.upload}>
             {(selectedFile || [])[0] ? <span>已选择1个文件</span> : <span className={styles.icon} />}
-            <input type="file" accept="video/mp4,application/msword,application/pdf,application/vnd.ms-powerpoint,application/vnd.ms-excel" ref={$file as any} onChange={(e) => {
+            <input type="file" accept="video/mp4,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/pdf,application/vnd.ms-powerpoint,application/vnd.ms-excel" ref={$file as any} onChange={(e) => {
                 handleChange(e.target.files as any);
             }}
             className={styles.uploader} />

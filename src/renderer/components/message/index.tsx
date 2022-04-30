@@ -156,6 +156,9 @@ const toast = () => {
             return destory;
         }
         div = document.createElement('div');
+        div.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
         contentDiv = document.createElement('div');
         div.id = `toast_${Date.now()}_${Math.random()}`;
         div.classList.add(styles.toast);

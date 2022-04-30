@@ -33,6 +33,24 @@ const renderDoc = (conf: any) => {
     });
 }
 
+const getDocumentType = (fileExt: string) => {
+    switch (fileExt) {
+        case 'pdf':
+        case 'doc':
+        case 'docx':
+        case 'txt':
+            return 'word';
+        case 'xls':
+        case 'xlsx':
+            return 'cell';
+        case 'ppt':
+        case 'pptx':
+            return 'slide';
+        default:
+            return '';
+    }
+}
+
 const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) => {
     const editor = useRef<any>();
     const readerElem = useMemo(() => {
@@ -78,14 +96,17 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
         //     )
         // }
 
-        return (
-            <div className={styles.titlebar} >
-                {title}
-            </div>
-        );
+        // return (
+        //     <div className={styles.titlebar} >
+        //         {title}
+        //     </div>
+        // );
+        return null;
     }, [type, src, title]);
 
     useEffect(() => {
+        console.log(type, 'debug -->ssss', src);
+        
         if (!type || !src) {
             return () => {};
         }
@@ -95,6 +116,7 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
             "width": "100%",
             "height": "100%",
             "token": "",
+            // "type": "embedded",
             "document": {
                 "fileType": "",
                 "key": "Khirz6zTPdfd7",
@@ -106,15 +128,15 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
                 },
                 "permissions": {
                     "comment": false,
-                    "download": true,
+                    "download": false,
                     "edit": false,
                     "fillForms": false,
-                    "modifyFilter": true,
-                    "modifyContentControl": true,
+                    "modifyFilter": false,
+                    "modifyContentControl": false,
                     "review": false
                 }
             },
-            // "documentType": "pdf",
+            // "documentType": getDocumentType(type),
             "editorConfig": {
                 "actionLink": null,
                 "mode": "view",
@@ -126,14 +148,17 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
                 "callbackUrl": `${getServerHost()}/track`,
             },
             "customization": {
-                "about": true,
-                "chat": true,
-                "comments": true,
-                "feedback": true,
+                "autosave": false,
+                "about": false,
+                "chat": false,
+                "comments": false,
+                "feedback": false,
                 "forcesave": false,
-                "goback": {
-                    "url": "#"
-                }
+                "goback": false,
+                "help": false,
+                "hideNotes": true,
+                "hideRightMenu": true,
+                "plugins": true,
             },
             "fileChoiceUrl": "",
             "plugins": {"pluginsData":[]}

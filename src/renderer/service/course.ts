@@ -67,19 +67,23 @@ export async function getAllCourse(params: AnyParams) {
 }
 
 export async function uploadFile(file: any) {
-    const formData = new FormData();
-    formData.append('file', file);
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
 
-    const response = await remote({
-        url: '/files/upload',
-        method: 'post',
-        data: formData,
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    });
-    console.log(response, 'Upload==>');
-    return response;
+        const response = await remote({
+            url: '/files/upload',
+            method: 'post',
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log(response, 'Upload==>');
+        return [true, response];
+    } catch (e) {
+        return [false, e];
+    }
 }
 
 export async function getAllSecondTrainingItems(keywords: string) {
