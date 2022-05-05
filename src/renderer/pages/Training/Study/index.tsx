@@ -8,7 +8,7 @@ import TreeList from '@renderer/components/TreeList';
 import { getServerHost } from '@renderer/lib/request';
 import TrainingModel from '@renderer/models/training.model';
 import classNames from 'classnames';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router';
 import CourseReader from './CourseReader';
 import styles from './index.less';
@@ -20,10 +20,6 @@ const Study: FC = () => {
 
     useEffect(() => {
         hideGlobalBg();
-        // dispatch({
-        //     type: 'training@onExpended',
-        //     payload: [],
-        // });
     }, []);
 
     useEffect(() => {
@@ -36,6 +32,9 @@ const Study: FC = () => {
         })
     }, [secCate, thirdCate, dispatch]);
     
+    const isEmpty = useMemo(() => {
+        return !courseList?.length;
+    }, [courseList]);
 
     return (
         <div className={styles['study-page']}>
@@ -47,6 +46,8 @@ const Study: FC = () => {
                     <TreeList
                         expendedKeys={expendedKeys}
                         onExpended={(keys) => {
+                            console.log('debug ==> onExpended=>', keys);
+                            
                             dispatch({
                                 type: 'training@onExpended',
                                 payload: keys,
@@ -65,15 +66,23 @@ const Study: FC = () => {
             </div>
             <div className={styles.content}>
                 <div className={styles.reader}>
-                    <CourseReader
-                        type={(currentCourse as any).courseType}
-                        src={`${getServerHost()}/files/view/${(currentCourse as any).fileUUID}`}
-                        uuid={(currentCourse as any).fileUUID}
-                        title={(currentCourse as any).courseName}
-                    />
+                    {
+                        isEmpty ? (
+                            <div className={styles.empty}>
+                                该分类下还没有课程哦~
+                            </div>
+                        ) : (
+                            <CourseReader
+                                type={(currentCourse as any).courseType}
+                                src={`${getServerHost()}/files/view/${(currentCourse as any).fileUUID}`}
+                                uuid={(currentCourse as any).fileUUID}
+                                title={(currentCourse as any).courseName}
+                            />
+                        )
+                    }
                 </div>
                 <div className={styles['courseware-list']}>
-                    <div className={styles.title}>
+                    <div className={styles.title} style={{ display: isEmpty ? 'none': undefined }}>
                         <span>课件列表</span>
                     </div>
                     <div className={styles.list}>

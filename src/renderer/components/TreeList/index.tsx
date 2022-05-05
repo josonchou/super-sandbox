@@ -54,20 +54,21 @@ const TreeList: FC<TreeListProps> = ({ expendedKeys, selectedkey, onSelect, onEx
                                 [styles.selected]: currentkey === selectedMenu,
                             })}>
                                 <div className={styles['tree-item']} onClick={() => {
-                                    setExpendedMenus((prev) => {
-                                        if (prev.includes(currentkey)) {
-                                            return prev.filter((key) => key !== currentkey);
-                                        }
-                                        return [
-                                            ...prev,
-                                            currentkey,
-                                        ];
-                                    });
                                     if (isLeaf) {
                                         setSelectedMenu(currentkey);
                                         onSelected({
                                             key: currentkey,
                                             label: `${item.name}(${item.code})`,
+                                        });
+                                    } else {
+                                        setExpendedMenus((prev) => {
+                                            if (prev.includes(currentkey)) {
+                                                return prev.filter((key) => key !== currentkey);
+                                            }
+                                            return [
+                                                ...prev,
+                                                currentkey,
+                                            ];
                                         });
                                     }
                                 }}>

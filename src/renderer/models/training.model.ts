@@ -151,7 +151,7 @@ const TrainingModel = makeModal({
 
         },
         *onExpended({ payload }, { put }) {
-            // console.log('debug ==> onExpended', payload);
+            console.log('debug ==> onExpended', payload);
             
             yield put({
                 type: 'apply',
@@ -160,17 +160,26 @@ const TrainingModel = makeModal({
                 },
             });
         },
-        *handleSelected({ payload }, { put }) {
+        *handleSelected({ payload }, { put, select }) {
             yield put({
                 type: 'apply',
                 payload: {
                     selectedKey: payload ?? '',
                 },
             });
+            
             const keyArr = String(payload ?? '').split('-');
             yield put({
                 type: 'loadCourse',
                 payload: keyArr[(keyArr.length ?? 1) - 1],
+            });
+
+            const expendedKeys = yield select((s) => s?.training?.expendedKeys ?? []);
+            yield put({
+                type: 'apply',
+                payload: {
+                    expendedKeys,
+                }
             });
         },
     },

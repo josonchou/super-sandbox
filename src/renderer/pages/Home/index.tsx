@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { hideGlobalBg, showBgIII } from '@renderer/components/Layout';
 import styles from './index.less';
 import AbilityTableModel from '@renderer/models/abilityTable.model';
@@ -6,11 +6,13 @@ import AbilityMenu from './AbilityMenu';
 import DocumentTitle from 'react-document-title';
 import { generatePageName } from '@renderer/constanst';
 import useLoginState from '@renderer/models/useLoginState';
+import classNames from 'classnames';
 
 
 
 const Home = () => {
     const [abilityTable, dispatch] = AbilityTableModel.useModel();
+    const [isRoate, setIsRoate] = useState<boolean>(false);
     useLoginState();
 
     useEffect(() => {
@@ -67,17 +69,35 @@ const Home = () => {
         ))
     }, [abilityTable.abilityTree, abilityTable.currentSelectMenu]);
 
+    const sg = useRef<any>(null);
+    const handleRoate = useCallback(() => {
+        setIsRoate(true);
+        if (sg.current) {
+            clearTimeout(sg.current);
+        }
+        sg.current = setTimeout(() => {
+            setIsRoate(false);
+        }, 1000);
+    }, []);
+
     return (
         <DocumentTitle title={generatePageName('能力总表')}>
             <div className={styles['page-container']}>
                 <div className={styles.menu}>
                     <div className={styles['menu-bg-wrapper']}>
-                        <div className={styles['menu-big-bg']} />
+                        <div className={classNames(
+                            styles['menu-big-bg'],
+                            {
+                                'runSpin': !isRoate,
+                                'runSpinQuick': isRoate,
+                            }
+                        )} />
                     </div>
                     <AbilityMenu
                         data={abilityTable.abilityTree ?? []}
                         activeKey={abilityTable.currentSelectMenu}
                         onChange={handleMenuChange}
+                        onRoateChange={handleRoate}
                     />
                 </div>
                 <div className={styles.split} />

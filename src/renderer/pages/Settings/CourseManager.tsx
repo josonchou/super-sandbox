@@ -49,7 +49,6 @@ const CourseManager: FC = () => {
 
     const handleSearch = useCallback((page?: number) => {
         const keyArr = String(selectedKey?.key ?? '').split('-');
-        console.log(keyArr, 'debug keyArr==>')
         dispatch({
             type: 'course@fetchCourseList',
             payload: {

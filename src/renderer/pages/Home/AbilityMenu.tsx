@@ -7,6 +7,7 @@ interface AbilityMenuProps {
     data?: AbilityTable['abilityTree'];
     onChange?: (selected: number) => void;
     activeKey?: number;
+    onRoateChange?: () => void;
 }
 
 const positions = [
@@ -25,7 +26,7 @@ const positions = [
 const offsetX = -10.333;
 const offsetY = -8.2222;
 
-const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange }) => {
+const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange, onRoateChange = () => {} }) => {
     const [selected, setSelected] = useState<number>();
 
     const selectedItem = useMemo(() => {
@@ -53,6 +54,7 @@ const AbilityMenu: FC<AbilityMenuProps> = ({ data = [], activeKey, onChange }) =
                             onClick={() => {
                                 setSelected(item.id);
                                 onChange && onChange(item.id);
+                                onRoateChange();
                             }}
                         >
                             {item.name}({item.code})

@@ -49,12 +49,12 @@ const Header: FC<HeaderProps> = ({ isLogin, isManager }) => {
 
     return (
         <div className={styles.header}>
-            <div className={styles['title-wrapper']} style={{ visibility: 'hidden'}}>
+            <div className={styles['title-wrapper']}>
                 <div className={styles.title}>
                     应急课程教学数字沙盘系统
                 </div>
             </div>
-            <div className={styles.icon} style={{ visibility: 'hidden'}} />
+            <div className={styles.icon} />
             <div className={styles.action}>
                 {isLogin ? (
                     <Space gap={1.56} gapUnit="rem" >

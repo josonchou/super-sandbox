@@ -4,8 +4,14 @@
  */
 
 import request, { getServerHost } from '@renderer/lib/request';
-import React, { FC, useEffect, useMemo, useRef } from 'react';
+import { ReactSVG } from 'react-svg';
+import fullscreenSvg from '@assets/svg/fullscreen.svg';
+import fullscreenExitSVG from '@assets/svg/fullscreenexit.svg';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import screenfull from 'screenfull';
 import styles from './CourseReader.less';
+import classNames from 'classnames';
+import message from '@renderer/components/message';
 
 interface CourseReaderProps {
     title?: string;
@@ -36,6 +42,7 @@ const renderDoc = (conf: any) => {
 const getDocumentType = (fileExt: string) => {
     switch (fileExt) {
         case 'pdf':
+            return 'pdf';
         case 'doc':
         case 'docx':
         case 'txt':
@@ -53,6 +60,8 @@ const getDocumentType = (fileExt: string) => {
 
 const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) => {
     const editor = useRef<any>();
+    const [isHover, setIsHover] = useState(true);
+    const [hideFullscreen, setHideFullscreen] = useState(false);
 
     const readerElem = useMemo(() => {
         if (!src) {
@@ -104,6 +113,54 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
         // );
         return null;
     }, [type, src, title]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsHover(false);
+        }, 1000);
+        if (screenfull.isEnabled) {
+            screenfull.on('change', () => {
+                setHideFullscreen(screenfull.isFullscreen);
+            });
+        }
+    }, []);
+
+    const tooltip = useMemo(() => {
+        if (getDocumentType(type ?? '') === 'slide') {
+            return null;
+        }
+        return (
+            <div
+                className={classNames(styles.fullscreen, {
+                    [styles.isActive]: isHover,
+                })}
+                onClick={() => {
+                    if (!screenfull.isEnabled) {
+                        return;
+                    }
+                    if (!screenfull.isFullscreen) {
+                        const ele = document.querySelector('#courseReader');
+                        if (ele) {
+                            screenfull.request(ele, {
+                                navigationUI: 'show',
+                            });
+                        }
+                    } else {
+                        screenfull.exit();
+                    }
+                }}
+            >
+                {
+                    hideFullscreen ? (
+                        <ReactSVG src={fullscreenExitSVG} />
+                    ) : (
+                        <ReactSVG src={fullscreenSvg} />
+                    )
+                }
+                
+            </div>
+        );
+    }, [isHover, hideFullscreen, type]);
 
     useEffect(() => {
         
@@ -194,6 +251,7 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
         <div id="courseReader" className={styles['course-reader']}>
             {readerElem}
             <div id="docReader" />
+            {tooltip}
         </div>
     );
 };

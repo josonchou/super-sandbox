@@ -198,3 +198,20 @@ html {
         background-color: rgba(0, 0, 0, 0.2);
     }
 }
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.runSpin {
+    animation: spin 30s linear infinite;
+}
+
+.runSpinQuick {
+    animation: spin 2s linear infinite;
+}
