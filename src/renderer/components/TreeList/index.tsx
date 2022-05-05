@@ -3,6 +3,7 @@
  * @author: 周金顺（云天河）
  */
 
+import useControlState from '@renderer/lib/useControlState';
 import classNames from 'classnames';
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import styles from './index.less';
@@ -15,13 +16,25 @@ interface TreeData {
 }
 
 export interface TreeListProps {
+    expendedKeys?: Array<string|number>;
+    onExpended?: (keys: Array<string|number>) => void;
+    selectedkey?: string|number;
+    onSelect?: (val: string|number) => void;
     treeData?: Array<TreeData>;
     onSelected?: (args: { key: string|number, label: string }) => void;
 }
 
-const TreeList: FC<TreeListProps> = ({ treeData = [], onSelected = () => null }) => {
-    const [expendedMenus, setExpendedMenus] = useState<Array<string|number>>([]);
-    const [selectedMenu, setSelectedMenu] = useState<string|number>();
+const TreeList: FC<TreeListProps> = ({ expendedKeys, selectedkey, onSelect, onExpended, treeData = [], onSelected = () => null }) => {
+    const [expendedMenus, setExpendedMenus] = useControlState<Array<string|number>>({
+        value: expendedKeys,
+        onChange: onExpended,
+        defaultValue: [],
+    });
+    
+    const [selectedMenu, setSelectedMenu] = useControlState<string|number>({
+        value: selectedkey,
+        onChange: onSelect,
+    });
 
     const genChildDom = useCallback((list: TreeData[], parentKey: string|number) => {
         if (!list.length) {

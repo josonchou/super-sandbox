@@ -15,12 +15,15 @@ import styles from './index.less';
 
 const Study: FC = () => {
     const [trainingState, dispatch] = TrainingModel.useModel();
-    const { courseList, currentCourse } = trainingState;
+    const { courseList, currentCourse, expendedKeys, selectedKey } = trainingState;
     const { secCate, thirdCate } = useParams();
 
-    console.log(courseList, 'courseList')
     useEffect(() => {
         hideGlobalBg();
+        // dispatch({
+        //     type: 'training@onExpended',
+        //     payload: [],
+        // });
     }, []);
 
     useEffect(() => {
@@ -32,6 +35,7 @@ const Study: FC = () => {
             },
         })
     }, [secCate, thirdCate, dispatch]);
+    
 
     return (
         <div className={styles['study-page']}>
@@ -41,12 +45,19 @@ const Study: FC = () => {
                 </div>
                 <div className={styles.tree}>
                     <TreeList
+                        expendedKeys={expendedKeys}
+                        onExpended={(keys) => {
+                            dispatch({
+                                type: 'training@onExpended',
+                                payload: keys,
+                            });
+                        }}
+                        selectedkey={selectedKey}
                         treeData={trainingState.currentStudyCategory ?? []}
                         onSelected={({ key }) => {
-                            const keyArr = String(key ?? '').split('-');
                             dispatch({
-                                type: 'training@loadCourse',
-                                payload: keyArr[(keyArr.length ?? 1) - 1],
+                                type: 'training@handleSelected',
+                                payload: key,
                             });
                         }}
                     />
@@ -57,7 +68,6 @@ const Study: FC = () => {
                     <CourseReader
                         type={(currentCourse as any).courseType}
                         src={`${getServerHost()}/files/view/${(currentCourse as any).fileUUID}`}
-                        // cover={currentCourse?.cover}\
                         uuid={(currentCourse as any).fileUUID}
                         title={(currentCourse as any).courseName}
                     />

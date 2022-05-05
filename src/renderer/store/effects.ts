@@ -1,4 +1,4 @@
-import { takeEvery, delay, call, select, put } from '@redux-saga/core/effects';
+import { takeEvery, delay, call, select, put, take } from '@redux-saga/core/effects';
 import { Action } from 'redux';
 import { EffectsSet } from './data';
 
@@ -23,6 +23,7 @@ export function* watchEffect() {
                         }
                         return put<A>(action);
                     },
+                    take,
                     delay,
                 });
             }

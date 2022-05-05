@@ -32,9 +32,6 @@ const CourseManager: FC = () => {
         courseName: '',
     });
     const { records, total, currentPage, category } = courseState;
-    console.log(category, 'category==?');
-    
-    console.log(selectedKey, 'courseState==>');
 
     useEffect(() => {
         dispatch({
@@ -152,6 +149,9 @@ const CourseManager: FC = () => {
                                                 dispatch({
                                                     type: 'course@removeCourse',
                                                     payload: selectRows.current,
+                                                    callback: () => {
+                                                        handleSearch(1);
+                                                    },
                                                 });
                                             }
                                         }

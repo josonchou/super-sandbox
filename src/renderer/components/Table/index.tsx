@@ -42,7 +42,7 @@ const IndeterminateCheckbox: ForwardRefExoticComponent<IndeterminateCheckboxProp
   
       return (
         <div className="sandbox-checkbox">
-          <input id="checkbox-widget" type="checkbox" ref={resolvedRef} {...rest} />
+          <input id="checkbox-widget" type="checkbox" ref={resolvedRef} {...rest} title="选择" />
           <label htmlFor="checkbox-widget" />
         </div>
       )

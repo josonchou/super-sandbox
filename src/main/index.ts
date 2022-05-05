@@ -16,6 +16,7 @@ function loadHTML(window: BrowserWindow) {
 }
 
 const createWindow = () => {
+    app.commandLine.appendSwitch('disable-web-security');
     mainWindow = new BrowserWindow({
         webPreferences: {
             nodeIntegration: true,

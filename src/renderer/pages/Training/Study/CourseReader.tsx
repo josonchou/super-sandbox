@@ -53,6 +53,7 @@ const getDocumentType = (fileExt: string) => {
 
 const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) => {
     const editor = useRef<any>();
+
     const readerElem = useMemo(() => {
         if (!src) {
             return null;
@@ -82,19 +83,19 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
                 </div>
             );
         }
-        // if (type === 'pdf') {
-        //     return (
-        //         <iframe
-        //             className={styles.pdf}
-        //             src={src}
-        //             allowFullScreen
-        //             // @ts-ignore
-        //             webkitallowfullscreen="true"
-        //             // @ts-ignore
-        //             mozallowfullscreen="true"
-        //         />
-        //     )
-        // }
+        if (type === 'pdf') {
+            return (
+                <iframe
+                    className={styles.pdf}
+                    // type="application/pdf"
+                    src={`${src}#page=1&view=FitH,top`}
+                    // sandbox=""
+                    width="100%"
+                    height="100%"
+                    allowFullScreen
+                />
+            )
+        }
 
         // return (
         //     <div className={styles.titlebar} >
@@ -105,7 +106,6 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
     }, [type, src, title]);
 
     useEffect(() => {
-        console.log(type, 'debug -->ssss', src);
         
         if (!type || !src) {
             return () => {};
@@ -134,7 +134,7 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
                     "modifyFilter": false,
                     "modifyContentControl": false,
                     "review": false
-                }
+                },
             },
             // "documentType": getDocumentType(type),
             "editorConfig": {
@@ -150,7 +150,7 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
             "customization": {
                 "autosave": false,
                 "about": false,
-                "chat": false,
+                "chat": true,
                 "comments": false,
                 "feedback": false,
                 "forcesave": false,
@@ -158,17 +158,23 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
                 "help": false,
                 "hideNotes": true,
                 "hideRightMenu": true,
-                "plugins": true,
+                "plugins": false,
+                "toolbarHideFileName": false,
+                "toolbarNoTabs": true,
+                "compactHeader": false,
+                "compactToolbar": false,
+                "compatibleFeatures": false,
+                "unit": "cm",
+                "zoom": 100
             },
             "fileChoiceUrl": "",
-            "plugins": {"pluginsData":[]}
+            "plugins": {"pluginsData":[]},
         };
 
-        if (['pdf', 'docx', 'pptx', 'doc', 'ppt', 'xlsx', 'xls'].includes(type)) {
-            console.log('rerender doc==>')
+        if (['docx', 'pptx', 'doc', 'ppt', 'xlsx', 'xls'].includes(type)) {
             config.document.title = title ?? '文档';
             config.document.fileType = type;
-            config.document.key = `${uuid}_1`;
+            config.document.key = `${uuid}`;
             if (editor.current && editor.current.destroyEditor) {
                 editor.current.destroyEditor();
             }
@@ -185,10 +191,9 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
     }, [type, src]);
     
     return (
-        <div className={styles['course-reader']}>
+        <div id="courseReader" className={styles['course-reader']}>
             {readerElem}
             <div id="docReader" />
-            
         </div>
     );
 };

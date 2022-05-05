@@ -51,19 +51,19 @@ const CourseModel = makeModal({
                 });
             }
         },
-        *removeCourse({ payload = {} }, { put, call, select }) {
-            const course = (yield select((s) => s.course)) as any;
+        *removeCourse({ payload = {}, callback }, { call }) {
             const [isOk, _, msg] = (yield call(batchRemove, payload)) as unknown as ResponseTuple<any>;
 
             if (isOk) {
                 message.success('删除成功');
-                yield put({
-                    type: 'fetchCourseList',
-                    payload: {
-                        page: course.currentPage,
-                        pageSize: 3,
-                    }
-                })
+                callback && callback();
+                // yield put({
+                //     type: 'fetchCourseList',
+                //     payload: {
+                //         page: course.currentPage,
+                //         pageSize: 3,
+                //     }
+                // })
             } else {
                 message.error(msg);
             }
