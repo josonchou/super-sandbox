@@ -30,7 +30,7 @@ const renderDoc = (conf: any) => {
     }).then(([isOk, token]) => {
         if (isOk) {
             conf.token = token as string;
-            const editor = new (window as any).DocsAPI.DocEditor("docReader", conf);
+            const editor = new (window as any).DocsAPI.DocEditor("officeReader", conf);
             return editor;
         }
 
@@ -173,7 +173,7 @@ const OfficeReader: FC<any> = ({ title, uuid, type, src }) => {
 
     return (
         <div style={{ display: isHide ? 'none' : undefined, width: '100%', height: '100%' }}>
-            <div id="docReader" />
+            <div id="officeReader" />
         </div>
     );
 };

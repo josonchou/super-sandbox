@@ -40,6 +40,7 @@ const createWindow = () => {
     if (process.env.NODE_ENV !== 'production') {
         mainWindow.webContents.openDevTools();
     }
+    // mainWindow.webContents.openDevTools();
     
     loadHTML(mainWindow);
     mainWindow.on('closed', () => {
