@@ -105,7 +105,9 @@ const Study: FC = () => {
                                     >
                                         <div className={classNames(styles.cover, (item as any).courseType)} />
                                         <div className={styles['item-title']}>
-                                            {item.courseName}
+                                            <span style={{ display: 'inline-block', flex: 1, width: 0, overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'center' }}>
+                                                {item.courseName}
+                                            </span>
                                         </div>
                                     </div>
                                 )
