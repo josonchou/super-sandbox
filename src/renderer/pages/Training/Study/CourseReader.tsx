@@ -55,7 +55,7 @@ const getDocumentType = (fileExt: string) => {
         case 'pptx':
             return 'slide';
         default:
-            return '';
+            return 'other';
     }
 }
 
@@ -186,7 +186,7 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
         if (!src) {
             return <div />;
         }
-        if (type === 'video') {
+        if (type === 'video' || type === 'mp4') {
             return (
                 <div className={styles.video}>
                     <div className={styles['video-container']}>
@@ -233,7 +233,7 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
     }, []);
 
     const tooltip = useMemo(() => {
-        if (getDocumentType(type ?? '') === 'slide') {
+        if (getDocumentType(type ?? '') === 'slide' || getDocumentType(type ?? '') === 'other') {
             return null;
         }
         return (

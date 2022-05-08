@@ -26,6 +26,8 @@ const Upload: FC<UploadProps> = ({ value, onChange }) => {
     useEffect(() => {
         if (typeof value === 'undefined') {
             setSelectedFile(value);
+            // @ts-ignore
+            $file.current.value = '';
         }
     }, [value]);
 

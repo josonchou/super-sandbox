@@ -69,7 +69,7 @@ const Study: FC = () => {
                     {
                         isEmpty ? (
                             <div className={styles.empty}>
-                                该分类下还没有课程哦~
+                                暂无数据
                             </div>
                         ) : (
                             <CourseReader

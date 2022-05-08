@@ -148,6 +148,20 @@ export async function cutFile(file: any) {
     };
 }
 
+export async function mergeSnippet(hash: string, total: number, originFilename: string) {
+    const response = await remote({
+        url: '/files/snippet/merge',
+        method: 'post',
+        data: {
+            hash,
+            total,
+            originFilename,
+        },
+    });
+
+    return response;
+}
+
 
 export async function mergeUploadSnippet(file: any, onProgress?: (progress: number) => void) {
     const handleProgress = (p: number) => {
@@ -168,7 +182,13 @@ export async function mergeUploadSnippet(file: any, onProgress?: (progress: numb
             handleProgress(progress > 100 ? 100 : progress);
         }
 
-        return [true, null];
+        console.log(name, 'upload ==> name')
+        const resp = await mergeSnippet(
+            hash,
+            total,
+            name,
+        );
+        return [true, resp];
     } catch (e) {
         return [false, e];
     }

@@ -78,38 +78,38 @@ const CourseModel = makeModal({
                 message.toast(`文件已上传 ${progress}% `, 0);
             };
             const [isUploadSuccess, resp] = (yield call(mergeUploadSnippet, (payload.file || [])[0], onProgress)) as any;
-            // if (!isUploadSuccess) {
-            //     message.error(resp?.message ?? '文件上传失败');
-            //     destory();
-            //     return;
-            // }
-            // message.toast('正在提交', 0);
-            // const categoryKey = getKeyFromKeyPath(payload.categoryKey ?? '')
-            // const { data = {} } = (resp || {}).data || {};
-            // const [isOk, _, msg] = (yield call(createCourse, {
-            //     courseName: payload.courseName,
-            //     fileUUID: data.uuid,
-            //     categoryKey,
-            // })) as unknown as ResponseTuple<any>;
-            // const course = (yield select((s) => s.course)) as any;
+            if (!isUploadSuccess) {
+                message.error(resp?.message ?? '文件上传失败');
+                destory();
+                return;
+            }
+            message.toast('正在提交', 0);
+            const categoryKey = getKeyFromKeyPath(payload.categoryKey ?? '')
+            const { data = {} } = (resp || {}).data || {};
+            const [isOk, _, msg] = (yield call(createCourse, {
+                courseName: payload.courseName,
+                fileUUID: data.uuid,
+                categoryKey,
+            })) as unknown as ResponseTuple<any>;
+            const course = (yield select((s) => s.course)) as any;
             
-            // if (isOk) {
+            if (isOk) {
                 
-            //     message.toast('创建成功', 1000);
-            //     callback && callback();
+                message.toast('创建成功', 1000);
+                callback && callback();
                 
-            //     yield put({
-            //         type: 'fetchCourseList',
-            //         payload: {
-            //             page: course.currentPage,
-            //             pageSize: 3,
-            //             categoryKey,
-            //         }
-            //     });
-            // } else {
-            //     destory();
-            //     message.error(msg);
-            // }
+                yield put({
+                    type: 'fetchCourseList',
+                    payload: {
+                        page: course.currentPage,
+                        pageSize: 3,
+                        categoryKey,
+                    }
+                });
+            } else {
+                destory();
+                message.error(msg);
+            }
         },
     },
 });
