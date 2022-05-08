@@ -12,6 +12,7 @@ import screenfull from 'screenfull';
 import styles from './CourseReader.less';
 import classNames from 'classnames';
 import message from '@renderer/components/message';
+import useMemoFn from '@renderer/lib/useMemoFn';
 
 interface CourseReaderProps {
     title?: string;
@@ -58,114 +59,40 @@ const getDocumentType = (fileExt: string) => {
     }
 }
 
-const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) => {
+const PDFReader: FC<any> = ({ src }) => {
+    return (
+        <object
+            className={styles.pdf}
+            type="application/pdf"
+            data={`${src}#page=1&view=FitH,top`}
+            width="100%"
+            height="100%"
+        />
+        // <div />
+    );
+}
+
+const OfficeReader: FC<any> = ({ title, uuid, type, src }) => {
     const editor = useRef<any>();
-    const [isHover, setIsHover] = useState(true);
-    const [hideFullscreen, setHideFullscreen] = useState(false);
+    const [isHide, setIsHide] = useState(true);
 
-    const readerElem = useMemo(() => {
-        if (!src) {
-            return null;
-        }
-        if (type === 'video') {
-            return (
-                <div className={styles.video}>
-                    <div className={styles['video-container']}>
-                        <video
-                            preload="meta"
-                            // poster="http://imgcdn.170hi.com/wmvpic/640/68/57/3075077292.jpg?imageView2/format/jpg/q/40"
-                            poster={cover}
-                            controls
-                            autoPlay={false}
-                            className={styles.video}
-                            // onContextMenu="return false;"
-                            // height="100%" width="100%"
-                            // style="background-color: #333;"
-                        >
-                            <source
-                                // src="http://antiserver.kuwo.cn/anti.s?rid=MUSIC_7154771&amp;response=res&amp;format=mp4|mkv&amp;type=convert_url"
-                                src={src}
-                                type="video/mp4"
-                            />
-                        </video>
-                    </div>
-                </div>
-            );
-        }
-        if (type === 'pdf') {
-            return (
-                <iframe
-                    className={styles.pdf}
-                    // type="application/pdf"
-                    src={`${src}#page=1&view=FitH,top`}
-                    // sandbox=""
-                    width="100%"
-                    height="100%"
-                    allowFullScreen
-                />
-            )
-        }
+    const destory = useMemoFn(() => {
+        setIsHide(true);
+        try {
+            if (editor.current && editor.current.destroyEditor) {
+                editor.current.destroyEditor();
+            }
+        } catch (e) {
 
-        // return (
-        //     <div className={styles.titlebar} >
-        //         {title}
-        //     </div>
-        // );
-        return null;
-    }, [type, src, title]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setIsHover(false);
-        }, 1000);
-        if (screenfull.isEnabled) {
-            screenfull.on('change', () => {
-                setHideFullscreen(screenfull.isFullscreen);
-            });
         }
-    }, []);
-
-    const tooltip = useMemo(() => {
-        if (getDocumentType(type ?? '') === 'slide') {
-            return null;
-        }
-        return (
-            <div
-                className={classNames(styles.fullscreen, {
-                    [styles.isActive]: isHover,
-                })}
-                onClick={() => {
-                    if (!screenfull.isEnabled) {
-                        return;
-                    }
-                    if (!screenfull.isFullscreen) {
-                        const ele = document.querySelector('#courseReader');
-                        if (ele) {
-                            screenfull.request(ele, {
-                                navigationUI: 'show',
-                            });
-                        }
-                    } else {
-                        screenfull.exit();
-                    }
-                }}
-            >
-                {
-                    hideFullscreen ? (
-                        <ReactSVG src={fullscreenExitSVG} />
-                    ) : (
-                        <ReactSVG src={fullscreenSvg} />
-                    )
-                }
-                
-            </div>
-        );
-    }, [isHover, hideFullscreen, type]);
+    });
 
     useEffect(() => {
         
         if (!type || !src) {
-            return () => {};
+            return () => {
+                destory();
+            };
         }
 
         // eslint-disable-next-line
@@ -232,25 +159,120 @@ const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) 
             config.document.title = title ?? '文档';
             config.document.fileType = type;
             config.document.key = `${uuid}`;
-            if (editor.current && editor.current.destroyEditor) {
-                editor.current.destroyEditor();
-            }
+            destory();
             renderDoc(config).then((ed) => {
                 editor.current = ed;
+                setIsHide(false);
             });
         }
 
         return () => {
-            if (editor.current && editor.current.destroyEditor) {
-                editor.current.destroyEditor();
-            }
+            destory();
         };
-    }, [type, src]);
+    }, [type, src, title, uuid]);
+
+    return (
+        <div style={{ display: isHide ? 'none' : undefined, width: '100%', height: '100%' }}>
+            <div id="docReader" />
+        </div>
+    );
+};
+
+const CourseReader: FC<CourseReaderProps> = ({ uuid, title, type, src, cover }) => {
+    const [isHover, setIsHover] = useState(true);
+    const [hideFullscreen, setHideFullscreen] = useState(false);
+
+    const readerElem = useMemo(() => {
+        if (!src) {
+            return <div />;
+        }
+        if (type === 'video') {
+            return (
+                <div className={styles.video}>
+                    <div className={styles['video-container']}>
+                        <video
+                            preload="meta"
+                            // poster="http://imgcdn.170hi.com/wmvpic/640/68/57/3075077292.jpg?imageView2/format/jpg/q/40"
+                            poster={cover}
+                            controls
+                            autoPlay={false}
+                            className={styles.video}
+                            // onContextMenu="return false;"
+                            // height="100%" width="100%"
+                            // style="background-color: #333;"
+                        >
+                            <source
+                                // src="http://antiserver.kuwo.cn/anti.s?rid=MUSIC_7154771&amp;response=res&amp;format=mp4|mkv&amp;type=convert_url"
+                                src={src}
+                                type="video/mp4"
+                            />
+                        </video>
+                    </div>
+                </div>
+            );
+        }
+
+        if (type === 'pdf') {
+            return (
+                <PDFReader src={src} />
+            );
+        }
+
+        return null;
+    }, [type, src, title]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsHover(false);
+        }, 1000);
+        if (screenfull.isEnabled) {
+            screenfull.on('change', () => {
+                setHideFullscreen(screenfull.isFullscreen);
+            });
+        }
+    }, []);
+
+    const tooltip = useMemo(() => {
+        if (getDocumentType(type ?? '') === 'slide') {
+            return null;
+        }
+        return (
+            <div
+                className={classNames(styles.fullscreen, {
+                    [styles.isActive]: isHover,
+                })}
+                onClick={() => {
+                    if (!screenfull.isEnabled) {
+                        return;
+                    }
+                    if (!screenfull.isFullscreen) {
+                        const ele = document.querySelector('#courseReader');
+                        if (ele) {
+                            screenfull.request(ele, {
+                                navigationUI: 'show',
+                            });
+                        }
+                    } else {
+                        screenfull.exit();
+                    }
+                }}
+            >
+                {
+                    hideFullscreen ? (
+                        <ReactSVG src={fullscreenExitSVG} />
+                    ) : (
+                        <ReactSVG src={fullscreenSvg} />
+                    )
+                }
+                
+            </div>
+        );
+    }, [isHover, hideFullscreen, type]);
     
     return (
         <div id="courseReader" className={styles['course-reader']}>
+            <OfficeReader src={src} type={type} title={title} uuid={uuid} />
             {readerElem}
-            <div id="docReader" />
             {tooltip}
         </div>
     );

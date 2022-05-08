@@ -1,3 +1,4 @@
+import { filehash } from '@renderer/lib/filehash';
 import request, { remote } from '@renderer/lib/request';
 import { CreateUserDTO } from '@renderer/schema/admin';
 import { CourseListResult } from '@renderer/schema/course';
@@ -84,6 +85,94 @@ export async function uploadFile(file: any) {
     } catch (e) {
         return [false, e];
     }
+}
+
+export async function uploadSnippet(fileChunk: any, hash: string, index: number) {
+    try {
+        const formData = new FormData();
+        formData.append('file', fileChunk);
+        formData.append('hash', hash);
+        formData.append('index', String(index));
+
+        const response = await remote({
+            url: '/files/snippet/upload',
+            method: 'post',
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return [true, response];
+    } catch (e) {
+        return [false, e];
+    }
+}
+
+export async function cutFile(file: any) {
+    const chunks = [];
+    const boldSlice = File.prototype.slice;
+    const chunkSize = 2 * 1024 * 1024;
+    const chunkNums = Math.ceil(file.size / chunkSize);
+    const hash = await filehash(file);
+    let startIndex = 0;
+    let endIndex = 0;
+
+    for (let i = 0; i < chunkNums; i++) {
+        startIndex = i * chunkSize;
+        endIndex = startIndex + chunkSize;
+
+        if (endIndex > file.size) {
+            endIndex = file.size;
+        }
+
+        const contentItem = boldSlice.call(file, startIndex, endIndex);
+
+        chunks.push({
+            index: i,
+            hash,
+            total: chunkNums,
+            originFilename: file.name,
+            size: file.size,
+            chunk: contentItem,
+        });
+    }
+
+    return {
+        chunks,
+        fileInfo: {
+            hash,
+            total: chunkNums,
+            name: file.name,
+            size: file.size,
+        }
+    };
+}
+
+
+export async function mergeUploadSnippet(file: any, onProgress?: (progress: number) => void) {
+    const handleProgress = (p: number) => {
+        if (onProgress) {
+            onProgress(p);
+        }
+    };
+    try {
+        const cutFileInfo = await cutFile(file);
+        handleProgress(10);
+        const { chunks, fileInfo } = cutFileInfo ?? {};
+        const { hash, total, name } = fileInfo;
+        
+        for (let i = 0; i < total; i++) {
+            const chunkItem = chunks[i];
+            await uploadSnippet(chunkItem.chunk, hash, chunkItem.index);
+            const progress = 10 + Math.ceil((i + 1) / total * 90);
+            handleProgress(progress > 100 ? 100 : progress);
+        }
+
+        return [true, null];
+    } catch (e) {
+        return [false, e];
+    }
+    
 }
 
 export async function getAllSecondTrainingItems(keywords: string) {
