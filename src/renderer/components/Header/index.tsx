@@ -1,3 +1,4 @@
+import { APP_NAME } from '@config/index';
 import { dispatch } from '@renderer/store';
 import React, { FC, useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -51,7 +52,7 @@ const Header: FC<HeaderProps> = ({ isLogin, isManager }) => {
         <div className={styles.header}>
             <div className={styles['title-wrapper']}>
                 <div className={styles.title}>
-                    应急课程教学数字沙盘系统
+                    {APP_NAME}
                 </div>
             </div>
             <div className={styles.icon} />
