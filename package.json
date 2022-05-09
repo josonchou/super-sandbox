@@ -18,7 +18,7 @@
     "package-mac": "npm run build && electron-builder build --mac"
   },
   "build": {
-    "productName": "Sandbox",
+    "productName": "水电应急培训专业数字沙盘教学系统",
     "appId": "cn.itspeed.sandbox",
     "files": [
       "dist/",
