@@ -1,5 +1,5 @@
 {
-  "name": "super-sandbox",
+  "name": "hn-training",
   "version": "1.0.0",
   "description": "sandbox app",
   "main": "dist/main/main.prod.js",
@@ -38,14 +38,19 @@
       "backgroundColor": "#ffffff",
       "icon": "./resources/icons/app.icns",
       "iconSize": 80,
-      "title": "Electron App"
+      "title": "HuaNeng Training"
     },
     "win": {
+      "executableName": "huaneng-training",
       "icon": "./resources/icons/app.ico",
       "target": [
         "nsis",
         "msi"
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "shortcutName": "水电应急培训专业数字沙盘教学系统"
     },
     "linux": {
       "icon": "./resources/icons/app.png",
