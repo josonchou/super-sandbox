@@ -1,7 +1,7 @@
 {
   "name": "hn-training",
   "version": "1.0.0",
-  "description": "sandbox app",
+  "description": "水电应急培训专业数字沙盘教学系统",
   "main": "dist/main/main.prod.js",
   "scripts": {
     "build-main": "cross-env NODE_ENV=production webpack --config webpack/webpack.main.prod.config.ts",
@@ -41,7 +41,7 @@
       "title": "HuaNeng Training"
     },
     "win": {
-      "executableName": "huaneng-training",
+      "executableName": "HuaNengTraining",
       "icon": "./resources/icons/app.ico",
       "target": [
         "nsis",
@@ -66,7 +66,7 @@
       "output": "release"
     }
   },
-  "author": "joson",
+  "author": "成都计速科技有限公司",
   "license": "ISC",
   "dependencies": {
     "@types/react-table": "^7.7.9",
