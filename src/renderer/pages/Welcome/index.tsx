@@ -85,6 +85,8 @@ const Welcome: FC = () => {
     }, [connect, doLogin]);
 
     useEffect(() => {
+        localStorage.setItem('host', '192.168.1.240');
+        // localStorage.setItem('host', '59.110.154.171');
         handleConnect(true);
     }, [handleConnect]);
 
@@ -94,8 +96,8 @@ const Welcome: FC = () => {
                 showForm ? (
                     <div className={styles.mask}>
                     <div className={styles.form}>
-                        <h2>请输入服务器IP</h2>
-                        <div>
+                        <h2>服务连接失败, 请稍后再试</h2>
+                        {/* <div>
                             <Input placeholder="e.g. 127.0.0.1" theme="matina" value={ip} onChange={(e: any) => setIp(e?.target?.value)} />
                         </div>
                         <div style={{ width: '20rem', marginTop: '10rem' }}>
@@ -111,7 +113,7 @@ const Welcome: FC = () => {
                             >
                                 连接服务
                             </Button>
-                        </div>
+                        </div> */}
                         
                     </div>
                 </div>
