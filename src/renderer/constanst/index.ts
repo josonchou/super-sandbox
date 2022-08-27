@@ -2,6 +2,29 @@ import { APP_NAME as name } from '@config/index';
 
 export const APP_NAME = name;
 
+const getHost = () => {
+    const isDebug = localStorage.getItem('isDebug') || 0;
+    return +isDebug === 1 ? '59.110.154.171' : '192.168.1.240';
+};
+
+export const debugHost = () => {
+    localStorage.setItem('isDebug', '1');
+    window.location.reload();
+};
+
+// @ts-ignore
+window.__setDebug = () => {
+    debugHost();
+}
+
+// @ts-ignore
+window.__clearDebug = () => {
+    localStorage.setItem('isDebug', '0');
+    window.location.reload();
+}
+
+export const host = getHost();
+
 export const Ability = [
     {
         name: '基础能力',

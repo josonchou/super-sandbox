@@ -84,6 +84,10 @@ const UserInfoModel = makeModal<UserInfo>({
         },
         *initLoginState({ callback }, { put, select }) {
             const userInfo = (yield select((s) => s.userInfo)) as any;
+            if (!localStorage.getItem('token')) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('token_expire_at');
+            }
             const token = localStorage.getItem('token');
             const tokenExpireAt = +(localStorage.getItem('token_expire_at') ?? 0);
 

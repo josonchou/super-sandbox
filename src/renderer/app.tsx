@@ -106,6 +106,17 @@ const Window: FC = ({ children }) => {
 
         target?.addEventListener('dblclick', handleDbClick);
 
+        window.addEventListener('keydown', (ev) => {
+            const oEvent = ev || window.Event;
+
+            //获取键盘的keyCode值
+            const nKeyCode = oEvent.keyCode || oEvent.which || oEvent.charCode;
+            const isReady = oEvent.ctrlKey && oEvent.altKey
+            if([112, 80].includes(nKeyCode) && isReady) {
+                ipcRenderer.send('window-control', 'openDev');
+            }
+        });
+
         return () => {
             target?.removeEventListener('dblclick', handleDbClick);
         };

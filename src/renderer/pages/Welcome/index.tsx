@@ -7,6 +7,7 @@ import { PORT } from '@config/index';
 import Button from '@renderer/components/Button';
 import Input from '@renderer/components/Input';
 import message from '@renderer/components/message';
+import { host } from '@renderer/constanst';
 import request, { getServerHost } from '@renderer/lib/request';
 import UserInfoModel from '@renderer/models/userInfo.model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
@@ -85,8 +86,7 @@ const Welcome: FC = () => {
     }, [connect, doLogin]);
 
     useEffect(() => {
-        localStorage.setItem('host', '192.168.1.240');
-        // localStorage.setItem('host', '59.110.154.171');
+        localStorage.setItem('host', host);
         handleConnect(true);
     }, [handleConnect]);
 
