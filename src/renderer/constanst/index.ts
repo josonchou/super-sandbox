@@ -4,6 +4,10 @@ export const APP_NAME = name;
 
 const getHost = () => {
     const isDebug = localStorage.getItem('isDebug') || 0;
+    const isLocal = localStorage.getItem('isLocal') || 0;
+    if (+isDebug === 1 && +isLocal === 1) {
+        return 'localhost';
+    }
     return +isDebug === 1 ? '59.110.154.171' : '192.168.1.240';
 };
 
@@ -14,13 +18,17 @@ export const debugHost = () => {
 };
 
 // @ts-ignore
-window.__setDebug = () => {
+window.__setDebug = (isLocal) => {
+    if (isLocal) {
+        localStorage.setItem('isLocal', '1');
+    }
     debugHost();
 }
 
 // @ts-ignore
 window.__clearDebug = () => {
     localStorage.setItem('isDebug', '0');
+    localStorage.setItem('isLocal', '0')
     window.location.reload();
 }
 
