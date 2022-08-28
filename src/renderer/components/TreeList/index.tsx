@@ -5,7 +5,7 @@
 
 import useControlState from '@renderer/lib/useControlState';
 import classNames from 'classnames';
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './index.less';
 
 interface TreeData {
@@ -16,20 +16,52 @@ interface TreeData {
 }
 
 export interface TreeListProps {
+    showEdit?: boolean;
+    disableExpend?: boolean;
+    defaultExpendedAll?: boolean;
     expendedKeys?: Array<string|number>;
     onExpended?: (keys: Array<string|number>) => void;
     selectedkey?: string|number;
     onSelect?: (val: string|number) => void;
     treeData?: Array<TreeData>;
+    onEdit?: (item: TreeData) => void;
     onSelected?: (args: { key: string|number, label: string }) => void;
 }
 
-const TreeList: FC<TreeListProps> = ({ expendedKeys, selectedkey, onSelect, onExpended, treeData = [], onSelected = () => null }) => {
-    const [expendedMenus, setExpendedMenus] = useControlState<Array<string|number>>({
+const getAllKeys = (treeData: Array<TreeData>, parentKey?: string) => {
+    const list: Array<string> = [];
+    treeData.forEach((item) => {
+        let currentKey = `${item.key}`;
+        if (parentKey) {
+            currentKey = `${parentKey}-${item.key}`;
+        }
+
+        if (item.children && item.children.length) {
+            getAllKeys(item.children, currentKey).forEach((child) => {
+                list.push(child);
+            });
+        }
+        list.push(currentKey);
+    });
+
+    return list;
+}
+
+const TreeList: FC<TreeListProps> = ({ onEdit = () => {}, showEdit, disableExpend, defaultExpendedAll, expendedKeys, selectedkey, onSelect, onExpended, treeData = [], onSelected = () => null }) => {
+    const [expendedMenus, setExpendedMenusOrigin] = useControlState<Array<string|number>>({
         value: expendedKeys,
         onChange: onExpended,
         defaultValue: [],
     });
+    // eslint-disable-next-line
+    const [_, update] = useState([]);
+
+    const setExpendedMenus = useMemo(() => {
+        if (disableExpend) {
+            return update as typeof setExpendedMenusOrigin;
+        }
+        return setExpendedMenusOrigin;
+    }, [disableExpend]);
     
     const [selectedMenu, setSelectedMenu] = useControlState<string|number>({
         value: selectedkey,
@@ -85,6 +117,20 @@ const TreeList: FC<TreeListProps> = ({ expendedKeys, selectedkey, onSelect, onEx
                                         {item.name}
                                         {item.code ? <span style={{ display: 'inline-block' }}>({item.code})</span> : null}
                                     </div>
+                                    {
+                                        showEdit ? (
+                                            <div className={styles.operation}>
+                                                <a
+                                                    href="#"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        onEdit(item);
+                                                    }}
+                                                >编辑</a>
+                                            </div>       
+                                        ) : null
+                                    }
                                 </div>
                                 {childs}
                             </li>
@@ -95,11 +141,23 @@ const TreeList: FC<TreeListProps> = ({ expendedKeys, selectedkey, onSelect, onEx
         )
     }, [expendedMenus, selectedMenu, onSelected]);
 
+    useEffect(() => {
+        // 默认展开所有
+        if (defaultExpendedAll && treeData.length) {
+            const keys = getAllKeys(treeData);
+            setExpendedMenusOrigin(keys);
+        }
+    }, [defaultExpendedAll, treeData]);
+
     const treeDom = useMemo(() => {
         return (
             <ul className={styles['tree-master']}>
                 {
-                    treeData?.map((item) => {
+                    treeData?.map((oldItem) => {
+                        const item = {
+                            ...oldItem,
+                            key: `${oldItem.key}`,
+                        };
                         return (
                             <li key={item.key} className={classNames(styles['tree-master-item'], {
                                 [styles.expended]: expendedMenus.includes(item.key),
@@ -124,6 +182,20 @@ const TreeList: FC<TreeListProps> = ({ expendedKeys, selectedkey, onSelect, onEx
                                         {item.name}
                                         {item.code ? <span style={{ display: 'inline-block' }}>({item.code})</span> : null}
                                     </div>
+                                    {
+                                        showEdit ? (
+                                            <div className={styles.operation}>
+                                                <a
+                                                    href="#"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        onEdit(item);
+                                                    }}
+                                                >编辑</a>
+                                            </div>
+                                        ) : null
+                                    }
                                 </div>
                                 {genChildDom(item.children ?? [], item.key)}
                             </li>

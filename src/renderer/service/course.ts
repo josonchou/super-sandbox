@@ -210,3 +210,17 @@ export async function getAllSecondTrainingItems(keywords: string) {
 
     return [];
 }
+
+export async function editCategory(params: any) {
+    const [isOk, data] = await request({
+        url: '/category/edit',
+        method: 'post',
+        data: params,
+    });
+
+    if (isOk) {
+        return data;
+    }
+
+    return false;
+}

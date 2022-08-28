@@ -4,11 +4,14 @@ export const APP_NAME = name;
 
 const getHost = () => {
     const isDebug = localStorage.getItem('isDebug') || 0;
-    return +isDebug === 1 ? '59.110.154.171' : '192.168.1.240';
+    // return +isDebug === 1 ? '59.110.154.171' : '192.168.1.240';
+    // return 'localhost';
+    return +isDebug === 1 ? 'localhost' : '192.168.1.240';
 };
 
 export const debugHost = () => {
     localStorage.setItem('isDebug', '1');
+    window.location.href = '/';
     window.location.reload();
 };
 

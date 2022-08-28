@@ -100,6 +100,37 @@
                 align-items: center;
                 justify-content: flex-start;
 
+                .course-item-span {
+                    width: 10.26rem;
+                    height: auto;
+                    margin: 0.365rem 0;
+                    transition: all 200ms;
+                    display: flex;
+                    flex-direction: column;
+                    user-select: none;
+                    box-sizing: 0;
+                    cursor: pointer;
+
+                    .item-title-span {
+                        height: 2.19rem;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        color: #fff;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 0 0.5rem;
+                    }
+
+                    &.active {
+                        .item-title-span {
+                            background-color: rgba(0, 84, 255, 0.2);
+                        }
+                    }
+                }
+
                 .course-item {
                     width: 10.26rem;
                     height: 7.66rem;

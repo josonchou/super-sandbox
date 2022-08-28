@@ -6,13 +6,14 @@
 import message from '@renderer/components/message';
 import { ResponseTuple } from '@renderer/lib/request';
 import { getKeyFromKeyPath } from '@renderer/lib/util';
-import { batchRemove, createCourse, cutFile, getAllSecondTrainingItems, getCourseList, mergeUploadSnippet } from '@renderer/service/course';
+import { batchRemove, createCourse, cutFile, getAbilityTable, getAllSecondTrainingItems, getCourseList, mergeUploadSnippet } from '@renderer/service/course';
 import { makeModal } from '@renderer/store';
 
 const CourseModel = makeModal({
     name: 'course',
     initialState: {
         category: [],
+        ability: [],
         records: [],
         total: 0,
         currentPage: 1,
@@ -35,6 +36,17 @@ const CourseModel = makeModal({
                     category: list,
                 },
             });
+        },
+        *refreshAllAbility({}, { put, call }) {
+            const [isOk, ability] = (yield call(getAbilityTable)) as any;
+            console.log('dlog ==> ability', ability);
+            
+            yield put({
+                type: 'apply',
+                payload: {
+                    ability: isOk ? ability : [],
+                },
+            })
         },
         *fetchCourseList({ payload = {} }, { put, call }) {
             const [isOk, result] = (yield call(getCourseList, payload ?? { page: 1 })) as unknown as ResponseTuple<any>;

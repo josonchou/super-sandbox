@@ -4,6 +4,7 @@ import useLoginState from '@renderer/models/useLoginState';
 import React, { useCallback, useEffect, MouseEvent, useState, useMemo } from 'react';
 import DocumentTitle from 'react-document-title';
 import AccountManager from './AccountManager';
+import ContentManager from './ContentManager';
 import CourseManager from './CourseManager';
 
 import styles from './index.less';
@@ -21,6 +22,8 @@ const Settings = () => {
                 return '-3.58rem';
             case 1:
                 return '3.78rem';
+            case 2:
+                return '11.24rem';
             default:
                 return 0;
         }
@@ -46,12 +49,20 @@ const Settings = () => {
                             >
                                 课件管理
                             </li>
+                            <li
+                                onClick={() => {
+                                    setCurrentMenu(2);
+                                }}
+                            >
+                                内容管理
+                            </li>
                         </ul>
                         <div className={styles.selection} style={{ top: selectionOffset }} />
                     </div>
                 </div>
                 {currentMenu === 0 ? <AccountManager /> : null}
                 {currentMenu === 1 ? <CourseManager /> : null}
+                {currentMenu === 2 ? <ContentManager /> : null}
             </div>
         </DocumentTitle>
     );

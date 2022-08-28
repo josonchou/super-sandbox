@@ -99,4 +99,27 @@
         width: 54.17rem;
         height: 38.54rem;
     }
+
+    .eye {
+        width: 2.6rem;
+        height: 2.6rem;
+        // background-color: red;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & .eyeIcon {
+            width: 1.6rem;
+            height: 1.6rem;
+            background: url(../../assets/eye.png) 0 0 / 100% 100% no-repeat;
+
+            &.hasOpen {
+                background: url(../../assets/eye-close.png) 0 0 / 100% 100% no-repeat;
+            }
+        }
+    }
 }

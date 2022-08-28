@@ -87,11 +87,32 @@ const Study: FC = () => {
                     </div>
                     <div className={styles.list}>
                         {
-                            courseList.map((item: any) => {
+                            courseList.map((item: any, index) => {
                                 return (
+                                    // <div
+                                    //     key={item.id}
+                                    //     className={classNames(styles['course-item'], {
+                                    //         [styles.active]: item.id === (currentCourse as any).id,
+                                    //     })}
+                                    //     onClick={() => {
+                                    //         dispatch({
+                                    //             type: 'training@apply',
+                                    //             payload: {
+                                    //                 currentCourse: item,
+                                    //             },
+                                    //         });
+                                    //     }}
+                                    // >
+                                    //     <div className={classNames(styles.cover, (item as any).courseType)} />
+                                    //     <div className={styles['item-title']}>
+                                    //         <span style={{ display: 'inline-block', flex: 1, width: 0, overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'center' }}>
+                                    //             {item.courseName}
+                                    //         </span>
+                                    //     </div>
+                                    // </div>
                                     <div
                                         key={item.id}
-                                        className={classNames(styles['course-item'], {
+                                        className={classNames(styles['course-item-span'], {
                                             [styles.active]: item.id === (currentCourse as any).id,
                                         })}
                                         onClick={() => {
@@ -103,10 +124,9 @@ const Study: FC = () => {
                                             });
                                         }}
                                     >
-                                        <div className={classNames(styles.cover, (item as any).courseType)} />
-                                        <div className={styles['item-title']}>
-                                            <span style={{ display: 'inline-block', flex: 1, width: 0, overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'center' }}>
-                                                {item.courseName}
+                                        <div className={styles['item-title-span']}>
+                                            <span style={{ display: 'inline-block', flex: 1, width: 0, overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'left' }}>
+                                                {`${index + 1}. ${item.courseName}.${item.courseType}`}
                                             </span>
                                         </div>
                                     </div>

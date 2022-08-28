@@ -31,7 +31,7 @@ const CourseManager: FC = () => {
         file: undefined,
         courseName: '',
     });
-    const { records, total, currentPage, category } = courseState;
+    const { records, total, currentPage } = courseState;
 
     useEffect(() => {
         dispatch({

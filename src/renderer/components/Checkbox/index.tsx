@@ -8,6 +8,50 @@ export interface CheckboxProps {
     onChange?: (val: Array<string>) => void;
 }
 
+export interface CommonCheckboxProps {
+    checked?: boolean;
+    onChange?: (checked: boolean) => void;
+}
+
+
+
+export const CommonCheckbox: FC<CommonCheckboxProps> = ({ checked, onChange, children }) => {
+
+    const checkboxState = useCheckboxState({
+        state: checked,
+    });
+
+    useEffect(() => {
+        checkboxState.setState(checked || false);
+    }, [checked]);
+
+    const handleChange = useCallback((val) => {
+        onChange && onChange(val);
+        checkboxState.setState(val);
+    }, [onChange]);
+
+
+    return (
+        <div className={`${styles['checkbox-group']} ${styles.common}`}>
+            <Space>
+                <label>
+                    <KitCheckbox
+                        {...checkboxState}
+                        setState={handleChange}
+                    />
+                    <span
+                        style={{
+                            userSelect: 'none'
+                        }}
+                    >
+                    {children}
+                    </span>
+                </label>
+            </Space>
+        </div>
+    );
+};
+
 const Checkbox: FC<CheckboxProps> = ({ value, onChange }) => {
     const checkboxState = useCheckboxState({
         state: value ?? [],

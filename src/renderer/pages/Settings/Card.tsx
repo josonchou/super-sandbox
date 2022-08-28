@@ -9,13 +9,14 @@ import styles from './Card.less';
 
 interface CardProps {
     theme?: 'default'|'transparent';
+    style?: any;
 }
 
-const Card: FC<CardProps> = ({ children, theme }) => {
+const Card: FC<CardProps> = ({ children, theme, style }) => {
     return (
         <div className={classNames(styles.card, {
             [styles['theme-transparent']]: theme === 'transparent',
-        })}>
+        })} style={style}>
             <div className={styles.content}>
                 {children}
             </div>
